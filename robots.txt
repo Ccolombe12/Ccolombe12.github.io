@@ -1,4 +1,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://Ccolombe12.github.io/al-folio/sitemap.xml
+Sitemap: https://Ccolombe12.github.io/blog/sitemap.xml
