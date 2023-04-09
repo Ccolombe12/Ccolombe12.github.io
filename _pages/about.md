@@ -10,7 +10,7 @@ profile:
   address: >
     <p>ETC 5.112</p>
     <p>204 E Dean Keeton St</p>
-    <p>Austin, TX 78712/p>
+    <p>Austin, TX 78712</p>
 
 news: true  # includes a list of news items
 latest_posts: true  # includes a list of the newest posts
