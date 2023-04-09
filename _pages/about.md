@@ -2,7 +2,7 @@
 layout: about
 title: about
 permalink: /
-subtitle: <a href='#'> "https://www.orie.utexas.edu/", target=“_blank”,rel ="noopener">Operations Research, The University of Texas at Austin</a>. Ccolombe@utexas.edu
+subtitle: <a href= "https://www.orie.utexas.edu/", target=“_blank”,rel ="noopener"> Operations Research, The University of Texas at Austin</a>. Ccolombe@utexas.edu
 profile:
   align: right
   image: prof_pic.jpg
