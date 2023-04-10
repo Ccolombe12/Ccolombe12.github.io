@@ -32,6 +32,8 @@ table {
 
   td {
     font-size: 1rem;
+    font-weight: bolder;
+
   }
 }
 
@@ -118,6 +120,7 @@ blockquote {
     margin-bottom: 5px;
     margin-top: 5px;
     font-family: monospace;
+    text-align: center;
 
     p {
       display: inline-block;

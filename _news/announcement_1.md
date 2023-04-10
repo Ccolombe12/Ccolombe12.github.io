@@ -1,8 +1,8 @@
 ---
 layout: post
-date: 2015-10-22 15:59:00-0400
+date: 2023-04-09 00:00:01
 inline: true
 related_posts: false
 ---
 
-A simple inline announcement.
+I made a webpage! I will be sharing my academic publications, my personal and course projects, and posting weekly recrrational math and programming problems and my solutions to them! Stay tuned :smile:
