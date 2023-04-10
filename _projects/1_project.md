@@ -3,6 +3,7 @@ layout: page
 title: Seceratary Problem Variant
 description: A Variant of the classical Seceratary Problem
 img: 
+published: false
 importance: 1
 category: work
 ---
