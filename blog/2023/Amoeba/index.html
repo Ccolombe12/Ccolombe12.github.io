@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <!-- Head -->
+<!-- _layouts/distill.html --><html>
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
     
@@ -10,9 +8,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Test Post | Connor  Colombe</title>
+    <title>The Amoeba Problem | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
-    <meta name="description" content="Just testing how blog posts look">
+    <meta name="description" content="First post! Solution to a classic interview problem">
 
 
     <!-- Bootstrap & MDB -->
@@ -32,7 +30,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%96%A0&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://ccolombe12.github.io/blog/2023/testpost/">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2023/Amoeba/">
     
     <!-- Dark Mode -->
     
@@ -42,10 +40,82 @@
     <script src="/assets/js/dark_mode.js"></script>
     
 
+
+    <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- Distill js -->
+    <script src="/assets/js/distillpub/template.v2.js"></script>
+    <script src="/assets/js/distillpub/transforms.v2.js"></script>
+    <script src="/assets/js/distillpub/overrides.js"></script>
+    
+    <!-- Page/Post style -->
+    <style type="text/css">
+      .fake-img {
+  background: #bbb;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+} .fake-img p {
+  font-family: monospace;
+  color: white;
+  text-align: left;
+  margin: 12px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+    </style>
   </head>
 
-  <!-- Body -->
-  <body class="fixed-top-nav sticky-bottom-footer">
+  <body>
+<d-front-matter>
+    <script async type="text/json">{
+      "title": "The Amoeba Problem",
+      "description": "First post! Solution to a classic interview problem",
+      "published": "April 9, 2023",
+      "authors": [
+        {
+          "author": "Connor Colombe",
+          "authorURL": "https://ccolombe12.github.io/",
+          "affiliations": [
+            {
+              "name": "ORIE, UT Austin",
+              "url": ""
+            }
+          ]
+        }
+        
+      ],
+      "katex": {
+        "delimiters": [
+          {
+            "left": "$",
+            "right": "$",
+            "display": false
+          },
+          {
+            "left": "$$",
+            "right": "$$",
+            "display": true
+          }
+        ]
+      }
+    }</script>
+  </d-front-matter>
+
+  
 
     <!-- Header -->
     <header>
@@ -67,26 +137,26 @@
 
               <!-- About -->
               <li class="nav-item ">
-                <a class="nav-link" href="/">about</a>
+                <a class="nav-link" href="/">About</a>
               </li>
               
               <!-- Blog -->
               <li class="nav-item active">
-                <a class="nav-link" href="/blog/">blog<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="/blog/">Blog<span class="sr-only">(current)</span></a>
               </li>
 
               <!-- Other pages -->
               <li class="nav-item ">
-                <a class="nav-link" href="/publications/">publications</a>
+                <a class="nav-link" href="/Publications/">Publications</a>
               </li>
               <li class="nav-item ">
-                <a class="nav-link" href="/projects/">projects</a>
+                <a class="nav-link" href="/Projects/">Projects</a>
               </li>
               <li class="nav-item ">
                 <a class="nav-link" href="/ORIE%20problem%20seminar/">ORIE Problem Seminar</a>
               </li>
 <li id="show-cv" class="nav-item">
-              <a class="nav-link" target="_blank" href="https://Ccolombe12.github.io/assets/pdf/resume.pdf"> cv </a>
+              <a class="nav-link" target="_blank" href="https://Ccolombe12.github.io/assets/pdf/resume.pdf"> CV </a>
               </li>
 
               <!-- Toogle theme mode -->
@@ -111,68 +181,118 @@
 
 
     <!-- Content -->
-    <div class="container mt-5">
-      <!-- _layouts/post.html -->
+    <div class="post distill">
 
-<div class="post">
+      <d-title>
+        <h1>The Amoeba Problem</h1>
+        <p>First post! Solution to a classic interview problem</p>
+      </d-title>
 
-  <header class="post-header">
-    <h1 class="post-title">Test Post</h1>
-    <p class="post-meta">April 9, 2023</p>
-    <p class="post-tags">
-      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
+      <d-byline></d-byline>
 
-    </p>
-  </header>
+      <d-article>
+        <d-contents>
+          <nav class="l-text figcaption">
+          <h3>Contents</h3>
+            <div><a href="#problem-statement">Problem Statement</a></div>
+            <div><a href="#solution">Solution</a></div>
+            
+          </nav>
+        </d-contents>
 
-  <article class="post-content">
-    <p>Jean shorts raw denim Vice normcore, art party High Life PBR skateboard stumptown vinyl kitsch. Four loko meh 8-bit, tousled banh mi tilde forage Schlitz dreamcatcher twee 3 wolf moon. Chambray asymmetrical paleo salvia, sartorial umami four loko master cleanse drinking vinegar brunch. <a href="https://www.pinterest.com" rel="external nofollow noopener" target="_blank">Pinterest</a> DIY authentic Schlitz, hoodie Intelligentsia butcher trust fund brunch shabby chic Kickstarter forage flexitarian. Direct trade <a href="https://en.wikipedia.org/wiki/Cold-pressed_juice" rel="external nofollow noopener" target="_blank">cold-pressed</a> meggings stumptown plaid, pop-up taxidermy. Hoodie XOXO fingerstache scenester Echo Park. Plaid ugh Wes Anderson, freegan pug selvage fanny pack leggings pickled food truck DIY irony Banksy.</p>
-
-<h4 id="hipster-list">Hipster list</h4>
+        <h2 id="problem-statement">Problem Statement</h2>
+<p>You start off with one amoeba. Every minute, this ameoba can either:</p>
 <ul>
-    <li>brunch</li>
-    <li>fixie</li>
-    <li>raybans</li>
-    <li>messenger bag</li>
+  <li>Do nothing</li>
+  <li>Die</li>
+  <li>Split into two amoebas</li>
+  <li>Split into three amoebas</li>
 </ul>
 
-<p>Hoodie Thundercats retro, tote bag 8-bit Godard craft beer gastropub. Truffaut Tumblr taxidermy, raw denim Kickstarter sartorial dreamcatcher. Quinoa chambray slow-carb salvia readymade, bicycle rights 90’s yr typewriter selfies letterpress cardigan vegan.</p>
+<p>Each of these actions has an equal probability of occurring. All further amoebas behave the
+exact same way. What is the probability that the amoebas eventually die off?</p>
 
+<p><em>Challenge: Suppose now the amoeba has the ability to split into up to</em> $n$ <em>amoebas. For large</em> $n$<em>, what is probability that the amoebas eventually die off now?</em></p>
 <hr>
 
-<p>Pug heirloom High Life vinyl swag, single-origin coffee four dollar toast taxidermy reprehenderit fap distillery master cleanse locavore. Est anim sapiente leggings Brooklyn ea. Thundercats locavore excepteur veniam eiusmod. Raw denim Truffaut Schlitz, migas sapiente Portland VHS twee Bushwick Marfa typewriter retro id keytar.</p>
+<h2 id="solution">Solution</h2>
 
-<blockquote>
-    Testing is always good. We should test more
-    -Connor
-</blockquote>
+<p>Let $p$ be the probability that an amoeba and all of its decendents eventually die out. We can then calculate this probability by conditioning on each of the actions the amoeba could take</p>
 
-<p>Fap aliqua qui, scenester pug Echo Park polaroid irony shabby chic ex cardigan church-key Odd Future accusamus. Blog stumptown sartorial squid, gastropub duis aesthetic Truffaut vero. Pinterest tilde twee, odio mumblecore jean shorts <em>lumbersexual</em>.</p>
+\[\begin{align}
+p = \frac{1}{4} +\frac{1}{4} p^2+ \frac{1}{4} p^2 + \frac{1}{4} p^3. \label{eq:n4}
+\end{align}\]
 
-\[\int_{0}^\infty e^{-x} x^n \; dx = n!\]
+<p>Each term on the right hand side representing the events that the amoeba dies, does nothing, splits in two, and splits in three repsectively. Since the any two amoeba’s behave independently of one another, if there are $k$ amoebas, the probability that all $k$ and their respective descendents dies out is $p^k$. Solving for $p$ in (\ref{eq:n4}), yields two solutions in $[0,1]$. Namely, $p=1$ and $p = \sqrt{2} - 1$. But which of the two is the solution?</p>
 
-  </article>
+<p>We can show that that $p = \sqrt{2} - 1$ is indeed the true probability by instead considering the probability that a given amoeba and its ancestors die out in at most $k$ minutes minutes, denoted $P_k$, is bounded above by $\sqrt{2} - 1$ and is eq.</p>
 
+<p>We can prove this by induction. Clearly $P_1 = \frac{1}{4}$ since there is only one way for the a given amoeba to last one minute and $\frac{1}{4} &lt; \sqrt{2} - 1$. Assume this holds for $k$. What is the probability a given moeba and its ancestors die out in at most $k + 1$ minutes? Well from (\ref{eq:n4}) we have 
+\(\begin{align*}
+P_{k+1} &amp; = \frac{1}{4} +\frac{1}{4} P_{k}^2+ \frac{1}{4} P_{k}^2 + \frac{1}{4} P_{k}^3 \\ 
+&amp; = \frac{1}{4}\left( 1 + P_k + P_k^2 + P_k^3\right) &amp;&amp; (\text{Plug in } P_k &lt; \sqrt{2} - 1) \\ 
+&amp; &lt; \sqrt{2} - 1
+\end{align*}\)</p>
 
-  
-    
-    <br>
-    <hr>
-    <br>
-    <ul class="list-disc pl-8"></ul>
+<p>completing our inductive step. Thus as $k \to \infty$ our probability of extinxtion $P_\infty = p$ can never get to 1. Implying the only possible solution is $\boxed{ p = \sqrt{2} - 1}$.</p>
 
-    <!-- Adds related posts to the end of an article -->
-    <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2>
-    <p class="mb-2">Here are some more articles you might like to read next:</p>
-  
+<p>If we consider the case where now the amoeba now has the options to split into as many as $n$ amoebas, can we get an estimate of $p$? It turns out we can!</p>
 
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/Test2/">The Amoeba Problem</a>
-  </li>
+<p>Consider the generalized form of (\ref{eq:n4})</p>
 
+\[\begin{align}
+p &amp; = \frac{1}{n+1}\sum_{k=0}^n p^k\\ 
+ &amp; =\frac{1}{n+1}\left(\frac{1-p^{n+1}}{1 - p}\right)\\ 
+ \implies &amp; \\ 
+ p (n+1) &amp; = \frac{1-p^{n+1}}{1 - p} \label{eq:gen}.
+\end{align}\]
+
+<p>Note that for large $n$, the value of  $p = \frac{1}{n+1}$ begins to approximate the solution to (\ref{eq:gen}). We plotted the numerical solution to (\ref{eq:gen}) as function of $n$ (labeled $F[n]$ in the figure) and the function $g(n) = 1/n$ and from the figure below we can see they begin to agree very quickly!</p>
+
+<h3><figure><center>
+  <img width="300" src="/assets/img/blog_images/2023-04-09-Amoeba/Amoeba_sim.png" class="img-fluid rounded z-depth-1" zoomable="true">
+</center></figure></h3>
+<div class="caption">
+    Using Mathematica to test our conjecture. The numerical solutions converge very quickly to the predicted value.
 </div>
 
-    </div>
+
+      </d-article>
+
+      <d-appendix>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+      </d-appendix>
+
+      <d-bibliography src="/assets/bibliography/"></d-bibliography><div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
+  <script>
+    let giscusTheme = localStorage.getItem("theme");
+    let giscusAttributes = {
+        "src": "https://giscus.app/client.js",
+        "data-repo": "alshedivat/al-folio",
+        "data-repo-id": "MDEwOlJlcG9zaXRvcnk2MDAyNDM2NQ==",
+        "data-category": "Comments",
+        "data-category-id": "DIC_kwDOA5PmLc4CTBt6",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        "crossorigin": "anonymous",
+        "async": "",
+    };
+
+
+    let giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.getElementById("giscus_thread").appendChild(giscusScript);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a>
+</noscript>
+</div>
+</div>
 
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
@@ -181,39 +301,9 @@ Last updated: April 10, 2023.
       </div>
     </footer>
 
-    <!-- JavaScripts -->
-    <!-- jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
     <!-- Bootsrap & MDB scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
-
-    <!-- Masonry & imagesLoaded -->
-  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-  <script defer src="/assets/js/masonry.js" type="text/javascript"></script>
-    
-  <!-- Medium Zoom JS -->
-  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
-  <script defer src="/assets/js/zoom.js"></script><!-- Load Common JS -->
-  <script defer src="/assets/js/common.js"></script>
-  <script defer src="/assets/js/copy_code.js" type="text/javascript"></script>
-
-    
-  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
-  <script async src="https://badge.dimensions.ai/badge.js"></script>
-
-    <!-- MathJax -->
-  <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        tags: 'ams'
-      }
-    };
-  </script>
-  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
-  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
@@ -302,5 +392,6 @@ Last updated: April 10, 2023.
   }
 </script>
 
-  </body>
+  
+</body>
 </html>
