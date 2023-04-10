@@ -1,12 +1,18 @@
 ---
 layout: page
-permalink: /ORIE Problem seminar/
+permalink: /ORIE problem seminar/
 title: ORIE Problem Seminar
 description: 
 nav: true
 nav_order: 5
 ---
 
-For now, this page is assumed to be a static description of your courses. You can convert it to a collection similar to `_projects/` so that you can have a dedicated page for each course.
+I host a weekly problem solving seminar at UT Austin! We work on competition-math style problems and things you might encounter in a quantitative finance interview. If you are interested in attending or want to know more, feel free to reach out!
 
-Organize your courses by years, topics, or universities, however you like!
+Here are the problems from each of the seminars we have had so far:
+## Previous Seminars:
+
+<p> <a href="/assets/pdf/Seminar1.pdf">Seminar 1: Pilot</a>.</p>
+<p> <a href="/assets/pdf/Seminar2.pdf">Seminar 2: Famous Problems</a>.</p>
+<p> <a href="/assets/pdf/Seminar3.pdf">Seminar 3: Expected Value Problems</a>.</p>
+<p> <a href="/assets/pdf/Seminar4.pdf">Seminar 4: Miscellaneous</a>.</p>
