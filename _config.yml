@@ -2,7 +2,7 @@
 # Site settings
 # -----------------------------------------------------------------------------
 
-title:  # the website title (if blank, full name will be used instead)
+title: blank # the website title (if blank, full name will be used instead)
 first_name: Connor
 middle_name: 
 last_name: Colombe
@@ -16,7 +16,7 @@ footer_text: >
 
 
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: ∎
+icon: ■
   # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://Ccolombe12.github.io # the base hostname & protocol for your site
@@ -153,8 +153,6 @@ disqus_shortname: al-folio # put your disqus shortname
 # If you have blog posts published on medium.com or other external sources,
 # you can display them in your blog by adding a link to the RSS feed.
 external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
 
 # -----------------------------------------------------------------------------
 # Collections
