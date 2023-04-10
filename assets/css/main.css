@@ -10,8 +10,8 @@
   --global-code-bg-color: rgba(181, 9, 172, 0.05);
   --global-text-color: #000000;
   --global-text-color-light: #828282;
-  --global-theme-color: #B509AC;
-  --global-hover-color: #B509AC;
+  --global-theme-color: #FF3636;
+  --global-hover-color: #0076df;
   --global-footer-bg-color: #1C1C1D;
   --global-footer-text-color: #e8e8e8;
   --global-footer-link-color: #ffffff;
@@ -125,6 +125,7 @@ table th {
 }
 table td {
   font-size: 1rem;
+  font-weight: bolder;
 }
 
 a,
@@ -196,6 +197,7 @@ blockquote {
   margin-bottom: 5px;
   margin-top: 5px;
   font-family: monospace;
+  text-align: center;
 }
 .profile .address p {
   display: inline-block;
