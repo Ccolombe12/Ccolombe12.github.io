@@ -7,7 +7,7 @@ nav: true
 nav_order: 5
 ---
 
-I host a weekly problem solving seminar at UT Austin! We work on competition-math style problems and things you might encounter in a quantitative finance interview. If you are interested in attending or want to know more, feel free to reach out!
+I host a weekly problem solving seminar at UT Austin loosely based on the [HMC Putnam Seminar](https://catalog.hmc.edu/preview_course_nopop.php?catoid=20&coid=6774)! We work on competition-math style problems and things you might encounter in a quantitative finance interview. If you are interested in attending or want to know more, feel free to reach out!
 
 Here are the problems from each of the seminars we have had so far. You may see the solutions to some of these as blog posts.
 ## Previous Seminars:
