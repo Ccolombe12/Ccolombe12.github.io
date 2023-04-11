@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-11T03:02:53+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-11T03:07:09+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
 </subtitle><entry><title type="html">The Amoeba Problem</title><link href="https://ccolombe12.github.io/blog/2023/Amoeba/" rel="alternate" type="text/html" title="The Amoeba Problem" /><published>2023-04-09T00:00:01+00:00</published><updated>2023-04-09T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Amoeba</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Amoeba/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
 <p>You start off with one amoeba. Every minute, this amoeba can either:</p>
 <ul>
@@ -19,7 +19,7 @@ exact same way. What is the probability that the amoebas eventually die off?</p>
 <p>Let \(p\) be the probability that an amoeba and all of its decedents eventually die out. We can then calculate this probability by conditioning on each of the actions the amoeba could take</p>
 
 \[\begin{align}
-p = \frac{1}{4} +\frac{1}{4} p^2+ \frac{1}{4} p^2 + \frac{1}{4} p^3. \label{eq:n4}
+p = \frac{1}{4} +\frac{1}{4} p+ \frac{1}{4} p^2 + \frac{1}{4} p^3. \label{eq:n4}
 \end{align}\]
 
 <p>Each term on the right hand side representing the events that the amoeba dies, does nothing, splits in two, and splits in three respectively. Since the any two amoeba’s behave independently of one another, if there are \(k\) amoebas, the probability that all \(k\) and their respective descendants dies out is \(p^k\). Solving for \(p\) in (\ref{eq:n4}), yields two solutions in \([0,1]\). Namely, \(p = 1\) and \(p = \sqrt{2} - 1\). But which of the two is the solution?</p>
@@ -28,7 +28,7 @@ p = \frac{1}{4} +\frac{1}{4} p^2+ \frac{1}{4} p^2 + \frac{1}{4} p^3. \label{eq:n
 
 <p>We can prove this by induction. Clearly \(P_1 = \frac{1}{4}\) since there is only one way for the a given amoeba to last one minute and \(\frac{1}{4} &lt; \sqrt{2} - 1\). Assume this holds for \(k\). What is the probability a given amoeba and its ancestors die out in at most \(k + 1\) minutes? Well from (\ref{eq:n4}) we have 
 \(\begin{align*}
-P_{k+1} &amp; = \frac{1}{4} +\frac{1}{4} P_{k}^2+ \frac{1}{4} P_{k}^2 + \frac{1}{4} P_{k}^3 \\ 
+P_{k+1} &amp; = \frac{1}{4} +\frac{1}{4} P_{k}+ \frac{1}{4} P_{k}^2 + \frac{1}{4} P_{k}^3 \\ 
 &amp; = \frac{1}{4}\left( 1 + P_k + P_k^2 + P_k^3\right) &amp;&amp; (\text{Plug in } P_k &lt; \sqrt{2} - 1) \\ 
 &amp; &lt; \sqrt{2} - 1
 \end{align*}\)</p>
