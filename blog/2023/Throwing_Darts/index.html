@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <!-- Head -->
+<!-- _layouts/distill.html --><html>
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
     
@@ -10,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Announcement_1 | Connor  Colombe</title>
+    <title>Throwing Darts | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
     <meta name="description" content="The academic wepage of Connor Colombe
 ">
@@ -33,7 +31,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9D%91&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://ccolombe12.github.io/news/announcement_1/">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2023/Throwing_Darts/">
     
     <!-- Dark Mode -->
     
@@ -43,10 +41,82 @@
     <script src="/assets/js/dark_mode.js"></script>
     
 
+
+    <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- Distill js -->
+    <script src="/assets/js/distillpub/template.v2.js"></script>
+    <script src="/assets/js/distillpub/transforms.v2.js"></script>
+    <script src="/assets/js/distillpub/overrides.js"></script>
+    
+    <!-- Page/Post style -->
+    <style type="text/css">
+      .fake-img {
+  background: #bbb;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+} .fake-img p {
+  font-family: monospace;
+  color: white;
+  text-align: left;
+  margin: 12px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+    </style>
   </head>
 
-  <!-- Body -->
-  <body class="fixed-top-nav sticky-bottom-footer">
+  <body>
+<d-front-matter>
+    <script async type="text/json">{
+      "title": "Throwing Darts",
+      "description": "",
+      "published": "April 14, 2023",
+      "authors": [
+        {
+          "author": "Connor Colombe",
+          "authorURL": "https://ccolombe12.github.io/",
+          "affiliations": [
+            {
+              "name": "ORIE, UT Austin",
+              "url": ""
+            }
+          ]
+        }
+        
+      ],
+      "katex": {
+        "delimiters": [
+          {
+            "left": "$",
+            "right": "$",
+            "display": false
+          },
+          {
+            "left": "$$",
+            "right": "$$",
+            "display": true
+          }
+        ]
+      }
+    }</script>
+  </d-front-matter>
+
+  
 
     <!-- Header -->
     <header>
@@ -72,8 +142,8 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
-                <a class="nav-link" href="/blog/">Blog</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="/blog/">Blog<span class="sr-only">(current)</span></a>
               </li>
 
               <!-- Other pages -->
@@ -112,27 +182,128 @@
 
 
     <!-- Content -->
-    <div class="container mt-5">
-      <!-- _layouts/post.html -->
+    <div class="post distill">
 
-<div class="post">
+      <d-title>
+        <h1>Throwing Darts</h1>
+        <p></p>
+      </d-title>
 
-  <header class="post-header">
-    <h1 class="post-title">Announcement_1</h1>
-    <p class="post-meta">April 9, 2023</p>
-    <p class="post-tags">
-      <a href="/blog/2023"> <i class="fas fa-calendar fa-sm"></i> 2023 </a>
+      <d-byline></d-byline>
 
-    </p>
-  </header>
+      <d-article>
+        <d-contents>
+          <nav class="l-text figcaption">
+          <h3>Contents</h3>
+            <div><a href="#problem-statement">Problem Statement</a></div>
+            <div><a href="#solution">Solution</a></div>
+            
+          </nav>
+        </d-contents>
 
-  <article class="post-content">
-    <p>I made a webpage! I will be sharing my academic publications, my personal and course projects, and posting weekly recreational math and programming problems and my solutions to them! Stay tuned <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20"></p>
+        <h2 id="problem-statement">Problem Statement</h2>
 
-  </article>
+<p>Jason throws two darts at a dartboard, aiming for the center. The second dart lands farther from the center than the first. If Jason throws a third dart aiming for the center, what is the probability that the third throw is farther from the center than the first? Assume Jason’s skillfulness is constant.</p>
+
+<p><em>Challenge: What if, after the first, his
+next \(n − 2\) throws are further from the center than the first? What is the probability that
+the \(n\)-th throw is farther from the center than the first?</em></p>
+<hr>
+
+<h2 id="solution">Solution</h2>
+
+<p>At first glance, it may seem that the information about the second throw is irrelevant. However, we shall see that that is not the case. We will present two solutions to this problem, both interesting in their own right. The first is perhaps a more traditional computational approach to the problem, and the second uses a cheeky symmetry argument.</p>
+<hr>
+
+<h1 id="solution-1">Solution 1</h1>
+<p>We will solve the general problem and apply it to the \(n = 3\) case. Let \(R_1,R_2,\ldots, R_n \in [0,1]\) be i.i.d. random variables denoting the radii at which each of the consecutive dart throws land. We would like to evaluate
+\(\begin{equation}
+  \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]
+\end{equation}\)</p>
+
+<p>Using Bayes Theorem, we can write this as 
+\(\begin{equation}
+  \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right] = \frac{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\ \cap \left(R_{n} &gt; R_1\right)\right]}{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]} \label{eq:solu}.
+\end{equation}\)</p>
+
+<p>Now it suffices to evaluate \(\begin{equation}  
+\mathbb{P}\left[ \cap_{i = 2}^n R_{i} &gt; R_1\right] \label{eq:key}.
+\end{equation}\)
+In order to do this, we will need to know the probability distribution function for \(R\), denoted \(f(r)\). We can deduce this by considering the unit circle (dartboard) and imagine a thin concentric ring at radius \(r\) of width \(dr\). The area of this ring is \(2 \pi r \; dr\), the area of the circle is \(\pi\) and thus the probability of Jason throwing a dart and it landing at radius \(r\) is \(f(r) = 2 r \; dr\) (see Figure 1).</p>
+
+<h3><figure><center>
+  <img height="50" src="/assets/img/blog_images/2023-04-14-Throwing_Darts/fig_dart_prob.png" class="img-fluid rounded z-depth-1" zoomable="true">
+</center></figure></h3>
+<div class="caption">
+    Figure 1. Depicting the small area on a unit dartboard where a dart can land at a radius in $[r,r + dr]$.
 </div>
+<p>This then implies,</p>
 
-    </div>
+\[\begin{equation}
+  \mathbb{P}\left[R &gt; r\right] = \mathbb{P}\left[R \geq r\right] = 1 - r^2.
+\end{equation}\]
+
+<p>We can then evaluate (\ref{eq:key}) by conditioning on the value of \(R_1\).</p>
+
+\[\begin{align*}
+  \mathbb{P}\left[ \cap_{i = 2}^n R_{i} &gt; R_1\right] &amp; = \int_0^1 (1-r^2)^{n-1} 2 r \; dr \\ 
+  &amp; = 2 \int_0^1 (1-r^2)^{n-1} r \; dr  \\
+  &amp; = 1/ n.
+\end{align*}\]
+
+<p>Based on this, we can write (\ref{eq:solu}) as</p>
+
+\[\begin{align*}
+ \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right] &amp; = \frac{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\ \cap \left(R_{n} &gt; R_1\right)\right]}{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]}  \\ 
+ &amp; = \frac{1/n}{1/(n-1)}\\ 
+ &amp; = \frac{n-1}{n}\\ 
+ &amp; = \boxed{1 - \frac{1}{n}}.
+\end{align*}\]
+
+<p>Plugging in \(n = 3\) yields the solution to our original problem \(\boxed{2/3}\).</p>
+<hr>
+
+<h1 id="solution-2">Solution 2</h1>
+
+<p>Imagine that all of the throws have already occurred and we are revealing them one at a time. Up until the final throw, the first throw is the closest to the center of the dartboard. We are asked to find, given this knowledge, what is the probability that the first throw is the closest of all of the throws. At this point, the only way this could <em>not</em> be the case if is the last throw is the closest to the center of the \(n\) throws. Since his skill is constant, the probability that his last throw is the closest to the center is the same as for any other throw, \(1/n\). Therefore, the probability that the first throw was the closest of the \(n\) throws given it was closer than the next \(n-2\) throws is \(\boxed{1 - \frac{1}{n}}\).</p>
+
+
+      </d-article>
+
+      <d-appendix>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+      </d-appendix>
+
+      <d-bibliography src="/assets/bibliography/"></d-bibliography><div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
+  <script>
+    let giscusTheme = localStorage.getItem("theme");
+    let giscusAttributes = {
+        "src": "https://giscus.app/client.js",
+        "data-repo": "alshedivat/al-folio",
+        "data-repo-id": "MDEwOlJlcG9zaXRvcnk2MDAyNDM2NQ==",
+        "data-category": "Comments",
+        "data-category-id": "DIC_kwDOA5PmLc4CTBt6",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        "crossorigin": "anonymous",
+        "async": "",
+    };
+
+
+    let giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.getElementById("giscus_thread").appendChild(giscusScript);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a>
+</noscript>
+</div>
+</div>
 
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
@@ -141,39 +312,9 @@ Last updated: April 16, 2023.
       </div>
     </footer>
 
-    <!-- JavaScripts -->
-    <!-- jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
     <!-- Bootsrap & MDB scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
-
-    <!-- Masonry & imagesLoaded -->
-  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-  <script defer src="/assets/js/masonry.js" type="text/javascript"></script>
-    
-  <!-- Medium Zoom JS -->
-  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
-  <script defer src="/assets/js/zoom.js"></script><!-- Load Common JS -->
-  <script defer src="/assets/js/common.js"></script>
-  <script defer src="/assets/js/copy_code.js" type="text/javascript"></script>
-
-    
-  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
-  <script async src="https://badge.dimensions.ai/badge.js"></script>
-
-    <!-- MathJax -->
-  <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        tags: 'ams'
-      }
-    };
-  </script>
-  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
-  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
@@ -262,5 +403,6 @@ Last updated: April 16, 2023.
   }
 </script>
 
-  </body>
+  
+</body>
 </html>

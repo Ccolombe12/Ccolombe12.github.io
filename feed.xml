@@ -1,5 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-14T17:00:56+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
-</subtitle><entry><title type="html">Optimal Weights</title><link href="https://ccolombe12.github.io/blog/2023/Grain_farmer/" rel="alternate" type="text/html" title="Optimal Weights" /><published>2023-04-11T00:00:01+00:00</published><updated>2023-04-11T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Grain_farmer</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Grain_farmer/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-16T06:23:29+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+</subtitle><entry><title type="html">Throwing Darts</title><link href="https://ccolombe12.github.io/blog/2023/Throwing_Darts/" rel="alternate" type="text/html" title="Throwing Darts" /><published>2023-04-14T00:00:01+00:00</published><updated>2023-04-14T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Throwing_Darts</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Throwing_Darts/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
+
+<p>Jason throws two darts at a dartboard, aiming for the center. The second dart lands farther from the center than the first. If Jason throws a third dart aiming for the center, what is the probability that the third throw is farther from the center than the first? Assume Jason’s skillfulness is constant.</p>
+
+<p><em>Challenge: What if, after the first, his
+next \(n − 2\) throws are further from the center than the first? What is the probability that
+the \(n\)-th throw is farther from the center than the first?</em></p>
+<hr />
+
+<h2 id="solution">Solution</h2>
+
+<p>At first glance, it may seem that the information about the second throw is irrelevant. However, we shall see that that is not the case. We will present two solutions to this problem, both interesting in their own right. The first is perhaps a more traditional computational approach to the problem, and the second uses a cheeky symmetry argument.</p>
+<hr />
+
+<h1 id="solution-1">Solution 1</h1>
+<p>We will solve the general problem and apply it to the \(n = 3\) case. Let \(R_1,R_2,\ldots, R_n \in [0,1]\) be i.i.d. random variables denoting the radii at which each of the consecutive dart throws land. We would like to evaluate
+\(\begin{equation}
+  \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]
+\end{equation}\)</p>
+
+<p>Using Bayes Theorem, we can write this as 
+\(\begin{equation}
+  \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right] = \frac{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\ \cap \left(R_{n} &gt; R_1\right)\right]}{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]} \label{eq:solu}.
+\end{equation}\)</p>
+
+<p>Now it suffices to evaluate \(\begin{equation}  
+\mathbb{P}\left[ \cap_{i = 2}^n R_{i} &gt; R_1\right] \label{eq:key}.
+\end{equation}\)
+In order to do this, we will need to know the probability distribution function for \(R\), denoted \(f(r)\). We can deduce this by considering the unit circle (dartboard) and imagine a thin concentric ring at radius \(r\) of width \(dr\). The area of this ring is \(2 \pi r \; dr\), the area of the circle is \(\pi\) and thus the probability of Jason throwing a dart and it landing at radius \(r\) is \(f(r) = 2 r \; dr\) (see Figure 1).</p>
+
+<h3><figure><center>
+  <img height="50" src="/assets/img/blog_images/2023-04-14-Throwing_Darts/fig_dart_prob.png" class="img-fluid rounded z-depth-1" zoomable="true" />
+</center></figure></h3>
+<div class="caption">
+    Figure 1. Depicting the small area on a unit dartboard where a dart can land at a radius in $[r,r + dr]$.
+</div>
+<p>This then implies,</p>
+
+\[\begin{equation}
+  \mathbb{P}\left[R &gt; r\right] = \mathbb{P}\left[R \geq r\right] = 1 - r^2.
+\end{equation}\]
+
+<p>We can then evaluate (\ref{eq:key}) by conditioning on the value of \(R_1\).</p>
+
+\[\begin{align*}
+  \mathbb{P}\left[ \cap_{i = 2}^n R_{i} &gt; R_1\right] &amp; = \int_0^1 (1-r^2)^{n-1} 2 r \; dr \\ 
+  &amp; = 2 \int_0^1 (1-r^2)^{n-1} r \; dr  \\
+  &amp; = 1/ n.
+\end{align*}\]
+
+<p>Based on this, we can write (\ref{eq:solu}) as</p>
+
+\[\begin{align*}
+ \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right] &amp; = \frac{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\ \cap \left(R_{n} &gt; R_1\right)\right]}{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]}  \\ 
+ &amp; = \frac{1/n}{1/(n-1)}\\ 
+ &amp; = \frac{n-1}{n}\\ 
+ &amp; = \boxed{1 - \frac{1}{n}}.
+\end{align*}\]
+
+<p>Plugging in \(n = 3\) yields the solution to our original problem \(\boxed{2/3}\).</p>
+<hr />
+
+<h1 id="solution-2">Solution 2</h1>
+
+<p>Imagine that all of the throws have already occurred and we are revealing them one at a time. Up until the final throw, the first throw is the closest to the center of the dartboard. We are asked to find, given this knowledge, what is the probability that the first throw is the closest of all of the throws. At this point, the only way this could <em>not</em> be the case if is the last throw is the closest to the center of the \(n\) throws. Since his skill is constant, the probability that his last throw is the closest to the center is the same as for any other throw, \(1/n\). Therefore, the probability that the first throw was the closest of the \(n\) throws given it was closer than the next \(n-2\) throws is \(\boxed{1 - \frac{1}{n}}\).</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[Problem Statement]]></summary></entry><entry><title type="html">Optimal Weights</title><link href="https://ccolombe12.github.io/blog/2023/Grain_farmer/" rel="alternate" type="text/html" title="Optimal Weights" /><published>2023-04-11T00:00:01+00:00</published><updated>2023-04-11T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Grain_farmer</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Grain_farmer/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
 <p>A farmer, who sells grain, has a set of four weights that each weigh an integer number of pounds and a fair balance. She claims that she can weigh any integer number of pounds of grain up to a maximum of \(N\) using just these weights. What is the maximum value of \(N\) and what should the weights be? <em>Challenge: Given \(n\) weights what is the maximum value of \(N(n)\) and what should the weights be?</em></p>
 <hr />
 
