@@ -4,7 +4,7 @@ title: Throwing Darts
 description: 
 giscus_comments: true
 date: 2023-04-14 00:00:01
-published: false
+published: true
 tags: math 
 authors:
   - name: Connor Colombe
@@ -71,20 +71,51 @@ $$\begin{equation}
 
 Using Bayes Theorem, we can write this as 
 $$\begin{equation}
-  \mathbb{P}\left[R_n > R_1 | R_2 > R_1 \cap \cdots \cap R_{n-1} > R_1\right] = \frac{\mathbb{P}\left[R_2 > R_1 \cap \cdots \cap \left(R_{n} > R_1\right)\right]}{\mathbb{P}\left[R_2 > R_1 \cap \cdots \cap R_{n-1} > R_1\right]}.
+  \mathbb{P}\left[R_n > R_1 | R_2 > R_1 \cap \cdots \cap R_{n-1} > R_1\right] = \frac{\mathbb{P}\left[R_2 > R_1 \cap \cdots \cap R_{n-1} > R_1\ \cap \left(R_{n} > R_1\right)\right]}{\mathbb{P}\left[R_2 > R_1 \cap \cdots \cap R_{n-1} > R_1\right]} \label{eq:solu}.
 \end{equation} $$
 
 Now it suffices to evaluate $$
 \begin{equation}  
-\mathbb{P}\left[ \cap_{i = 2}^n R_{i} > R_1\right] \label{eq:key}
-\end{equation} $$. 
-In order to do this, we will need to know the probability distribution function for $$R$$, denoted $$f(r)$$. We can deduce this by considering the unit circle (dartboard) and imagine a thin concentric ring at radius $$r$$ of width $$dr$$. The area of this ring is $$2 \pi r \; dr$$, the area of the circle is $$ \pi $$ and thus the probability of Jason throwing a dart and it landing at radius $$r$$ is $$f(r) = 2 r \; dr$$, which then implies 
+\mathbb{P}\left[ \cap_{i = 2}^n R_{i} > R_1\right] \label{eq:key}.
+\end{equation} $$
+In order to do this, we will need to know the probability distribution function for $$R$$, denoted $$f(r)$$. We can deduce this by considering the unit circle (dartboard) and imagine a thin concentric ring at radius $$r$$ of width $$dr$$. The area of this ring is $$2 \pi r \; dr$$, the area of the circle is $$ \pi $$ and thus the probability of Jason throwing a dart and it landing at radius $$r$$ is $$f(r) = 2 r \; dr$$ (see Figure 1).
+
+
+<h3><figure><center>
+  <img height = 50 src="/assets/img/blog_images/2023-04-14-Throwing_Darts/fig_dart_prob.png" class="img-fluid rounded z-depth-1" zoomable=true/>
+</center></figure></h3>
+<div class="caption">
+    Figure 1. Depicting the small area on a unit dartboard where a dart can land at a radius in $[r,r + dr]$.
+</div>
+This then implies, 
+
 $$
 \begin{equation}
-  \mathbb{P}\left[R > r\right] = \mathbb{P}\left[R \geq r\right] = 1 - r^2
+  \mathbb{P}\left[R > r\right] = \mathbb{P}\left[R \geq r\right] = 1 - r^2.
 \end{equation}$$
 
 We can then evaluate (\ref{eq:key}) by conditioning on the value of $$R_1$$.
+
+$$ \begin{align*}
+  \mathbb{P}\left[ \cap_{i = 2}^n R_{i} > R_1\right] & = \int_0^1 (1-r^2)^{n-1} 2 r \; dr \\ 
+  & = 2 \int_0^1 (1-r^2)^{n-1} r \; dr  \\
+  & = 1/ n.
+\end{align*}$$
+
+Based on this, we can write (\ref{eq:solu}) as
+
+$$ \begin{align*}
+ \mathbb{P}\left[R_n > R_1 | R_2 > R_1 \cap \cdots \cap R_{n-1} > R_1\right] & = \frac{\mathbb{P}\left[R_2 > R_1 \cap \cdots \cap R_{n-1} > R_1\ \cap \left(R_{n} > R_1\right)\right]}{\mathbb{P}\left[R_2 > R_1 \cap \cdots \cap R_{n-1} > R_1\right]}  \\ 
+ & = \frac{1/n}{1/(n-1)}\\ 
+ & = \frac{n-1}{n}\\ 
+ & = \boxed{1 - \frac{1}{n}}.
+\end{align*}$$
+
+Plugging in $$n = 3$$ yields the solution to our original problem $$ \boxed{2/3}$$.
+<hr>
+# Solution 2
+
+Imagine that all of the throws have already occurred and we are revealing them one at a time. Up until the final throw, the first throw is the closest to the center of the dartboard. We are asked to find, given this knowledge, what is the probability that the first throw is the closest of all of the throws. At this point, the only way this could *not* be the case if is the last throw is the closest to the center of the $$n$$ throws. Since his skill is constant, the probability that his last throw is the closest to the center is the same as for any other throw, $$ 1/n $$. Therefore, the probability that the first throw was the closest of the $$n$$ throws given it was closer than the next $$n-2$$ throws is $$\boxed{1 - \frac{1}{n}}$$.
 
 
 
