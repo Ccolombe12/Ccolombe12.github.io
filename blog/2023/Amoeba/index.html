@@ -225,7 +225,7 @@ p = \frac{1}{4} +\frac{1}{4} p+ \frac{1}{4} p^2 + \frac{1}{4} p^3. \label{eq:n4}
 
 <p>Each term on the right hand side representing the events that the amoeba dies, does nothing, splits in two, and splits in three respectively. Since the any two amoeba’s behave independently of one another, if there are \(k\) amoebas, the probability that all \(k\) and their respective descendants dies out is \(p^k\). Solving for \(p\) in (\ref{eq:n4}), yields two solutions in \([0,1]\). Namely, \(p = 1\) and \(p = \sqrt{2} - 1\). But which of the two is the solution?</p>
 
-<p>We can show that that \(p = \sqrt{2} - 1\) is indeed the true probability by instead considering the probability that a given amoeba and its ancestors die out in at most \(k\) minutes minutes, denoted \(P_k\), is bounded above by \(\sqrt{2} - 1\) and is eq.</p>
+<p>We can show that that \(p = \sqrt{2} - 1\) is indeed the correct solution by  considering the probability that a given amoeba and its ancestors die out in at most \(k\) minutes, denoted \(P_k\). We can show that for any \(k \geq 1\), \(P_k\) is bounded above by \(\sqrt{2} - 1\) and therefore can never approach \(1\).</p>
 
 <p>We can prove this by induction. Clearly \(P_1 = \frac{1}{4}\) since there is only one way for the a given amoeba to last one minute and \(\frac{1}{4} &lt; \sqrt{2} - 1\). Assume this holds for \(k\). What is the probability a given amoeba and its ancestors die out in at most \(k + 1\) minutes? Well from (\ref{eq:n4}) we have 
 \(\begin{align*}
@@ -297,7 +297,7 @@ p &amp; = \frac{1}{n+1}\sum_{k=0}^n p^k\\
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
         © Copyright 2023 Connor  Colombe. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. Photos from <a href="https://unsplash.com" target="_blank" rel="external nofollow noopener">Unsplash</a>.
-Last updated: April 16, 2023.
+Last updated: April 17, 2023.
       </div>
     </footer>
 
