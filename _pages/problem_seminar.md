@@ -17,3 +17,5 @@ Here are the problems from each of the seminars we have had so far. You may see 
 <p> <a href="/assets/pdf/Seminar3.pdf">Seminar 3: Expected Value Problems</a>.</p>
 <p> <a href="/assets/pdf/Seminar4.pdf">Seminar 4: Miscellaneous</a>.</p>
 <p> <a href="/assets/pdf/Seminar5.pdf">Seminar 5: Probability</a>.</p>
+<p> <a href="/assets/pdf/Seminar6.pdf">Seminar 5: Semester Finale</a>.</p>
+
