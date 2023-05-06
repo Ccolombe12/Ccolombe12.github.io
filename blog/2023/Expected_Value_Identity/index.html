@@ -8,9 +8,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>The Amoeba Problem | Connor  Colombe</title>
+    <title>An Expected Value Identity | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
-    <meta name="description" content="First post! Solution to a classic interview problem">
+    <meta name="description" content="The academic wepage of Connor Colombe
+">
 
 
     <!-- Bootstrap & MDB -->
@@ -30,7 +31,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9D%91&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://ccolombe12.github.io/blog/2023/Amoeba/">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2023/Expected_Value_Identity/">
     
     <!-- Dark Mode -->
     
@@ -82,9 +83,9 @@
   <body>
 <d-front-matter>
     <script async type="text/json">{
-      "title": "The Amoeba Problem",
-      "description": "First post! Solution to a classic interview problem",
-      "published": "April 9, 2023",
+      "title": "An Expected Value Identity",
+      "description": "",
+      "published": "April 14, 2023",
       "authors": [
         {
           "author": "Connor Colombe",
@@ -184,8 +185,8 @@
     <div class="post distill">
 
       <d-title>
-        <h1>The Amoeba Problem</h1>
-        <p>First post! Solution to a classic interview problem</p>
+        <h1>An Expected Value Identity</h1>
+        <p></p>
       </d-title>
 
       <d-byline></d-byline>
@@ -200,61 +201,80 @@
           </nav>
         </d-contents>
 
-        <h2 id="problem-statement">Problem Statement</h2>
-<p>You start off with one amoeba. Every minute, this amoeba can either:</p>
-<ul>
-  <li>Do nothing</li>
-  <li>Die</li>
-  <li>Split into two amoebas</li>
-  <li>Split into three amoebas</li>
-</ul>
+        <style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
 
-<p>Each of these actions has an equal probability of occurring. All further amoebas behave the
-exact same way. What is the probability that the amoebas eventually die off?</p>
+<p>I recently decided to brush up on my stochastic processes knowledge and started reading <em>Stochastic Processes</em> by Sheldon Ross, 1995. In the problems section of the first chapter, I came across an expected value identity that I knew was true for non-negative discrete random variables, but I had never used for continuous random variables. Alongside it was a further generalization for higher order moments. Having worked out the problem, I think it was interesting enough to share!</p>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>Let \(N\) denote a non-negative random variable.</p>
+<ol>
+  <li>
+    <p>) Show that \(\begin{equation}\mathbb{E}[N] = \sum_{k=0}^\infty \mathbb{P}[N &gt; k]\end{equation}\)</p>
+  </li>
+  <li>
+    <p>) In general, show that if \(X\) is a nonnegative random variable with distribution \(F\), then  \(\begin{equation}
+  \mathbb{E}[X] = \int_0^{\infty} \overline{F}(x)\; dx
+\end{equation}\)</p>
+  </li>
+</ol>
 
-<p><em>Challenge: Suppose now the amoeba has the ability to split into up to</em> \(n\) <em>amoebas. For large</em> \(n\)<em>, what is probability that the amoebas eventually die off now?</em></p>
+<p>where \(\overline{F}(x) = 1 - F(x)\).</p>
+
+<ol>
+  <li>) and \(\begin{equation}
+  \mathbb{E}\left[X^n\right] = \int_0^{\infty}n x^{n-1} \overline{F}(x)\; dx \label{eq: janky expected val}
+\end{equation}\)</li>
+</ol>
+
 <hr>
 
 <h2 id="solution">Solution</h2>
 
-<p>Let \(p\) be the probability that an amoeba and all of its decedents eventually die out. We can then calculate this probability by conditioning on each of the actions the amoeba could take</p>
+<p>a. ) Recall the equation for the expected value of a non-negative random variable \(N\), 
+\(\begin{equation}
+\mathbb{E}[N] = \sum_{k=0}^\infty k \cdot \mathbb{P}[N = k] = \sum_{k=1}^\infty k \cdot \mathbb{P}[N = k] \label{eq:discrete EV}
+\end{equation}\)</p>
 
-\[\begin{align}
-p = \frac{1}{4} +\frac{1}{4} p+ \frac{1}{4} p^2 + \frac{1}{4} p^3. \label{eq:n4}
-\end{align}\]
+<p>Note that for a given \(k\), we are adding up \(k\) copies of \(\mathbb{P}[N =k]\). We can visualize this as a grid</p>
 
-<p>Each term on the right hand side representing the events that the amoeba dies, does nothing, splits in two, and splits in three respectively. Since the any two amoeba’s behave independently of one another, if there are \(k\) amoebas, the probability that all \(k\) and their respective descendants dies out is \(p^k\). Solving for \(p\) in (\ref{eq:n4}), yields two solutions in \([0,1]\). Namely, \(p = 1\) and \(p = \sqrt{2} - 1\). But which of the two is the solution?</p>
+\[\begin{align*}
+  &amp; \mathbb{P}[N = 1] + \\ 
+  &amp; \mathbb{P}[N = 2] + \mathbb{P}[N = 2] + \\ 
+  &amp; \mathbb{P}[N = 3] + \mathbb{P}[N = 3] + \mathbb{P}[N = 3] + \\ 
+  &amp; \quad \vdots \qquad \qquad \qquad \vdots \qquad \qquad \quad
+    \vdots 
+  \end{align*}\]
 
-<p>We can show that that \(p = \sqrt{2} - 1\) is indeed the correct solution by  considering the probability that a given amoeba and its ancestors die out in at most \(k\) minutes, denoted \(P_k\). We can show that for any \(k \geq 1\), \(P_k\) is bounded above by \(\sqrt{2} - 1\) and therefore can never approach \(1\).</p>
+<p>The standard expected value equation (\ref{eq:discrete EV}) assumes that we sum the rows of the above grid. The \(k\)-th row sum being \(k \cdot \mathbb{P}[N = k]\). However, if we consider the column sums, the \(k\)-th column sum is given by</p>
 
-<p>We can prove this by induction. Clearly \(P_1 = \frac{1}{4}\) since there is only one way for the a given amoeba to last one minute and \(\frac{1}{4} &lt; \sqrt{2} - 1\). Assume this holds for \(k\). What is the probability a given amoeba and its ancestors die out in at most \(k + 1\) minutes? Well from (\ref{eq:n4}) we have 
-\(\begin{align*}
-P_{k+1} &amp; = \frac{1}{4} +\frac{1}{4} P_{k}+ \frac{1}{4} P_{k}^2 + \frac{1}{4} P_{k}^3 \\ 
-&amp; = \frac{1}{4}\left( 1 + P_k + P_k^2 + P_k^3\right) &amp;&amp; (\text{Plug in } P_k &lt; \sqrt{2} - 1) \\ 
-&amp; &lt; \sqrt{2} - 1
-\end{align*}\)</p>
+\[\begin{equation*} \mathbb{P}[N = k] + \mathbb{P}[N = k + 1] + \cdots  = \mathbb{P}[N &gt; k - 1]
+  \end{equation*}\]
 
-<p>completing our inductive step. Thus as \(k \to \infty\) our probability of extinction \(P_\infty = p\) can never get to 1. Implying the only possible solution is \(\boxed{ p = \sqrt{2} - 1}\).</p>
+<p>which implies that we can write (\ref{eq:discrete EV}) as</p>
 
-<p>If we consider the case where now the amoeba now has the options to split into as many as \(n\) amoebas, can we get an estimate of \(p\)? It turns out we can!</p>
+<p>\(\begin{equation*}
+    \mathbb{E}[N] = \sum_{k=0}^\infty\mathbb{P}[N &gt; k]
+  \end{equation*}\)
+  as desired. Note that this proof this proof relied on using the grid of probabilities and summing it in two different ways. This method will not work when \(N\) can take negative values since we can no longer construct the grid.</p>
 
-<p>Consider the generalized form of (\ref{eq:n4})</p>
+<p>c.) Note that b.) follows from c.) for \(n = 1\). Let \(n\) be some positive integer and consider the standard equation for \(\mathbb{E}[X^n]\) for a non-negative RV \(X\)</p>
 
-\[\begin{align}
-p &amp; = \frac{1}{n+1}\sum_{k=0}^n p^k\\ 
- &amp; =\frac{1}{n+1}\left(\frac{1-p^{n+1}}{1 - p}\right)\\ 
- \implies &amp; \\ 
- p (n+1) &amp; = \frac{1-p^{n+1}}{1 - p} \label{eq:gen}.
-\end{align}\]
+<p>\(\begin{equation}
+    \mathbb{E}[X^n] = \int_0^\infty x^n f(x)\; dx \label{eq:cont ev}
+  \end{equation}\)<br>
+  where \(f(x) = \frac{d F(x)}{dx}\) is the probability density function for the random variable \(X\). We will show using integration by parts that (\ref{eq: janky expected val}) reduces to the standard (\ref{eq:cont ev}).</p>
 
-<p>Note that for large \(n\), the value of  \(p = \frac{1}{n+1}\) begins to approximate the solution to (\ref{eq:gen}). We plotted the numerical solution to (\ref{eq:gen}) as function of \(n\) (labeled \(F[n]\) in the figure) and the function \(g(n) = 1/n\) and from the figure below we can see they begin to agree very quickly!</p>
+<p>Consider
+  \(\int_0^{\infty}n x^{n-1} \overline{F}(x)\; dx\) and using the standard integration by parts notation let \(u = \overline{F}(x) = 1 - F(x)\) and \(dv = n x^{n-1}\), which implies \(du = - f(x)\; dx\) and \(V = x^n\). Using the standard integration by parts formula \(\int_{a}^b u \;dv  = [uv]^b_a - \int_{a}^b v \; du\), we obtain</p>
 
-<h3><figure><center>
-  <img width="300" src="/assets/img/blog_images/2023-04-09-Amoeba/Amoeba_sim.png" class="img-fluid rounded z-depth-1" zoomable="true">
-</center></figure></h3>
-<div class="caption">
-    Using Mathematica to test our conjecture. The numerical solutions converge very quickly to the predicted value.
-</div>
+\[\begin{align*}
+    \int_0^{\infty}n x^{n-1} \overline{F}(x)\; dx &amp; = \lim_{b \to \infty}\left[x^n \left(1 - F(x)\right)\right]_0^b + \int_0^{\infty}x^n f(x)\\ 
+    &amp; = (0 - 0) + \int_0^{\infty}x^n f(x)\\ 
+    &amp; = \mathbb{E}[X^n]
+  \end{align*}\]
+
+<p>as desired!</p>
 
 
       </d-article>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-04-30T23:01:28+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-05-06T18:54:03+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
 </subtitle><entry><title type="html">Throwing Darts</title><link href="https://ccolombe12.github.io/blog/2023/Throwing_Darts/" rel="alternate" type="text/html" title="Throwing Darts" /><published>2023-04-14T00:00:01+00:00</published><updated>2023-04-14T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Throwing_Darts</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Throwing_Darts/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
 
 <p>Jason throws two darts at a dartboard, aiming for the center. The second dart lands farther from the center than the first. If Jason throws a third dart aiming for the center, what is the probability that the third throw is farther from the center than the first? Assume Jason’s skillfulness is constant.</p>
@@ -63,7 +63,80 @@ In order to do this, we will need to know the probability distribution function 
 
 <h1 id="solution-2">Solution 2</h1>
 
-<p>Imagine that all of the throws have already occurred and we are revealing them one at a time. Up until the final throw, the first throw is the closest to the center of the dartboard. We are asked to find, given this knowledge, what is the probability that the first throw is the closest of all of the throws. At this point, the only way this could <em>not</em> be the case if is the last throw is the closest to the center of the \(n\) throws. Since his skill is constant, the probability that his last throw is the closest to the center is the same as for any other throw, \(1/n\). Therefore, the probability that the first throw was the closest of the \(n\) throws given it was closer than the next \(n-2\) throws is \(\boxed{1 - \frac{1}{n}}\).</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[Problem Statement]]></summary></entry><entry><title type="html">Optimal Weights</title><link href="https://ccolombe12.github.io/blog/2023/Grain_farmer/" rel="alternate" type="text/html" title="Optimal Weights" /><published>2023-04-11T00:00:01+00:00</published><updated>2023-04-11T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Grain_farmer</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Grain_farmer/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
+<p>Imagine that all of the throws have already occurred and we are revealing them one at a time. Up until the final throw, the first throw is the closest to the center of the dartboard. We are asked to find, given this knowledge, what is the probability that the first throw is the closest of all of the throws. At this point, the only way this could <em>not</em> be the case if is the last throw is the closest to the center of the \(n\) throws. Since his skill is constant, the probability that his last throw is the closest to the center is the same as for any other throw, \(1/n\). Therefore, the probability that the first throw was the closest of the \(n\) throws given it was closer than the next \(n-2\) throws is \(\boxed{1 - \frac{1}{n}}\).</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[Problem Statement]]></summary></entry><entry><title type="html">An Expected Value Identity</title><link href="https://ccolombe12.github.io/blog/2023/Expected_Value_Identity/" rel="alternate" type="text/html" title="An Expected Value Identity" /><published>2023-04-14T00:00:01+00:00</published><updated>2023-04-14T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Expected_Value_Identity</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Expected_Value_Identity/"><![CDATA[<style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
+
+<p>I recently decided to brush up on my stochastic processes knowledge and started reading <em>Stochastic Processes</em> by Sheldon Ross, 1995. In the problems section of the first chapter, I came across an expected value identity that I knew was true for non-negative discrete random variables, but I had never used for continuous random variables. Alongside it was a further generalization for higher order moments. Having worked out the problem, I think it was interesting enough to share!</p>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>Let \(N\) denote a non-negative random variable.</p>
+<ol>
+  <li>
+    <p>) Show that \(\begin{equation}\mathbb{E}[N] = \sum_{k=0}^\infty \mathbb{P}[N &gt; k]\end{equation}\)</p>
+  </li>
+  <li>
+    <p>) In general, show that if \(X\) is a nonnegative random variable with distribution \(F\), then  \(\begin{equation}
+  \mathbb{E}[X] = \int_0^{\infty} \overline{F}(x)\; dx
+\end{equation}\)</p>
+  </li>
+</ol>
+
+<p>where \(\overline{F}(x) = 1 - F(x)\).</p>
+
+<ol>
+  <li>) and \(\begin{equation}
+  \mathbb{E}\left[X^n\right] = \int_0^{\infty}n x^{n-1} \overline{F}(x)\; dx \label{eq: janky expected val}
+\end{equation}\)</li>
+</ol>
+
+<hr />
+
+<h2 id="solution">Solution</h2>
+
+<p>a. ) Recall the equation for the expected value of a non-negative random variable \(N\), 
+\(\begin{equation}
+\mathbb{E}[N] = \sum_{k=0}^\infty k \cdot \mathbb{P}[N = k] = \sum_{k=1}^\infty k \cdot \mathbb{P}[N = k] \label{eq:discrete EV}
+\end{equation}\)</p>
+
+<p>Note that for a given \(k\), we are adding up \(k\) copies of \(\mathbb{P}[N =k]\). We can visualize this as a grid</p>
+
+\[\begin{align*}
+  &amp; \mathbb{P}[N = 1] + \\ 
+  &amp; \mathbb{P}[N = 2] + \mathbb{P}[N = 2] + \\ 
+  &amp; \mathbb{P}[N = 3] + \mathbb{P}[N = 3] + \mathbb{P}[N = 3] + \\ 
+  &amp; \quad \vdots \qquad \qquad \qquad \vdots \qquad \qquad \quad
+    \vdots 
+  \end{align*}\]
+
+<p>The standard expected value equation (\ref{eq:discrete EV}) assumes that we sum the rows of the above grid. The \(k\)-th row sum being \(k \cdot \mathbb{P}[N = k]\). However, if we consider the column sums, the \(k\)-th column sum is given by</p>
+
+\[\begin{equation*} \mathbb{P}[N = k] + \mathbb{P}[N = k + 1] + \cdots  = \mathbb{P}[N &gt; k - 1]
+  \end{equation*}\]
+
+<p>which implies that we can write (\ref{eq:discrete EV}) as</p>
+
+<p>\(\begin{equation*}
+    \mathbb{E}[N] = \sum_{k=0}^\infty\mathbb{P}[N &gt; k]
+  \end{equation*}\)
+  as desired. Note that this proof this proof relied on using the grid of probabilities and summing it in two different ways. This method will not work when \(N\) can take negative values since we can no longer construct the grid.</p>
+
+<p>c.) Note that b.) follows from c.) for \(n = 1\). Let \(n\) be some positive integer and consider the standard equation for \(\mathbb{E}[X^n]\) for a non-negative RV \(X\)</p>
+
+<p>\(\begin{equation}
+    \mathbb{E}[X^n] = \int_0^\infty x^n f(x)\; dx \label{eq:cont ev}
+  \end{equation}\)<br />
+  where \(f(x) = \frac{d F(x)}{dx}\) is the probability density function for the random variable \(X\). We will show using integration by parts that (\ref{eq: janky expected val}) reduces to the standard (\ref{eq:cont ev}).</p>
+
+<p>Consider
+  \(\int_0^{\infty}n x^{n-1} \overline{F}(x)\; dx\) and using the standard integration by parts notation let \(u = \overline{F}(x) = 1 - F(x)\) and \(dv = n x^{n-1}\), which implies \(du = - f(x)\; dx\) and \(V = x^n\). Using the standard integration by parts formula \(\int_{a}^b u \;dv  = [uv]^b_a - \int_{a}^b v \; du\), we obtain</p>
+
+\[\begin{align*}
+    \int_0^{\infty}n x^{n-1} \overline{F}(x)\; dx &amp; = \lim_{b \to \infty}\left[x^n \left(1 - F(x)\right)\right]_0^b + \int_0^{\infty}x^n f(x)\\ 
+    &amp; = (0 - 0) + \int_0^{\infty}x^n f(x)\\ 
+    &amp; = \mathbb{E}[X^n]
+  \end{align*}\]
+
+<p>as desired!</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[I recently decided to brush up on my stochastic processes knowledge and started reading Stochastic Processes by Sheldon Ross, 1995. In the problems section of the first chapter, I came across an expected value identity that I knew was true for non-negative discrete random variables, but I had never used for continuous random variables. Alongside it was a further generalization for higher order moments. Having worked out the problem, I think it was interesting enough to share! Problem Statement Let \(N\) denote a non-negative random variable. ) Show that \(\begin{equation}\mathbb{E}[N] = \sum_{k=0}^\infty \mathbb{P}[N &gt; k]\end{equation}\)]]></summary></entry><entry><title type="html">Optimal Weights</title><link href="https://ccolombe12.github.io/blog/2023/Grain_farmer/" rel="alternate" type="text/html" title="Optimal Weights" /><published>2023-04-11T00:00:01+00:00</published><updated>2023-04-11T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Grain_farmer</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Grain_farmer/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
 <p>A farmer, who sells grain, has a set of four weights that each weigh an integer number of pounds and a fair balance. She claims that she can weigh any integer number of pounds of grain up to a maximum of \(N\) using just these weights. What is the maximum value of \(N\) and what should the weights be? <em>Challenge: Given \(n\) weights what is the maximum value of \(N(n)\) and what should the weights be?</em></p>
 <hr />
 
