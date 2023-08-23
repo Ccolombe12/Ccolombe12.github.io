@@ -300,8 +300,10 @@ For \(n \in \mathbb{Z}_+ \) and integer \(k \leq n\) the probability that passen
       \frac{n + 1 - k}{n + 2 - k} &amp; k\geq 2\\ 
       \frac{1}{n} &amp; k = 1.
       \end{cases}}
-  \end{equation}.
+  \end{equation}
 </div>
+
+<p><em>Proof.</em></p>
 
 <p>We will prove this by induction on \(k\). First note the base cases for \(P(n,1)\) holds. Then using (\ref{eq:recurrence}) we have \(P(n,2) = \frac{n-1}{n}\) which agrees with our previous results. These two base cases hold for all \(n \geq 2\). We will now proceed with the inductive hypothesis and assume the result holds for all \(k' &lt; k\). It now suffices to show \(P(n,k) = \frac{n + 1 - k}{n + 2 - k}\).</p>
 
@@ -317,7 +319,8 @@ P(n,k) &amp; = \frac{n + 1 - k}{n} + \frac{1}{n} \sum_{i=1}^{k-2}P(n - i, k - i)
        &amp; = \frac{n + 1 - k}{n + 2 - k}
 \end{split}
 \end{equation}\)
-as desired.</p>
+as desired.
+\(\begin{align*} &amp; \tag*{\(\blacksquare\)} \end{align*}\)</p>
 
 <p>Based on this we do recover the classic result that \(P(n,n) = 1/2\). Taking the derivative of \(P(n,k)\) with respect to \(k\) we can see that it is a decreasing function in \(k\) and that the later in the line you are, the less likely it is you will sit in your assigned seat with a worst case probability of \(1/2\).</p>
 
