@@ -6,16 +6,11 @@ giscus_comments: true
 date: 2023-08-16 00:00:01
 published: true
 tags: math
-output: 
-  pdf_document:
-    extra_dependencies: ["bbm", "threeparttable","Bookdown"] 
 authors:
   - name: Connor Colombe
     url: "https://ccolombe12.github.io/"
     affiliations:
       name: ORIE, UT Austin
-  
-
 bibliography: 
 
 # Optionally, you can add a table of contents to your post.
@@ -106,6 +101,7 @@ _styles: >
     font-style: normal;
   }
   
+# End Proofs with this $$\begin{align*} & \tag*{\(\blacksquare\)} \end{align*}$$
 
 
   
@@ -163,9 +159,11 @@ For \(n \in \mathbb{Z}_+ \) and integer \(k \leq n\) the probability that passen
       \frac{n + 1 - k}{n + 2 - k} & k\geq 2\\ 
       \frac{1}{n} & k = 1.
       \end{cases}}
-  \end{equation}.
+  \end{equation}
 </div>
 
+
+*Proof.* 
 
 We will prove this by induction on $$k$$. First note the base cases for $$P(n,1)$$ holds. Then using (\ref{eq:recurrence}) we have $$P(n,2) = \frac{n-1}{n}$$ which agrees with our previous results. These two base cases hold for all $$n \geq 2$$. We will now proceed with the inductive hypothesis and assume the result holds for all $$k' < k$$. It now suffices to show $$P(n,k) = \frac{n + 1 - k}{n + 2 - k}$$.
 
@@ -183,6 +181,7 @@ P(n,k) & = \frac{n + 1 - k}{n} + \frac{1}{n} \sum_{i=1}^{k-2}P(n - i, k - i)\\
 \end{equation}  
 $$
 as desired.
+$$\begin{align*} & \tag*{\(\blacksquare\)} \end{align*}$$
 
 Based on this we do recover the classic result that $$P(n,n) = 1/2$$. Taking the derivative of $$P(n,k)$$ with respect to $$k$$ we can see that it is a decreasing function in $$k$$ and that the later in the line you are, the less likely it is you will sit in your assigned seat with a worst case probability of $$1/2$$.
 
