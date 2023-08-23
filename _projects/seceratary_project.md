@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Seceratary Problem Variant
-description: A variant of the classical seceratary problem
+title: Secretary Problem Variant
+description: A variant of the classical secretary  problem
 img: /assets/img/project_images/MDP_thumb.png
 published: true
 importance: 1
