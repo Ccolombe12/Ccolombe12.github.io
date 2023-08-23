@@ -1,0 +1,23 @@
+Instructions on how to post to website:
+
+1) Go to wesbite directory on device (/Users/connor/Desktop/UT Austin/Website/Ccolombe12.github.io)
+
+2) Create <myPost>.md file in appropraite location. Use the posts in the lcoation as a template to make the new post.
+
+3) Once happy with the post, open terminal (go to the location in step 1).
+
+4) enter commands:
+	
+	git add --all (enter)
+
+	git commit -m "<insert text describing the changes we made>"
+
+	git push
+
+5) If your PAT has expired, the last step of 5) may fail. In this case use the steps outlined in "https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens" to generate a new PAT. Copy it to clipboard and to back to terminal. Enter GitHub username : CColombe 12 and use the PAT you copied as the password. You might need to do the last step of 4) again now but you should be good.
+
+
+
+
+
+
