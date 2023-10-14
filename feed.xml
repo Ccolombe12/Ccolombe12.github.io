@@ -1,5 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-08-23T02:35:59+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
-</subtitle><entry><title type="html">Generalizing the “Drunk Pasenger” Problem</title><link href="https://ccolombe12.github.io/blog/2023/Drunk_passenger/" rel="alternate" type="text/html" title="Generalizing the “Drunk Pasenger” Problem" /><published>2023-08-16T00:00:01+00:00</published><updated>2023-08-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Drunk_passenger</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Drunk_passenger/"><![CDATA[<style type="text/css">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-10-14T03:45:47+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+</subtitle><entry><title type="html">A Dice Game</title><link href="https://ccolombe12.github.io/blog/2023/Dice_game/" rel="alternate" type="text/html" title="A Dice Game" /><published>2023-10-14T00:00:00+00:00</published><updated>2023-10-14T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Dice_game</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Dice_game/"><![CDATA[<style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
+
+<p>It’s no secret that I really enjoy solving interview brainteaser problems. I recently stumbled across a problem from a Jane Street Interview that I thought was interesting.</p>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>The original problem is as follows: You are playing a game with a fair \(n\) sided dice, with faces 1 through \(n\) and \(T\) turns. The die starts with side 1 facing up. On each turn, you may either</p>
+
+<ol>
+  <li>Receive a payment equal to the value of the current face up side of the dice</li>
+  <li>Re-roll the dice.</li>
+</ol>
+
+<p>The question is: What is the optimal strategy, and what is the most you would be willing to pay to play this game?</p>
+
+<p>In this blog post we will consider a continuous version of the game and discuss how our insights would then carry over to the discrete case.</p>
+
+<p>In our continuous case, instead of a discrete dice, we will play with a “dice” that acts as a uniform random number generator from \([0,1]\). We will also assume that we begin with a face up value of zero.</p>
+<hr />
+
+<h2 id="solution">Solution</h2>
+
+<p>Before diving into calculations, we can think a about what form the optimal strategy may take. Our first insight is that on any given turn, if the current “face-up” side of the dice is very close to 1, we should probably choose to receive payment. Furthermore, if we are on our last turn, it doesn’t matter what side of the dice is up, it is optimal to choose to receive the payment. We can begin to reason that for \(k\) turns left, the optimal strategy might have some threshold function \(v_k\) where if on the \(k\)-th to last turn the face up value is \(x\) then it is optimal to receive payment only if \(x \geq v_k\) and it is optimal to re-roll otherwise.</p>
+
+<p>First let’s try to show at there exists this threshold function. Let \(w(v,k)\) be the expected value of the game, under optimal play, starting with value \(v\) face up and having \(k\) turns left.</p>
+
+<p>We have that \(w(v,0)= 0\) and a recurrence relation</p>
+
+\[\begin{equation}
+w(v,k)= \max\left\{\underbrace{v + w(v, k - 1)}_{\text{receive payout}}, \; \underbrace{\int_0^1 w(x, k - 1) \; dx}_{\text{re-roll}}\right\}.\label{eq: cont rec.}
+\end{equation}\]
+
+<p>We claim that \(w(v,k)\) is a continuous function in \(v\). This can be proven by induction on \(k\) and noting that taking the max of continuous functions preserves continuity.</p>
+
+<p>Now, we claim that \(w(v,k)\) is a non-decreasing function in \(v\). This can again be proven by induction on \(k\) using (\ref{eq: cont rec.}). With these, If we consider the cases where \(v = 0\) and \(v = 1\), we see that</p>
+
+<p>\(w(0,k-1) \leq \int_0^1 w(x, k - 1) \; dx\) and \(1 +w(1,k-1) &gt; \int_0^1 w(x, k - 1)\). It then follows by the fact that \(w(v,k)\) is continuous and non-decreasing and the intermediate value theorem that for each \(k\) there is some smallest value of \(v \in [0,1]\) such that receiving payout is optimal if the face up side is at least this value. It remains to find the for each \(k\) what this threshold \(v_k\) is.</p>
+
+<p>We can reason that \(v_k\) ought to be an increasing in \(k\). That is, if you are willing to receive a payout of \(x\) with \(k\) turns remaining, then you would also be willing to accept it with at most \(k-1\) turns remaining. With this in mind, we can begin to derive a recurrence relation for \(v_k\).</p>
+
+<p>Equation (\ref{eq: cont rec.}) and the existence of \(v_k\) imply that we have the equality \(\begin{equation}
+v_k + w(v_k, k-1) = \int_0^1 w(x, k - 1) \;  \label{eq:v_k equal}.
+\end{equation}\)</p>
+
+<p>However, since \(v_k\) is an non-decreasing function, we have that \(v_k + w(v_k, k-1) =  k v_k\) (meaning that if we we take payout, we will keep taking that payout every turn until the game ends). If we denote \(I_k := \int_0^1 w(x, k)\), this give us the relation</p>
+
+\[\begin{equation}
+\boxed{k v_k = I_{k-1}} \label{eq:I_k def}
+\end{equation}\]
+
+<p>We can then expand the RHS of (\ref{eq:v_k equal}) as</p>
+
+\[\begin{align*}
+\int_0^1 w(x, k - 1) \; dx &amp; = \int_0^{v_{k-1} }w(x, k - 1)\; dx + \int_{v_{k-1} }^1 w(x, k - 1)\; dx\\ 
+                    &amp; = \int_0^{v_{k-1} }\left(I_{k-2}\right)\; dx+ \int_{v_{k-1} }^1 (k-1) x \; dx\\ 
+                    &amp; = v_{k-1} I_{k-2} + \frac{k-1}{2}\left(1 - v_{k-1} ^2\right)\\ 
+                    &amp; = (k-1)v_{k-1}^2 + \frac{k-1}{2}\left(1 - v_{k-1} ^2\right)\\ 
+                    &amp; = \frac{k-1}{2}\left(1 + v_{k-1}^2\right).
+\end{align*}\]
+
+<p>If we then combine this with (\ref{eq:v_k equal}) and (\ref{eq:I_k def}), we have a recurrence relation for \(v_k\)</p>
+
+\[\begin{equation}
+\boxed{v_k = \frac{k-1}{2k}\left(1 + v_{k-1}^2\right), \quad v_1 = 0} \label{eq:v_k req rel}.
+\end{equation}\]
+
+<p>Unfortunately, we cannot solve for a closed form solution to (\ref{eq:v_k req rel}). But we can solve for the numerical value of our game for a given number of turns. Starting with a current value of zero and \(T\) turns, the value of the game is given by \(w(0,T)\). Since $v_k &gt; 0$ for all \(k &gt; 1\), the optimal first move is to re-roll and which give us a value of 
+\(\begin{equation}
+  w(0,T) = \int_0^1 w(x, T-1) = I_{T-1} = T v_T
+\end{equation}\)</p>
+
+<p>Which means that the value of our game with \(T\) turns is \(\boxed{w(0,T)= Tv_T}\).</p>
+
+<p>We can say a few more things about the continuous case before concluding with a few remarks on what the optimal strategy would be in the discrete case. Recall that \(v_k\) is increasing in \(k\). It is also bound above by 1. Therefore the monotone convergence theorem implies that \(v_k\) converges. In the limit we find that \(v_k\to 1\) which matches our intuition that with many turns remaining, we are willing to wait for a value very close to 1. Below are plots of \(v_k\) for \(k\leq 50\) and the value of the game for \(T \leq 50\)</p>
+
+<h3><figure><center>
+  <img width="300" src="/assets/img/blog_images/Dice_game/test.svg" class="img-fluid rounded z-depth-1" zoomable="true" />
+</center></figure></h3>
+<div class="caption">
+    Fig 1: Plotting $v_k$ for for all $k \leq 50$.
+</div>
+
+<h3><figure><center>
+  <img width="300" src="/assets/img/blog_images/Dice_game/game_vals.svg" class="img-fluid rounded z-depth-1" zoomable="true" />
+</center></figure></h3>
+<div class="caption">
+    Fig 2: Plotting $w(0,T)$ for for all $T \leq 50$.
+</div>
+
+<p>To conclude, how might we use what we have found to tackle the discrete case? The analysis is exactly the same but now the cutoff thresholds will be discrete. The recurrence relation in (\ref{eq: cont rec.}) will now be</p>
+
+<p>\(\begin{equation}
+w(v,k)= \max\left\{\underbrace{v + w(v, k - 1)}_{\text{receive payout}}, \; \underbrace{\frac{1}{n} \sum_{u=1}^n w(u, k - 1)}_{\text{re-roll}}\right\}.\label{eq: disc rec.}
+\end{equation}\)
+Otherwise, the insights from the continuous case still hold!</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[It’s no secret that I really enjoy solving interview brainteaser problems. I recently stumbled across a problem from a Jane Street Interview that I thought was interesting. Problem Statement The original problem is as follows: You are playing a game with a fair \(n\) sided dice, with faces 1 through \(n\) and \(T\) turns. The die starts with side 1 facing up. On each turn, you may either]]></summary></entry><entry><title type="html">Generalizing the “Drunk Pasenger” Problem</title><link href="https://ccolombe12.github.io/blog/2023/Drunk_passenger/" rel="alternate" type="text/html" title="Generalizing the “Drunk Pasenger” Problem" /><published>2023-08-16T00:00:01+00:00</published><updated>2023-08-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Drunk_passenger</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Drunk_passenger/"><![CDATA[<style type="text/css">
     ol { list-style-type: lower-alpha; }
 </style>
 
