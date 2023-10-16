@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-10-16T21:28:36+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-10-16T21:30:53+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
 </subtitle><entry><title type="html">Alice and Bob Play a Guessing Game</title><link href="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/" rel="alternate" type="text/html" title="Alice and Bob Play a Guessing Game" /><published>2023-10-16T00:00:01+00:00</published><updated>2023-10-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/"><![CDATA[<style type="text/css">
     ol { list-style-type: lower-alpha; }
 </style>
@@ -155,7 +155,7 @@ Otherwise, the insights from the continuous case still hold!</p>]]></content><au
 <p>Let \(P(n, k)\) be the probability that the \(k\)-th passenger sits in their assigned seat. Let’s do a little exploration. We can immediately reason that because the first passenger (\(k=1\)) always picks their seat uniformly at random, we have that \(P(n,1) = 1/n\) for all \(n\). But what about for \(k=2\) ? The second passenger will sit in their assigned seat only if the first passenger does not steal their seat. This implies \(P(n,2) = \frac{n-1}{n}\). For \(k \geq 3\), we rely on an important observation:</p>
 
 <blockquote>
-  <p>If the first passenger sits in seat \(3 \leq  i \leq n\), then the passengers \(2,\ldots, i - 1\) will all sit in their assigned seats.</p>
+  <p>If the first passenger sits in seat \(i\) such that \(3 \leq  i \leq n\), then the passengers \(2,\ldots, i - 1\) will all sit in their assigned seats.</p>
 </blockquote>
 
 <p>We can now find \(P(n,k)\) by conditioning on three events:</p>
