@@ -112,7 +112,7 @@ _styles: >
 </style>
 Here is another cool problem I stumbled upon the other day.
 ## Problem Statement
-Bob chooses a integer uniformly at random between 1 and 1000. Alice has the guess the chosen number as quickly as possible. Bib will let Alice know whether her guess is smaller than, larger than, or equal to his number. If Alice's guess is smaller than Bob's number, Bob replaces the number with another integer chosen uniformly at random from $[1,1000]$. Prove that there exists a strategy that Alice can use to finish the game in such a way that the expected number of steps is smaller than 45.
+Bob chooses a integer uniformly at random between 1 and 1000. Alice has to guess the chosen number as quickly as possible. Bob will let Alice know whether her guess is smaller than, larger than, or equal to his number. If Alice's guess is smaller than Bob's number, Bob replaces the number with another integer chosen uniformly at random from $[1,1000]$. Prove that there exists a strategy that Alice can use to finish the game in such a way that the expected number of steps is smaller than 45.
 <hr>
 
 ## Solution
@@ -135,7 +135,7 @@ We can pick some threshold $$\ell$$ and use the strategy:
 * Guess $$\ell$$ repeatedly until either we guess correct or Bob rolls a number less than $$\ell$$.
 * Guess down from $$\ell, \ell - 1, \ldots, 1$$ until we hit the target
 
-The number of turns until the first step succeeds is a geometric random variable with parameter $\ell/N$ and thus the expected number of turns until we succeed is $N / \ell$. Now, given that the target number is at most $\ell$, it has a uniform distribution over $1,\ldots,\ell$ and thus the expected number of guesses needed to reach it is:
+The number of turns until the first step succeeds is a geometric random variable with parameter $$\ell/N$$ and thus the expected number of turns until we succeed is $$N / \ell$$. Now, given that the target number is at most $$\ell$$, it has a uniform distribution over $$1,\ldots,\ell$$ and thus the expected number of guesses needed to reach it is:
 $$
 \begin{align*}
   \mathbb{E}[\text{# steps needed given step 1 succeeds}]& = \underbrace{\frac{1}{\ell}\cdot 0}_{x = \ell} + \underbrace{\frac{\ell-1}{\ell}\left(\frac{1}{\ell - 1}\sum_{k=1}^{\ell-1} k\right)}_{x < \ell}\\ 
