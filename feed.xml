@@ -1,5 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-10-14T03:45:47+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
-</subtitle><entry><title type="html">A Dice Game</title><link href="https://ccolombe12.github.io/blog/2023/Dice_game/" rel="alternate" type="text/html" title="A Dice Game" /><published>2023-10-14T00:00:00+00:00</published><updated>2023-10-14T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Dice_game</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Dice_game/"><![CDATA[<style type="text/css">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-10-16T21:28:36+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+</subtitle><entry><title type="html">Alice and Bob Play a Guessing Game</title><link href="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/" rel="alternate" type="text/html" title="Alice and Bob Play a Guessing Game" /><published>2023-10-16T00:00:01+00:00</published><updated>2023-10-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/"><![CDATA[<style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
+
+<p>Here is another cool problem I stumbled upon the other day.</p>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>Bob chooses a integer uniformly at random between 1 and 1000. Alice has the guess the chosen number as quickly as possible. Bib will let Alice know whether her guess is smaller than, larger than, or equal to his number. If Alice’s guess is smaller than Bob’s number, Bob replaces the number with another integer chosen uniformly at random from $[1,1000]$. Prove that there exists a strategy that Alice can use to finish the game in such a way that the expected number of steps is smaller than 45.</p>
+<hr />
+
+<h2 id="solution">Solution</h2>
+
+<p>Let’s generalize and suppose Bob picks integers uniformly from the set \([N] = \{1,2,3,\ldots, N \}\). I initially set out to try to determine the <em>optimal</em> strategy using dynamic programming. Let \(E_k\) be the expected number of turns to finish the game given that we know that Bob’s current number is at most \(k\).</p>
+
+<p>We can set up the recurrence</p>
+
+\[\begin{equation}
+E_k = 1 + \min_{j \in [k]}\left(\underbrace{\frac{k-j}{k}E_N}_{\text{guess too low}} + \underbrace{\frac{1}{k} \cdot 0}_{\text{guess correct}} + \underbrace{\frac{j-1}{k}E_j}_{\text{guess too high}}\right) \quad \forall k \in [N].
+\end{equation}\]
+
+<p>But since every \(k\) relies on \(E_n\), the quantity we are trying to solve for, this ends up to not be as straightforwards to evaluate as we might hope.</p>
+
+<p>What else can we try? Well this problem is sort of similar to the <a href="https://brilliant.org/wiki/egg-dropping/#n-eggs-k-floors">egg drop problem</a> with one egg and each time it breaks we start with a new building with a randomly chosen number of floors. In the egg drop problem with two eggs, if the first egg breaks on the first floor tested, \(x\) then the next drops must necessarily be \(x-1, x-2, \ldots, 1\) until the least-breaking floor is found. Let’s try to build a heuristic strategy off this intuition.</p>
+
+<p>We can pick some threshold \(\ell\) and use the strategy:</p>
+<ul>
+  <li>Guess \(\ell\) repeatedly until either we guess correct or Bob rolls a number less than \(\ell\).</li>
+  <li>Guess down from \(\ell, \ell - 1, \ldots, 1\) until we hit the target</li>
+</ul>
+
+<p>The number of turns until the first step succeeds is a geometric random variable with parameter $\ell/N$ and thus the expected number of turns until we succeed is $N / \ell$. Now, given that the target number is at most $\ell$, it has a uniform distribution over $1,\ldots,\ell$ and thus the expected number of guesses needed to reach it is:
+\(\begin{align*}
+  \mathbb{E}[\text{# steps needed given step 1 succeeds}]&amp; = \underbrace{\frac{1}{\ell}\cdot 0}_{x = \ell} + \underbrace{\frac{\ell-1}{\ell}\left(\frac{1}{\ell - 1}\sum_{k=1}^{\ell-1} k\right)}_{x &lt; \ell}\\ 
+  &amp; = \frac{\ell-1}{2}.
+\end{align*}\)</p>
+
+<p>Putting it together, let \(f(\ell)\) be the expected number of turns to guess Bob’s number under our strategy with threshold number \(\ell\). This is given by</p>
+
+\[\begin{equation}
+f(\ell) = \frac{N}{\ell} + \frac{\ell-1}{2}. \label{eq: f}
+\end{equation}\]
+
+<p>We would like to minimize this function. Taking the derivative, we find a single critical point at \(\boxed{\ell^* = \sqrt{2 N}}\), and the second derivative is positive for all $\ell &gt; 0$ which implies we have found a global minimum for our problem. Plugging this value into (\ref{eq: f}), we have that</p>
+
+<p>\(\begin{equation}
+  \boxed{f(\ell^*) = \sqrt{2 N} - \frac{1}{2}}
+\end{equation}\)
+which for \(N = 1000\) gives us an expected number of moves of \(\approx\) 44.2214 which is less than 45, as desired. This result is quite interesting! For large $N$, on average will will only need to guess \(\mathcal{O}\left(\frac{1}{\sqrt{N}}\right)\) fraction of the numbers.</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[Here is another cool problem I stumbled upon the other day. Problem Statement Bob chooses a integer uniformly at random between 1 and 1000. Alice has the guess the chosen number as quickly as possible. Bib will let Alice know whether her guess is smaller than, larger than, or equal to his number. If Alice’s guess is smaller than Bob’s number, Bob replaces the number with another integer chosen uniformly at random from $[1,1000]$. Prove that there exists a strategy that Alice can use to finish the game in such a way that the expected number of steps is smaller than 45.]]></summary></entry><entry><title type="html">A Dice Game</title><link href="https://ccolombe12.github.io/blog/2023/Dice_game/" rel="alternate" type="text/html" title="A Dice Game" /><published>2023-10-14T00:00:00+00:00</published><updated>2023-10-14T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Dice_game</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Dice_game/"><![CDATA[<style type="text/css">
     ol { list-style-type: lower-alpha; }
 </style>
 
