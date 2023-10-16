@@ -121,7 +121,7 @@ The version of the problem we will solve is: find the probability that the $$k$$
 
 Let $$P(n, k)$$ be the probability that the $$k$$-th passenger sits in their assigned seat. Let's do a little exploration. We can immediately reason that because the first passenger ($$k=1$$) always picks their seat uniformly at random, we have that $$P(n,1) = 1/n $$ for all $$n$$. But what about for $$k=2$$ ? The second passenger will sit in their assigned seat only if the first passenger does not steal their seat. This implies $$P(n,2) = \frac{n-1}{n}$$. For $$ k \geq 3 $$, we rely on an important observation:
 
->If the first passenger sits in seat $$ 3 \leq  i \leq n$$, then the passengers $$2,\ldots, i - 1 $$ will all sit in their assigned seats. 
+>If the first passenger sits in seat $$i$$ such that $$ 3 \leq  i \leq n$$, then the passengers $$2,\ldots, i - 1 $$ will all sit in their assigned seats. 
 
 We can now find $$P(n,k)$$ by conditioning on three events:
 
