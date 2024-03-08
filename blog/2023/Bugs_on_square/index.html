@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Throwing Darts | Connor  Colombe</title>
+    <title>A Generalization of The Classic Bugs on A Square Problem. | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
     <meta name="description" content="The academic wepage of Connor Colombe
 ">
@@ -31,7 +31,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9D%91&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://ccolombe12.github.io/blog/2023/Throwing_Darts/">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2023/Bugs_on_square/">
     
     <!-- Dark Mode -->
     
@@ -72,9 +72,53 @@
   font-family: monospace;
   color: white;
   text-align: left;
-  margin: 12px 0;
+  margin: 14px 0;
   text-align: center;
   font-size: 16px;
+} .theorem {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .theorem:before {
+  content: "Theorem.";
+  font-weight: bold;
+  font-style: normal;
+} .proposition {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .proposition:before {
+  content: "Proposition.";
+  font-weight: bold;
+  font-style: normal;
+} .lemma {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .lemma:before {
+  content: "Lemma.";
+  font-weight: bold;
+  font-style: normal;
+}
+.proof {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+} .proof:before {
+  content: "Proof.";
+  font-style: italic;
+} .proof:after {
+  content: "\25FC";
+  float:right;
+}
+.definition {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+} .definition:before {
+  content: "Definition.";
+  font-weight: bold;
+  font-style: normal;
 }
 
     </style>
@@ -83,9 +127,9 @@
   <body>
 <d-front-matter>
     <script async type="text/json">{
-      "title": "Throwing Darts",
+      "title": "A Generalization of The Classic Bugs on A Square Problem.",
       "description": "",
-      "published": "April 14, 2023",
+      "published": "December 16, 2023",
       "authors": [
         {
           "author": "Connor Colombe",
@@ -185,7 +229,7 @@
     <div class="post distill">
 
       <d-title>
-        <h1>Throwing Darts</h1>
+        <h1>A Generalization of The Classic Bugs on A Square Problem.</h1>
         <p></p>
       </d-title>
 
@@ -201,71 +245,118 @@
           </nav>
         </d-contents>
 
-        <h2 id="problem-statement">Problem Statement</h2>
+        <style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
 
-<p>Jason throws two darts at a dartboard, aiming for the center. The second dart lands farther from the center than the first. If Jason throws a third dart aiming for the center, what is the probability that the third throw is farther from the center than the first? Assume Jason’s skillfulness is constant.</p>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<p><em>Challenge: What if, after the first, his
-next \(n − 2\) throws are further from the center than the first? What is the probability that
-the \(n\)-th throw is farther from the center than the first?</em></p>
-<hr>
+<h2 id="problem-statement">Problem Statement</h2>
+<p>In the classic bugs on a square problem, 4 bugs start out on the vertices of a square with side length 1. At \(t = 0\) the bugs all begin moving with speed \(v\) towards their counter-clockwise neighbor. The question is to determine how long the bugs take to reach the center of the square and how many rotations around the center will each bug make in doing so?</p>
+<h3><figure><center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/square.png">
+ 
+</center></figure></h3>
 
 <h2 id="solution">Solution</h2>
 
-<p>At first glance, it may seem that the information about the second throw is irrelevant. However, we shall see that that is not the case. We will present two solutions to this problem, both interesting in their own right. The first is perhaps a more traditional computational approach to the problem, and the second uses a cheeky symmetry argument.</p>
-<hr>
+<p>Let’s first solve the square case and see if we can then generalize the argument. We will use polar coordinates and focus on the upper right bug. We can represent its position as a function of time as \((r(t), \phi(t))\), with initial conditions $r(0) = \sqrt{2}/2$ and $\phi(0) = \pi /4$.</p>
 
-<h1 id="solution-1">Solution 1</h1>
-<p>We will solve the general problem and apply it to the \(n = 3\) case. Let \(R_1,R_2,\ldots, R_n \in [0,1]\) be i.i.d. random variables denoting the radii at which each of the consecutive dart throws land. We would like to evaluate
-\(\begin{equation}
-  \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]
-\end{equation}\)</p>
+<p>The key here is to use symmetry to reason that at every moment in time, the bugs maintain their relative positions as the vertices of square. In otherwords, at each moment in time, the bugs remain in a square formation.</p>
 
-<p>Using Bayes Theorem, we can write this as 
-\(\begin{equation}
-  \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right] = \frac{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\ \cap \left(R_{n} &gt; R_1\right)\right]}{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]} \label{eq:solu}.
-\end{equation}\)</p>
+<p>With this in mind, we can consider the bug’s position after a small change in time $\Delta t$.</p>
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/square_dt.jpeg" style="width: 40vw; min-width: 330px;" zoomable="true">
+  <figcaption> Figure 2. A bug's relative position after a small moment in time $\Delta t$.
+</figcaption> 
+</center>
+</figure></h3>
+<p>The bug moves a distance $v \Delta t$ towards the it’s adjacent bug. We can then do some geometery to and use a small angle approximation to find the change in $r$ and $\phi$. Noting the right trangle we can form with hypotenuse $v \cdot \Delta t$, we have</p>
 
-<p>Now it suffices to evaluate \(\begin{equation}  
-\mathbb{P}\left[ \cap_{i = 2}^n R_{i} &gt; R_1\right] \label{eq:key}.
+<p>\(\begin{align}
+  r(t + \Delta t) - r(t) &amp; = - v \cdot  \Delta t \cos \theta\\ 
+  r(t + \Delta t) \cdot \Delta \phi &amp; = v \Delta t \sin \theta
+\end{align}\)
+Rearranging these and taking the limit as $\Delta t \to 0$, we obtain</p>
+
+\[\boxed{
+\begin{align}
+  r'(t)&amp; = - v \cos \theta\\ 
+  \phi'(t) &amp; = \frac{v \sin \theta}{r(t)}.
+\end{align}}\]
+
+<p>We can solve (3) for \(r(t)\) using our initial condiditon  $\theta = \pi /4 $ and \(r(0) = 1/\sqrt{2}\) to get</p>
+
+<p>\(\begin{equation}
+  r(t) = - \frac{v}{\sqrt{2}}  t + \frac{1}{\sqrt{2}}.
+\end{equation}\) 
+It then follows that the time it takes to reach the center $T$ is \(T = \frac{1}{v}.\) Now that we have an equation for \(r(t)\) we can plug it into (4) and solve for $\phi(t)$ to get</p>
+
+<p>\(\begin{equation}
+\boxed{\phi(t) = \pi/4 - \log\left( 1 - v t\right)}.
 \end{equation}\)
-In order to do this, we will need to know the probability distribution function for \(R\), denoted \(f(r)\). We can deduce this by considering the unit circle (dartboard) and imagine a thin concentric ring at radius \(r\) of width \(dr\). The area of this ring is \(2 \pi r \; dr\), the area of the circle is \(\pi\) and thus the probability of Jason throwing a dart and it landing at radius \(r\) is \(f(r) = 2 r \; dr\) (see Figure 1).</p>
+As \(t \to T\), we have \(\phi \to \infty\), implying that the bug makes an infinite number of rotations around the center of the circle as the approach the center!</p>
 
-<h3><figure><center>
-  <img height="50" src="/assets/img/blog_images/2023-04-14-Throwing_Darts/fig_dart_prob.png" class="img-fluid rounded z-depth-1" zoomable="true">
-</center></figure></h3>
-<div class="caption">
-    Figure 1. Depicting the small area on a unit dartboard where a dart can land at a radius in $[r,r + dr]$.
-</div>
-<p>This then implies,</p>
+<p>This analysis was for the square but every step we used is actually applicable to the general case of a regular $n$-gon. In the general case \(\theta = 2 \pi / n\) and we can use the law-of-cosines and then a double angle formula for cosine to determine that \(r(0) = \frac{1}{\sqrt{2 \left(1 - \cos \left(\frac{2 \pi}{n} \right)\right)}} = \frac{1}{2 \sin \frac{\pi}{n}}\). Consider one of the \(n\) wedges from a regular $n$-gon shown below. Here the angle \(\alpha = \frac{\pi - 2\pi/n}{2} = \frac{\pi}{2} - \frac{\pi}{n}\).</p>
 
-\[\begin{equation}
-  \mathbb{P}\left[R &gt; r\right] = \mathbb{P}\left[R \geq r\right] = 1 - r^2.
-\end{equation}\]
+<h3><figure>
 
-<p>We can then evaluate (\ref{eq:key}) by conditioning on the value of \(R_1\).</p>
 
-\[\begin{align*}
-  \mathbb{P}\left[ \cap_{i = 2}^n R_{i} &gt; R_1\right] &amp; = \int_0^1 (1-r^2)^{n-1} 2 r \; dr \\ 
-  &amp; = 2 \int_0^1 (1-r^2)^{n-1} r \; dr  \\
-  &amp; = 1/ n.
-\end{align*}\]
 
-<p>Based on this, we can write (\ref{eq:solu}) as</p>
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/n_gon.jpeg" style="width: 50vw; min-width: 330px;" zoomable="true">
+  <figcaption> Figure 2. A bug's relative position after a small moment in time $\Delta t$.
+</figcaption> 
+</center>
+</figure></h3>
 
-\[\begin{align*}
- \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right] &amp; = \frac{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\ \cap \left(R_{n} &gt; R_1\right)\right]}{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]}  \\ 
- &amp; = \frac{1/n}{1/(n-1)}\\ 
- &amp; = \frac{n-1}{n}\\ 
- &amp; = \boxed{1 - \frac{1}{n}}.
-\end{align*}\]
+<p>Using our same steps as before, we find the differential equations</p>
 
-<p>Plugging in \(n = 3\) yields the solution to our original problem \(\boxed{2/3}\).</p>
-<hr>
+\[\begin{align}
+   r'(t)&amp; = - v \cos \alpha = - v \sin \frac{\pi}{n}\\ 
+  \phi'(t) &amp; = \frac{v \sin \alpha}{r(t)} = \frac{v \cos \frac{\pi}{n}}{r(t)}.
+\end{align}\]
 
-<h1 id="solution-2">Solution 2</h1>
+<p>We can solve these once again with our initial conditions to get</p>
 
-<p>Imagine that all of the throws have already occurred and we are revealing them one at a time. Up until the final throw, the first throw is the closest to the center of the dartboard. We are asked to find, given this knowledge, what is the probability that the first throw is the closest of all of the throws. At this point, the only way this could <em>not</em> be the case if is the last throw is the closest to the center of the \(n\) throws. Since his skill is constant, the probability that his last throw is the closest to the center is the same as for any other throw, \(1/n\). Therefore, the probability that the first throw was the closest of the \(n\) throws given it was closer than the next \(n-2\) throws is \(\boxed{1 - \frac{1}{n}}\).</p>
+<p>\(\begin{equation}
+  \boxed{r(t) = \frac{1}{2 \sin \left(\frac{\pi}{n}\right) }- v \sin \left(\frac{\pi}{n}\right)\;  t}.
+\end{equation}\)
+Which implies the time to reach the center for a bug on a regular $n$-gon is \(\boxed{T = \frac{1}{2 v \sin^2\left(\frac{\pi}{n}\right)}}\). Lastly we solve for \(\phi(t)\) to get 
+\(\begin{equation}
+  \boxed{\phi(t) =  \frac{\pi}{n} - \cot\left(\frac{\pi}{n}\right) \log \left(1 - 2 v \sin^2 \left(\frac{\pi}{n}\right) t\right)}.
+\end{equation}\)
+note again we recover that \(\phi(t) \to \infty\) as \(t \to T\) meaning the bug will always rotate around the center of the $n$-gon an infinite number of times as it approaches the center.</p>
+
+<p>Can we say anything about these results for large $n$? We can make a rough approximation for large $n$ using the small-angle approximation for sine. For large enough \(n\), \(\begin{equation}T = \frac{1}{2 v \sin^2\left(\frac{\pi}{n}\right)} \approx \frac{1}{2 v \left(\frac{\pi}{n}\right)^2} = \frac{n^2}{2 \pi^2 v}
+\end{equation}\) which grows unboundely as $n$ increases.</p>
+
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/big_n_t.png" style="width: 50vw; min-width: 330px;" zoomable="true">
+  </center>
+  <figcaption> Figure 3. The time it takes for a bug on an $n$-gon to reach the center for $v = 1$. The large $n$ approximation is shown in blue. We can see they agree rather quickly.
+</figcaption> 
+
+</figure></h3>
+
+<p>Lastly, it is fun to look at the actual path of the bug as a function of time for different $n$.Here are the paths to the center of the first bug for \(n = 4\) and \(n=20\).</p>
+
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/my_gif2.gif" style="width: 35vw; min-width: 330px;">
+  <figcaption> Figure 4. Path a bug take to the center on the unit square.
+</figcaption> 
+</center>
+</figure></h3>
+
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/my_gif.gif" style="width: 35vw; min-width: 330px;">
+  <figcaption> Figure 5. Path a bug take to the center on the unit 20-gon. </figcaption> 
+</center>
+</figure></h3>
 
 
       </d-article>

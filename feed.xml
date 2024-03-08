@@ -1,5 +1,116 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2023-10-16T21:58:12+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
-</subtitle><entry><title type="html">Alice and Bob Play a Guessing Game</title><link href="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/" rel="alternate" type="text/html" title="Alice and Bob Play a Guessing Game" /><published>2023-10-16T00:00:01+00:00</published><updated>2023-10-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/"><![CDATA[<style type="text/css">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-03-08T21:00:32+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+</subtitle><entry><title type="html">A Generalization of The Classic Bugs on A Square Problem.</title><link href="https://ccolombe12.github.io/blog/2023/Bugs_on_square/" rel="alternate" type="text/html" title="A Generalization of The Classic Bugs on A Square Problem." /><published>2023-12-16T00:00:01+00:00</published><updated>2023-12-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Bugs_on_square</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Bugs_on_square/"><![CDATA[<style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<h2 id="problem-statement">Problem Statement</h2>
+<p>In the classic bugs on a square problem, 4 bugs start out on the vertices of a square with side length 1. At \(t = 0\) the bugs all begin moving with speed \(v\) towards their counter-clockwise neighbor. The question is to determine how long the bugs take to reach the center of the square and how many rotations around the center will each bug make in doing so?</p>
+<h3><figure><center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/square.png" />
+ 
+</center></figure></h3>
+
+<h2 id="solution">Solution</h2>
+
+<p>Let’s first solve the square case and see if we can then generalize the argument. We will use polar coordinates and focus on the upper right bug. We can represent its position as a function of time as \((r(t), \phi(t))\), with initial conditions $r(0) = \sqrt{2}/2$ and $\phi(0) = \pi /4$.</p>
+
+<p>The key here is to use symmetry to reason that at every moment in time, the bugs maintain their relative positions as the vertices of square. In otherwords, at each moment in time, the bugs remain in a square formation.</p>
+
+<p>With this in mind, we can consider the bug’s position after a small change in time $\Delta t$.</p>
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/square_dt.jpeg" style="width: 40vw; min-width: 330px;" zoomable="true" />
+  <figcaption> Figure 2. A bug's relative position after a small moment in time $\Delta t$.
+</figcaption> 
+</center>
+</figure></h3>
+<p>The bug moves a distance $v \Delta t$ towards the it’s adjacent bug. We can then do some geometery to and use a small angle approximation to find the change in $r$ and $\phi$. Noting the right trangle we can form with hypotenuse $v \cdot \Delta t$, we have</p>
+
+<p>\(\begin{align}
+  r(t + \Delta t) - r(t) &amp; = - v \cdot  \Delta t \cos \theta\\ 
+  r(t + \Delta t) \cdot \Delta \phi &amp; = v \Delta t \sin \theta
+\end{align}\)
+Rearranging these and taking the limit as $\Delta t \to 0$, we obtain</p>
+
+\[\boxed{
+\begin{align}
+  r'(t)&amp; = - v \cos \theta\\ 
+  \phi'(t) &amp; = \frac{v \sin \theta}{r(t)}.
+\end{align}}\]
+
+<p>We can solve (3) for \(r(t)\) using our initial condiditon  $\theta = \pi /4 $ and \(r(0) = 1/\sqrt{2}\) to get</p>
+
+<p>\(\begin{equation}
+  r(t) = - \frac{v}{\sqrt{2}}  t + \frac{1}{\sqrt{2}}.
+\end{equation}\) 
+It then follows that the time it takes to reach the center $T$ is \(T = \frac{1}{v}.\) Now that we have an equation for \(r(t)\) we can plug it into (4) and solve for $\phi(t)$ to get</p>
+
+<p>\(\begin{equation}
+\boxed{\phi(t) = \pi/4 - \log\left( 1 - v t\right)}.
+\end{equation}\)
+As \(t \to T\), we have \(\phi \to \infty\), implying that the bug makes an infinite number of rotations around the center of the circle as the approach the center!</p>
+
+<p>This analysis was for the square but every step we used is actually applicable to the general case of a regular $n$-gon. In the general case \(\theta = 2 \pi / n\) and we can use the law-of-cosines and then a double angle formula for cosine to determine that \(r(0) = \frac{1}{\sqrt{2 \left(1 - \cos \left(\frac{2 \pi}{n} \right)\right)}} = \frac{1}{2 \sin \frac{\pi}{n}}\). Consider one of the \(n\) wedges from a regular $n$-gon shown below. Here the angle \(\alpha = \frac{\pi - 2\pi/n}{2} = \frac{\pi}{2} - \frac{\pi}{n}\).</p>
+
+<h3><figure>
+
+
+
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/n_gon.jpeg" style="width: 50vw; min-width: 330px;" zoomable="true" />
+  <figcaption> Figure 2. A bug's relative position after a small moment in time $\Delta t$.
+</figcaption> 
+</center>
+</figure></h3>
+
+<p>Using our same steps as before, we find the differential equations</p>
+
+\[\begin{align}
+   r'(t)&amp; = - v \cos \alpha = - v \sin \frac{\pi}{n}\\ 
+  \phi'(t) &amp; = \frac{v \sin \alpha}{r(t)} = \frac{v \cos \frac{\pi}{n}}{r(t)}.
+\end{align}\]
+
+<p>We can solve these once again with our initial conditions to get</p>
+
+<p>\(\begin{equation}
+  \boxed{r(t) = \frac{1}{2 \sin \left(\frac{\pi}{n}\right) }- v \sin \left(\frac{\pi}{n}\right)\;  t}.
+\end{equation}\)
+Which implies the time to reach the center for a bug on a regular $n$-gon is \(\boxed{T = \frac{1}{2 v \sin^2\left(\frac{\pi}{n}\right)}}\). Lastly we solve for \(\phi(t)\) to get 
+\(\begin{equation}
+  \boxed{\phi(t) =  \frac{\pi}{n} - \cot\left(\frac{\pi}{n}\right) \log \left(1 - 2 v \sin^2 \left(\frac{\pi}{n}\right) t\right)}.
+\end{equation}\)
+note again we recover that \(\phi(t) \to \infty\) as \(t \to T\) meaning the bug will always rotate around the center of the $n$-gon an infinite number of times as it approaches the center.</p>
+
+<p>Can we say anything about these results for large $n$? We can make a rough approximation for large $n$ using the small-angle approximation for sine. For large enough \(n\), \(\begin{equation}T = \frac{1}{2 v \sin^2\left(\frac{\pi}{n}\right)} \approx \frac{1}{2 v \left(\frac{\pi}{n}\right)^2} = \frac{n^2}{2 \pi^2 v}
+\end{equation}\) which grows unboundely as $n$ increases.</p>
+
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/big_n_t.png" style="width: 50vw; min-width: 330px;" zoomable="true" />
+  </center>
+  <figcaption> Figure 3. The time it takes for a bug on an $n$-gon to reach the center for $v = 1$. The large $n$ approximation is shown in blue. We can see they agree rather quickly.
+</figcaption> 
+
+</figure></h3>
+
+<p>Lastly, it is fun to look at the actual path of the bug as a function of time for different $n$.Here are the paths to the center of the first bug for \(n = 4\) and \(n=20\).</p>
+
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/my_gif2.gif" style="width: 35vw; min-width: 330px;" />
+  <figcaption> Figure 4. Path a bug take to the center on the unit square.
+</figcaption> 
+</center>
+</figure></h3>
+
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/Bugs_On_A_Square/my_gif.gif" style="width: 35vw; min-width: 330px;" />
+  <figcaption> Figure 5. Path a bug take to the center on the unit 20-gon. </figcaption> 
+</center>
+</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Alice and Bob Play a Guessing Game</title><link href="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/" rel="alternate" type="text/html" title="Alice and Bob Play a Guessing Game" /><published>2023-10-16T00:00:01+00:00</published><updated>2023-10-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/"><![CDATA[<style type="text/css">
     ol { list-style-type: lower-alpha; }
 </style>
 
