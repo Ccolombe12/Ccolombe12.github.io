@@ -18,6 +18,7 @@ profile:
     <p>Office: ETC 5.112</p>
     <p>Phone: 214-232-3280</p>
     </div>
+    <img src="https://projecteuler.net/profile/ConnorColombe.png" alt="Italian Trulli">
   
 news: true  # includes a list of news items
 latest_posts: true  # includes a list of the newest posts
