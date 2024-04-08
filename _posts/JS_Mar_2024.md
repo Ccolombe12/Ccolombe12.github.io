@@ -1,0 +1,134 @@
+---
+layout: distill
+title: Jane Street Puzzle Mar 2024.
+description: 
+giscus_comments: true
+date: 2024-04-01 00:00:01
+published: true
+tags: math
+authors:
+  - name: Connor Colombe
+    url: "https://ccolombe12.github.io/"
+    affiliations:
+      name: ORIE, UT Austin
+bibliography: 
+
+# Optionally, you can add a table of contents to your post.
+# NOTES:
+#   - make sure that TOC names match the actual section names
+#     for hyperlinks within the post to work correctly.
+#   - we may want to automate TOC generation in the future using
+#     jekyll-toc plugin (https://github.com/toshimaru/jekyll-toc).
+toc:
+  - name: Problem Statement
+    # if a section has subsections, you can add them as follows:
+    # subsections:
+    #   - name: Example Child Subsection 1
+    #   - name: Example Child Subsection 2
+  - name: Solution
+  
+
+# Below is an example of injecting additional post-specific styles.
+# If you use this post as a template, delete this _styles block.
+_styles: >
+  .fake-img {
+    background: #bbb;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+  }
+  .fake-img p {
+    font-family: monospace;
+    color: white;
+    text-align: left;
+    margin: 14px 0;
+    text-align: center;
+    font-size: 16px;
+  }
+  .theorem {
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+  }
+  .theorem:before {
+    content: "Theorem.";
+    font-weight: bold;
+    font-style: normal;
+  }
+  .proposition {
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+  }
+  .proposition:before {
+    content: "Proposition.";
+    font-weight: bold;
+    font-style: normal;
+  }
+  .lemma {
+    display: block;
+    margin: 12px 0;
+    font-style: italic;
+  }
+  .lemma:before {
+    content: "Lemma.";
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  .proof {
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+  }
+  .proof:before {
+    content: "Proof.";
+    font-style: italic;
+  }
+  .proof:after {
+    content: "\25FC";
+    float:right;
+  }
+
+  .definition {
+    display: block;
+    margin: 12px 0;
+    font-style: normal;
+  }
+  .definition:before {
+    content: "Definition.";
+    font-weight: bold;
+    font-style: normal;
+  }
+  
+# End Proofs with this $$\begin{align*} & \tag*{\(\blacksquare\)} \end{align*}$$
+
+
+---
+<style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+## Problem Statement
+
+
+## Solution
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
