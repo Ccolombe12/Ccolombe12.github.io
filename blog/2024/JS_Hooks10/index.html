@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <!-- Head -->
+<!-- _layouts/distill.html --><html>
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
     
@@ -10,7 +8,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>news | Connor  Colombe</title>
+    <title>Jane Street March 2024 Puzzle Solution | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
     <meta name="description" content="The academic wepage of Connor Colombe
 ">
@@ -33,7 +31,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9D%91&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://ccolombe12.github.io/news/">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2024/JS_Hooks10/">
     
     <!-- Dark Mode -->
     
@@ -43,10 +41,126 @@
     <script src="/assets/js/dark_mode.js"></script>
     
 
+
+    <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- Distill js -->
+    <script src="/assets/js/distillpub/template.v2.js"></script>
+    <script src="/assets/js/distillpub/transforms.v2.js"></script>
+    <script src="/assets/js/distillpub/overrides.js"></script>
+    
+    <!-- Page/Post style -->
+    <style type="text/css">
+      .fake-img {
+  background: #bbb;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+} .fake-img p {
+  font-family: monospace;
+  color: white;
+  text-align: left;
+  margin: 14px 0;
+  text-align: center;
+  font-size: 16px;
+} .theorem {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .theorem:before {
+  content: "Theorem.";
+  font-weight: bold;
+  font-style: normal;
+} .proposition {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .proposition:before {
+  content: "Proposition.";
+  font-weight: bold;
+  font-style: normal;
+} .lemma {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .lemma:before {
+  content: "Lemma.";
+  font-weight: bold;
+  font-style: normal;
+}
+.proof {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+} .proof:before {
+  content: "Proof.";
+  font-style: italic;
+} .proof:after {
+  content: "\25FC";
+  float:right;
+}
+.definition {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+} .definition:before {
+  content: "Definition.";
+  font-weight: bold;
+  font-style: normal;
+}
+
+    </style>
   </head>
 
-  <!-- Body -->
-  <body class="fixed-top-nav sticky-bottom-footer">
+  <body>
+<d-front-matter>
+    <script async type="text/json">{
+      "title": "Jane Street March 2024 Puzzle Solution",
+      "description": "",
+      "published": "April 1, 2024",
+      "authors": [
+        {
+          "author": "Connor Colombe",
+          "authorURL": "https://ccolombe12.github.io/",
+          "affiliations": [
+            {
+              "name": "ORIE, UT Austin",
+              "url": ""
+            }
+          ]
+        }
+        
+      ],
+      "katex": {
+        "delimiters": [
+          {
+            "left": "$",
+            "right": "$",
+            "display": false
+          },
+          {
+            "left": "$$",
+            "right": "$$",
+            "display": true
+          }
+        ]
+      }
+    }</script>
+  </d-front-matter>
+
+  
 
     <!-- Header -->
     <header>
@@ -72,8 +186,8 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
-                <a class="nav-link" href="/blog/">Blog</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="/blog/">Blog<span class="sr-only">(current)</span></a>
               </li>
 
               <!-- Other pages -->
@@ -112,72 +226,76 @@
 
 
     <!-- Content -->
-    <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+    <div class="post distill">
 
-          <header class="post-header">
-            <h1 class="post-title">news</h1>
-            <p class="post-description"></p>
-          </header>
+      <d-title>
+        <h1>Jane Street March 2024 Puzzle Solution</h1>
+        <p></p>
+      </d-title>
 
-          <article>
+      <d-byline></d-byline>
+
+      <d-article>
+        <d-contents>
+          <nav class="l-text figcaption">
+          <h3>Contents</h3>
+            <div><a href="#problem-statement">Problem Statement</a></div>
+            <div><a href="#solution">Solution</a></div>
             
-          <div class="news">
-            <div class="table-responsive">
-              <table class="table table-sm table-borderless">
-              
-                <tr>
-                  <th scope="row">Apr 4, 2024</th>
-                  <td>
-                    I will be presenting my work entitled “The Effects of Policy Uncertainty and Risk Aversion on Carbon
-Capture, Utilization, and Storage Investments” at the UT CCS Symposium on April 11th!
+          </nav>
+        </d-contents>
+
+        <style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<h2 id="jane-street-hooks-10">Jane Street: Hooks 10</h2>
+
+<p>My solution to the March 2024 month <a href="https://www.janestreet.com/puzzles/hooks-10-index/" rel="external nofollow noopener" target="_blank">Jane Street Puzzle: Hooks 10</a>.</p>
+
+<p>The problem boils down to finding a feasible arrangement of hooks and cells for the given constraints. Luckily for me and my operations research background, this can essentially be represented as a large integer program (IP)! I saw this was the 10’th iteration of the Hooks puzzles and found (<a href="https://github.com/gowen100/Jane-Street-Solutions" rel="external nofollow noopener" target="_blank">Gowen100’s</a>) IP approach to the previous Hooks puzzle. This was a great opportunity to learn a new tool: The <a href="https://www.microsoft.com/en-us/research/project/z3-3/" rel="external nofollow noopener" target="_blank">Z3 theorem prover </a> from microsoft reasearch. I was able to use what I learned to create the necessary augmentations to solve the newest iteration of the the hooks puzzle! Looking forward to solving the future puzzles with this new tool!</p>
+
+<iframe src="/assets/Jane_Street_Mar_2024.html" width="125%" height="900"></iframe>
 
 
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Feb 20, 2024</th>
-                  <td>
-                    My paper <a href="https://www.sciencedirect.com/science/article/pii/S0951832024000851" rel="external nofollow noopener" target="_blank">Optimal Resource Placement for Electric Grid Resilience via Network Topology</a> in collaboration with Balasubramanian Sambasivam, John Hassenbein, and Benjamin Leibowicz was just accepted for publication in <a href="https://www.sciencedirect.com/journal/reliability-engineering-and-system-safety" rel="external nofollow noopener" target="_blank">Reliability Engineering &amp; System Safety</a>. This was a really neat study with some theoretical work on optimal resource placement in certain network topolgies under uncertainty.
+      </d-article>
+
+      <d-appendix>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+      </d-appendix>
+
+      <d-bibliography src="/assets/bibliography/"></d-bibliography><div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
+  <script>
+    let giscusTheme = localStorage.getItem("theme");
+    let giscusAttributes = {
+        "src": "https://giscus.app/client.js",
+        "data-repo": "alshedivat/al-folio",
+        "data-repo-id": "MDEwOlJlcG9zaXRvcnk2MDAyNDM2NQ==",
+        "data-category": "Comments",
+        "data-category-id": "DIC_kwDOA5PmLc4CTBt6",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        "crossorigin": "anonymous",
+        "async": "",
+    };
 
 
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Nov 4, 2023</th>
-                  <td>
-                    I recently attended the USAEE conference in Chicago, Illinois where I presented my work on <em>The Effects of Policy Uncertainty and Risk Aversion on Carbon Capture, Utilization, and Storage Investments</em>. For my presentation and and submission, I received the best student paper award! Thanks Professor Leibowicz for your support!
-
-<center>
-	<figure>
-	<img src="/assets/img/Connor_USAEE_Award_1.jpg" alt="USAEE Award Presentation" width="300" height="400">
-	</figure>
-	<figcaption> USAEE Award Presentation.
-	</figcaption>
-</center>
-<hr>
-
-
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">Nov 4, 2023</th>
-                  <td>
-                    I made a webpage! I will be sharing my academic publications, my personal and course projects, and posting weekly recreational math and programming problems and my solutions to them! Stay tuned <img class="emoji" title=":smile:" alt=":smile:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f604.png" height="20" width="20">
-
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-
-
-          </article>
-
-        </div>
-
-    </div>
+    let giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.getElementById("giscus_thread").appendChild(giscusScript);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a>
+</noscript>
+</div>
+</div>
 
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
@@ -186,39 +304,9 @@ Last updated: April 08, 2024.
       </div>
     </footer>
 
-    <!-- JavaScripts -->
-    <!-- jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
     <!-- Bootsrap & MDB scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
-
-    <!-- Masonry & imagesLoaded -->
-  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-  <script defer src="/assets/js/masonry.js" type="text/javascript"></script>
-    
-  <!-- Medium Zoom JS -->
-  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
-  <script defer src="/assets/js/zoom.js"></script><!-- Load Common JS -->
-  <script defer src="/assets/js/common.js"></script>
-  <script defer src="/assets/js/copy_code.js" type="text/javascript"></script>
-
-    
-  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
-  <script async src="https://badge.dimensions.ai/badge.js"></script>
-
-    <!-- MathJax -->
-  <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        tags: 'ams'
-      }
-    };
-  </script>
-  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
-  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
@@ -307,5 +395,6 @@ Last updated: April 08, 2024.
   }
 </script>
 
-  </body>
+  
+</body>
 </html>
