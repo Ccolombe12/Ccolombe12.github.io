@@ -9,9 +9,10 @@ I am starting a Summer internship doing Quantitative Research for the [Multi-ass
 
  This is the group the manages the pension fund for all educators in the state of Texas and is one of the largest in the world. I will be conducting research into new currency trading signals and improving the optimization of portfolios.
 
+
 <center>
 	<figure>
-	<img src="/assets/img/news_images/trs-header-logo.png" alt="USAEE Award Presentation" width="220" height="100">
+	<img src="/assets/img/news_images/trs-header-logo.png" alt="USAEE Award Presentation" width="320" height="100">
 	</figure>
 </center>
 <hr>
