@@ -1,5 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-26T03:52:02+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
-</subtitle><entry><title type="html">Jane Street March 2024 Puzzle Solution</title><link href="https://ccolombe12.github.io/blog/2024/JS_Hooks10/" rel="alternate" type="text/html" title="Jane Street March 2024 Puzzle Solution" /><published>2024-04-01T00:00:01+00:00</published><updated>2024-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/JS_Hooks10</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/JS_Hooks10/"><![CDATA[<style type="text/css">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-09-26T04:22:38+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+</subtitle><entry><title type="html">Leetcode Milestone</title><link href="https://ccolombe12.github.io/blog/2024/CP_intro/" rel="alternate" type="text/html" title="Leetcode Milestone" /><published>2024-06-17T00:00:01+00:00</published><updated>2024-06-17T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/CP_intro</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/CP_intro/"><![CDATA[<style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<h2 id="beginning-competitive-programming-leetcode-milestone">Beginning Competitive Programming: Leetcode Milestone</h2>
+
+<p>It’s no secret that I love to think about and work on math/programming puzzles. Over the past several months I have decided to begin a new hobby: Competitive programming! Not only will this keep me sharp for my upcoming job search post grad school, but it is a great way to continue to bolster my problem solving skills and keep fresh the algorithm design skills that I learned during my time at UTD.</p>
+
+<p>My favorite resources for finding problems to work on are: <a href="https://leetcode.com/">Leetcode</a> (a very popular site for interview style programming problems), <a href="https://open.kattis.com/">Kattis</a> (an online problem archive of problems that have been asked in programming contests around the world), and <a href="https://codeforces.com/">Codeforces</a> (another very popular website that hosts high-quality contests). I have been regularly competing in the weekly Leetcode contests and learning a lot in doing so! I plan to reach around 500 problems in Leetcode and achieve a 1900+ rating and then switch to Codeforces since I have heard the problems are more interesting and more mathematical (woo!). I recently broke into the  “knight” level in the Leetcode contests which is currently for those  the top ~ 6% in overall contest performance! You can check out my profile at https://leetcode.com/u/ccolombe12 !</p>
+
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/LC_post/LC_Knight.png" style="width: 40vw; min-width: 330px;" zoomable="true" />
+  </center>
+
+</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Jane Street March 2024 Puzzle Solution</title><link href="https://ccolombe12.github.io/blog/2024/JS_Hooks10/" rel="alternate" type="text/html" title="Jane Street March 2024 Puzzle Solution" /><published>2024-04-01T00:00:01+00:00</published><updated>2024-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/JS_Hooks10</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/JS_Hooks10/"><![CDATA[<style type="text/css">
     ol { list-style-type: lower-alpha; }
 </style>
 
@@ -11,24 +28,7 @@
 
 <p>The problem boils down to finding a feasible arrangement of hooks and cells for the given constraints. Luckily for me and my operations research background, this can essentially be represented as a large integer program (IP)! I saw this was the 10’th iteration of the Hooks puzzles and found (<a href="https://github.com/gowen100/Jane-Street-Solutions">Gowen100’s</a>) IP approach to the previous Hooks puzzle. This was a great opportunity to learn a new tool: The <a href="https://www.microsoft.com/en-us/research/project/z3-3/">Z3 theorem prover </a> from Microsoft research. I was able to use what I learned to create the necessary augmentations to solve the newest iteration of the the hooks puzzle! Looking forward to solving the future puzzles with this new tool!</p>
 
-<iframe src="/assets/Jane_Street_Mar_2024.html" width="125%" height="900"></iframe>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Leetcode Milestone</title><link href="https://ccolombe12.github.io/blog/2024/CP_intro/" rel="alternate" type="text/html" title="Leetcode Milestone" /><published>2024-04-01T00:00:01+00:00</published><updated>2024-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/CP_intro</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/CP_intro/"><![CDATA[<style type="text/css">
-    ol { list-style-type: lower-alpha; }
-</style>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<h2 id="beginning-competitive-programming-leetcode-milestone">Beginning Competitive Programming: Leetcode Milestone</h2>
-
-<p>It’s no secret that I love to think about and work on math/programming puzzles. Over the past several months I have decided to begin a new hobby: Competitive programming! Not only will this keep me sharp for my upcoming job search post grad school, but it is a great way to continue to bolster my problem solving skills and keep fresh the algorithm design skills that I learned during my time at UTD.</p>
-
-<p>My favorite resources for finding problems to work on are: <a href="https://leetcode.com/">Leetcode</a> (a very popular site for interview style programming problems), <a href="https://open.kattis.com/">Kattis</a> (an online problem archive of problems that have been asked in programming contests around the world), and <a href="https://codeforces.com/">Codeforces</a> (another very popular website that hosts high-quality contests). I have been regularly competing in the weekly Leetcode contests and learning a lot in doing so! I plan to reach around 500 problems in Leetcode and achieve a 1900+ rating and then switch to Codeforces since I have heard the problems are more interesting and more mathematical (woo!). I recently broke into the  “knight” level in the Leetcode contests which is currently for those  the top ~ 6% in overall contest performance!</p>
-
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/2024-07-20/lc_knight.png" style="width: 40vw; min-width: 330px;" zoomable="true" />
-  </center>
-
-</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">A Generalization of The Classic Bugs on A Square Problem.</title><link href="https://ccolombe12.github.io/blog/2023/Bugs_on_square/" rel="alternate" type="text/html" title="A Generalization of The Classic Bugs on A Square Problem." /><published>2023-12-16T00:00:01+00:00</published><updated>2023-12-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Bugs_on_square</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Bugs_on_square/"><![CDATA[<style type="text/css">
+<iframe src="/assets/Jane_Street_Mar_2024.html" width="125%" height="900"></iframe>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">A Generalization of The Classic Bugs on A Square Problem.</title><link href="https://ccolombe12.github.io/blog/2023/Bugs_on_square/" rel="alternate" type="text/html" title="A Generalization of The Classic Bugs on A Square Problem." /><published>2023-12-16T00:00:01+00:00</published><updated>2023-12-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Bugs_on_square</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Bugs_on_square/"><![CDATA[<style type="text/css">
     ol { list-style-type: lower-alpha; }
 </style>
 
