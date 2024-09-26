@@ -11,7 +11,7 @@ I am starting a Summer internship doing Quantitative Research for the [Multi-ass
 
 <center>
 	<figure>
-	<img src="/assets/img/news_images/trs-header-logo.png" alt="USAEE Award Presentation" width="300" height="100">
+	<img src="/assets/img/news_images/trs-header-logo.png" alt="USAEE Award Presentation" width="220" height="100">
 	</figure>
 </center>
 <hr>
