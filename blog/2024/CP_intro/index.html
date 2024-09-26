@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <!-- Head -->
+<!-- _layouts/distill.html --><html>
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
     
@@ -10,9 +8,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Projects | Connor  Colombe</title>
+    <title>Leetcode Milestone | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
-    <meta name="description" content="Here is a collection of the recent course and personal projects I've worked on.">
+    <meta name="description" content="The academic wepage of Connor Colombe
+">
 
 
     <!-- Bootstrap & MDB -->
@@ -32,7 +31,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9D%91&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://ccolombe12.github.io/Projects/">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2024/CP_intro/">
     
     <!-- Dark Mode -->
     
@@ -42,10 +41,126 @@
     <script src="/assets/js/dark_mode.js"></script>
     
 
+
+    <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- Distill js -->
+    <script src="/assets/js/distillpub/template.v2.js"></script>
+    <script src="/assets/js/distillpub/transforms.v2.js"></script>
+    <script src="/assets/js/distillpub/overrides.js"></script>
+    
+    <!-- Page/Post style -->
+    <style type="text/css">
+      .fake-img {
+  background: #bbb;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+} .fake-img p {
+  font-family: monospace;
+  color: white;
+  text-align: left;
+  margin: 14px 0;
+  text-align: center;
+  font-size: 16px;
+} .theorem {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .theorem:before {
+  content: "Theorem.";
+  font-weight: bold;
+  font-style: normal;
+} .proposition {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .proposition:before {
+  content: "Proposition.";
+  font-weight: bold;
+  font-style: normal;
+} .lemma {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .lemma:before {
+  content: "Lemma.";
+  font-weight: bold;
+  font-style: normal;
+}
+.proof {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+} .proof:before {
+  content: "Proof.";
+  font-style: italic;
+} .proof:after {
+  content: "\25FC";
+  float:right;
+}
+.definition {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+} .definition:before {
+  content: "Definition.";
+  font-weight: bold;
+  font-style: normal;
+}
+
+    </style>
   </head>
 
-  <!-- Body -->
-  <body class="fixed-top-nav sticky-bottom-footer">
+  <body>
+<d-front-matter>
+    <script async type="text/json">{
+      "title": "Leetcode Milestone",
+      "description": "",
+      "published": "April 1, 2024",
+      "authors": [
+        {
+          "author": "Connor Colombe",
+          "authorURL": "https://ccolombe12.github.io/",
+          "affiliations": [
+            {
+              "name": "ORIE, UT Austin",
+              "url": ""
+            }
+          ]
+        }
+        
+      ],
+      "katex": {
+        "delimiters": [
+          {
+            "left": "$",
+            "right": "$",
+            "display": false
+          },
+          {
+            "left": "$$",
+            "right": "$$",
+            "display": true
+          }
+        ]
+      }
+    }</script>
+  </d-front-matter>
+
+  
 
     <!-- Header -->
     <header>
@@ -71,16 +186,16 @@
               </li>
               
               <!-- Blog -->
-              <li class="nav-item ">
-                <a class="nav-link" href="/blog/">Blog</a>
+              <li class="nav-item active">
+                <a class="nav-link" href="/blog/">Blog<span class="sr-only">(current)</span></a>
               </li>
 
               <!-- Other pages -->
               <li class="nav-item ">
                 <a class="nav-link" href="/Publications/">Publications</a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="/Projects/">Projects<span class="sr-only">(current)</span></a>
+              <li class="nav-item ">
+                <a class="nav-link" href="/Projects/">Projects</a>
               </li>
               <li class="nav-item ">
                 <a class="nav-link" href="/ORIE%20problem%20seminar/">ORIE Problem Seminar</a>
@@ -111,138 +226,81 @@
 
 
     <!-- Content -->
-    <div class="container mt-5">
-      <!-- page.html -->
-        <div class="post">
+    <div class="post distill">
 
-          <header class="post-header">
-            <h1 class="post-title">Projects</h1>
-            <p class="post-description">Here is a collection of the recent course and personal projects I've worked on.</p>
-          </header>
+      <d-title>
+        <h1>Leetcode Milestone</h1>
+        <p></p>
+      </d-title>
 
-          <article>
-            <!-- pages/projects.md -->
-<div class="projects">
-  <!-- Display categorized projects -->
-  <h2 class="category">work</h2>
-  <!-- Generate cards for each project -->
-  <div class="grid">
-<!-- _includes/projects.html -->
-<div class="grid-sizer"></div>
-<div class="grid-item">
-  <a href="/projects/seceratary_project/">
-      <div class="card hoverable">
-<figure>
+      <d-byline></d-byline>
 
-  <picture>
-    
+      <d-article>
+        <d-contents>
+          <nav class="l-text figcaption">
+          <h3>Contents</h3>
+            <div><a href="#problem-statement">Problem Statement</a></div>
+            <div><a href="#solution">Solution</a></div>
+            
+          </nav>
+        </d-contents>
 
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/project_images/MDP_thumb.png" width="auto" height="auto" alt="project thumbnail" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+        <style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
 
-  </picture>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</figure>
+<h2 id="beginning-competitive-programming-leetcode-milestone">Beginning Competitive Programming: Leetcode Milestone</h2>
 
-        <div class="card-body">
-          <h2 class="card-title text-lowercase">Secretary Problem Variant</h2>
-          <p class="card-text">A variant of the classical secretary  problem</p>
-          <div class="row ml-1 mr-1 p-0">
-          </div>
-        </div>
-      </div>
-    </a>
+<p>It’s no secret that I love to think about and work on math/programming puzzles. Over the past several months I have decided to begin a new hobby: Competitive programming! Not only will this keep me sharp for my upcoming job search post grad school, but it is a great way to continue to bolster my problem solving skills and keep fresh the algorithm design skills that I learned during my time at UTD.</p>
+
+<p>My favorite resources for finding problems to work on are: <a href="https://leetcode.com/" rel="external nofollow noopener" target="_blank">Leetcode</a> (a very popular site for interview style programming problems), <a href="https://open.kattis.com/" rel="external nofollow noopener" target="_blank">Kattis</a> (an online problem archive of problems that have been asked in programming contests around the world), and <a href="https://codeforces.com/" rel="external nofollow noopener" target="_blank">Codeforces</a> (another very popular website that hosts high-quality contests). I have been regularly competing in the weekly Leetcode contests and learning a lot in doing so! I plan to reach around 500 problems in Leetcode and achieve a 1900+ rating and then switch to Codeforces since I have heard the problems are more interesting and more mathematical (woo!). I recently broke into the  “knight” level in the Leetcode contests which is currently for those  the top ~ 6% in overall contest performance!</p>
+
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/2024-07-20/lc_knight.png" style="width: 40vw; min-width: 330px;" zoomable="true">
+  </center>
+
+</figure></h3>
+
+
+      </d-article>
+
+      <d-appendix>
+        <d-footnote-list></d-footnote-list>
+        <d-citation-list></d-citation-list>
+      </d-appendix>
+
+      <d-bibliography src="/assets/bibliography/"></d-bibliography><div id="giscus_thread" style="max-width: 800px; margin: 0 auto;">
+  <script>
+    let giscusTheme = localStorage.getItem("theme");
+    let giscusAttributes = {
+        "src": "https://giscus.app/client.js",
+        "data-repo": "alshedivat/al-folio",
+        "data-repo-id": "MDEwOlJlcG9zaXRvcnk2MDAyNDM2NQ==",
+        "data-category": "Comments",
+        "data-category-id": "DIC_kwDOA5PmLc4CTBt6",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        "crossorigin": "anonymous",
+        "async": "",
+    };
+
+
+    let giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.getElementById("giscus_thread").appendChild(giscusScript);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a>
+</noscript>
 </div>
-  </div>
-  <h2 class="category">fun</h2>
-  <!-- Generate cards for each project -->
-  <div class="grid">
-<!-- _includes/projects.html -->
-<div class="grid-sizer"></div>
-<div class="grid-item">
-  <a href="/projects/wordle_project/">
-      <div class="card hoverable">
-<figure>
-
-  <picture>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/project_images/wordle_project_thumb.png" width="auto" height="auto" alt="project thumbnail" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
-
-        <div class="card-body">
-          <h2 class="card-title text-lowercase">Wordle Solver</h2>
-          <p class="card-text">A hastly built wordle solver</p>
-          <div class="row ml-1 mr-1 p-0">
-          </div>
-        </div>
-      </div>
-    </a>
 </div>
-<!-- _includes/projects.html -->
-<div class="grid-sizer"></div>
-<div class="grid-item">
-  <a href="/projects/vornoi_art/">
-      <div class="card hoverable">
-<figure>
-
-  <picture>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/project_images/Vornoi_ex.png" width="auto" height="auto" alt="project thumbnail" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
-
-        <div class="card-body">
-          <h2 class="card-title text-lowercase">Voronoi Art</h2>
-          <p class="card-text">A program that Voronoi's your images!</p>
-          <div class="row ml-1 mr-1 p-0">
-          </div>
-        </div>
-      </div>
-    </a>
-</div>
-<!-- _includes/projects.html -->
-<div class="grid-sizer"></div>
-<div class="grid-item">
-  <a href="/projects/Drivable_couch_project/">
-      <div class="card hoverable">
-<figure>
-
-  <picture>
-    
-
-    <!-- Fallback to the original file -->
-    <img src="/assets/img/project_images/Driveable_Couch.png" width="auto" height="auto" alt="project thumbnail" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-
-  </picture>
-
-</figure>
-
-        <div class="card-body">
-          <h2 class="card-title text-lowercase">Driveable Couch</h2>
-          <p class="card-text">A couch... you can drive!</p>
-          <div class="row ml-1 mr-1 p-0">
-          </div>
-        </div>
-      </div>
-    </a>
-</div>
-  </div>
-</div>
-
-          </article>
-
-        </div>
-
-    </div>
 
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
@@ -251,39 +309,9 @@ Last updated: September 26, 2024.
       </div>
     </footer>
 
-    <!-- JavaScripts -->
-    <!-- jQuery -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
     <!-- Bootsrap & MDB scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
-
-    <!-- Masonry & imagesLoaded -->
-  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
-  <script defer src="/assets/js/masonry.js" type="text/javascript"></script>
-    
-  <!-- Medium Zoom JS -->
-  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
-  <script defer src="/assets/js/zoom.js"></script><!-- Load Common JS -->
-  <script defer src="/assets/js/common.js"></script>
-  <script defer src="/assets/js/copy_code.js" type="text/javascript"></script>
-
-    
-  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
-  <script async src="https://badge.dimensions.ai/badge.js"></script>
-
-    <!-- MathJax -->
-  <script type="text/javascript">
-    window.MathJax = {
-      tex: {
-        tags: 'ams'
-      }
-    };
-  </script>
-  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
-  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
@@ -372,5 +400,6 @@ Last updated: September 26, 2024.
   }
 </script>
 
-  </body>
+  
+</body>
 </html>
