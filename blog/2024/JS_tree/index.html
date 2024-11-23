@@ -8,9 +8,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Optimal Weights | Connor  Colombe</title>
+    <title>Jane Street Puzzle August 2024 | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
-    <meta name="description" content="A fun problem about a grain farmer and their balance.">
+    <meta name="description" content="My solution to last month's puzzle">
 
 
     <!-- Bootstrap & MDB -->
@@ -30,7 +30,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9D%91&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://ccolombe12.github.io/blog/2023/Grain_farmer/">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2024/JS_tree/">
     
     <!-- Dark Mode -->
     
@@ -71,9 +71,53 @@
   font-family: monospace;
   color: white;
   text-align: left;
-  margin: 12px 0;
+  margin: 14px 0;
   text-align: center;
   font-size: 16px;
+} .theorem {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .theorem:before {
+  content: "Theorem.";
+  font-weight: bold;
+  font-style: normal;
+} .proposition {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .proposition:before {
+  content: "Proposition.";
+  font-weight: bold;
+  font-style: normal;
+} .lemma {
+  display: block;
+  margin: 12px 0;
+  font-style: italic;
+} .lemma:before {
+  content: "Lemma.";
+  font-weight: bold;
+  font-style: normal;
+}
+.proof {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+} .proof:before {
+  content: "Proof.";
+  font-style: italic;
+} .proof:after {
+  content: "\25FC";
+  float:right;
+}
+.definition {
+  display: block;
+  margin: 12px 0;
+  font-style: normal;
+} .definition:before {
+  content: "Definition.";
+  font-weight: bold;
+  font-style: normal;
 }
 
     </style>
@@ -82,9 +126,9 @@
   <body>
 <d-front-matter>
     <script async type="text/json">{
-      "title": "Optimal Weights",
-      "description": "A fun problem about a grain farmer and their balance.",
-      "published": "April 11, 2023",
+      "title": "Jane Street Puzzle August 2024",
+      "description": "My solution to last month's puzzle",
+      "published": "June 17, 2024",
       "authors": [
         {
           "author": "Connor Colombe",
@@ -184,8 +228,8 @@
     <div class="post distill">
 
       <d-title>
-        <h1>Optimal Weights</h1>
-        <p>A fun problem about a grain farmer and their balance.</p>
+        <h1>Jane Street Puzzle August 2024</h1>
+        <p>My solution to last month's puzzle</p>
       </d-title>
 
       <d-byline></d-byline>
@@ -200,31 +244,60 @@
           </nav>
         </d-contents>
 
-        <h2 id="problem-statement">Problem Statement</h2>
-<p>A farmer, who sells grain, has a set of four weights that each weigh an integer number of pounds and a fair balance. She claims that she can weigh any integer number of pounds of grain up to a maximum of \(N\) using just these weights. What is the maximum value of \(N\) and what should the weights be? <em>Challenge: Given \(n\) weights what is the maximum value of \(N(n)\) and what should the weights be?</em></p>
-<hr>
+        <style type="text/css">
+    ol { list-style-type: lower-alpha; }
+</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<h2 id="tree-edge-triage">Tree-Edge Triage</h2>
+
+<p>It has become a hobby of mine to work on the monthly <a href="https://www.janestreet.com/puzzles/current-puzzle/" rel="external nofollow noopener" target="_blank">Jane Street Puzzle</a>. They usually pose some interesting math or programming problem and I have learned a lot from solving them. Last month’s puzzle was a game played on an infinite binary tree with a surprising result! The problem is as follows:</p>
+
+<h3><figure>
+  <center>
+  <img src="/assets/img/blog_images/JS_Aug_24/ps.png" style="width: 40vw; min-width: 330px;" zoomable="true">
+  </center>
+
+</figure></h3>
+
+<p>Aaron and Beren are playing a game on an infinite complete binary tree. At the beginning of the game, every edge of the tree is independently labeled $A$ with probability $p$ and $B$ otherwise. Both players are able to inspect all of these labels. Then, starting with Aaron at the root of the tree, the players alternate turns moving a shared token down the tree (each turn the active player selects from the two descendants of the current node and moves the token along the edge to that node). If the token ever traverses an edge labeled B, Beren wins the game. Otherwise, Aaron wins.</p>
+
+<p>An example game is in the picture above: after the labeling, Aaron chooses to go left to avoid immediate defeat, but after Beren goes right Aaron is doomed to choose one of two B paths and Beren wins.</p>
+
+<p>What is the infimum of the set of all probabilities $p$ for which Aaron has a nonzero probability of winning the game? Give your answer in exact terms.</p>
 
 <h2 id="solution">Solution</h2>
 
-<p>Let us consider the generalized case and then use it to answer the question for when \(n = 4\). Given \(n\) weights, we would like to pick the value of their individual weights \(w_1,w_2,\ldots, w_n\) such that using the balance we can weigh items of weights \(1,2, \ldots, N(n)\) such that \(N(n)\) is maximized. In this problem we will say that you can <em>weigh</em> an item of weight \(x\) if by placing some our weights on the left side of the balance and potentially some weights on the right side of the balance, the two sides have an absolute weight difference of exactly \(x\). So, how can can we go about determining what the values should be?</p>
+<p>The intuiton behind my approach was to use the symmetry of an infinite binary tree. Once you move along an edge to a give node, you are once again faced with an infinte binary tree and it’s like you started from the beginning again. By that logic it is sufficient to analyze the optimal strategy for the first two levels and we can let recursion handle the rest.</p>
 
-<p>First off, we can place an upper bound on what \(N(n)\) by counting the number of distinct weight configurations on the balance. For a given weight, it can be either: on the left side of the balance, on the right side of the balance, or not on the balance. Since this is true for any of our \(n\) weights, there are \(3^n\) configurations of our weights on the balance. How many of these produce a unique weight difference? By symmetry, if we swap the  weights on either side, we produce the same net weight difference so we have over-counted by a factor of 2. The only case where this symmetry argument does not apply is when there are no weights on either side. By this logic, if each weight configuration produces a unique weight difference, then we have shown the upper bound \(\begin{equation}
-  N(n) \leq \frac{3^n - 1}{2}.
-\end{equation}\)</p>
+<p>Suppose we are considering what Aaron should do on a given turn. On every $A$ (odd) turn, Aaron wins if and only if the current node has at least one $A$ edge out of it that leads to a node with two $A$ edges and each of which has a winning $A$ path out of it.</p>
 
-<p>Great! Now what should our weights be? Suppose we have found that with \(n\) weights we can measure weights up to \(N(n)\). This maximum value must be achieved when all weights are on one side of the balance. Now suppose we can add an additional weight \(w_{n+1}\) to our set. What should it be to maximize our new weighing potential? Well given our current weights, we can’t weigh \(N(n) + 1\) so our new weight ought to allow us to measure this. One such weight that satisfies this can be found</p>
+<p>We can write this using a recurrence relation. Let $Q_A$ be the probability that at our current node, is on an $A$ turn and $A$ can win from it. Similary, let $Q_B$ be the probability we are at a node on a $B$ turn from which $A$ can win.</p>
 
-<p>\(\begin{equation}
-  w_{n+1} - N(n) = N(n) + 1 \implies w_{n+1} = 2 N(n) + 1.
-\end{equation}\)
-Using this new weight and the previous weight set, we can achieve all integral weights up to \(N(n) + w_{n+1} = 3 N(n) + 1.\) If we adopt this strategy of choosing the next weight to add to our set, starting at zero weights, we get the recurrence relation \(\begin{align}
-  N(n + 1) &amp; = 3 N(n) + 1\\ 
-  N(0) &amp; = 0
-\end{align}\)</p>
+<p>We have the relation</p>
 
-<p>which can we solved to find \(\boxed{N(n) = \frac{3^n - 1}{2}}\), the theoretical upper-bound! It then follows that \(w_{n} =  3^{n-1}\). That is, if we have \(n\) weights the optimal assignment of their weight values are the first \(n\) powers of \(3\) starting at \(0\). Based on this, the solution to our original problem is \(\boxed{N(4) = 40}\) and using weights \(\boxed{\{1,3,9,27\}}\).</p>
+\[\begin{align}
+Q_A &amp; = p^2(\underbrace{Q_B^2 + 2Q_B(1-Q_B)}_{\text{Pr at least one winning path out}}) + 2p(1-p)Q_B \\
+Q_B &amp; = p^2 Q_A^2
+\end{align}\]
 
-<p>Our colleague Brent Austgen cleverly pointed out that your can actually <strong>Double</strong> the value of \(N(n)\) if you double the values of all the weights. Using this strategy, only even numbers are achievable but to measure an odd number you simply determine which two adjacent even numbers the weight falls between! This strategy allows us to reach up to \(3^n - 1\) with \(n\) weights!</p>
+<p>Plugging in the latter into the former yields the equation for $Q_A$ in terms of $p$</p>
+
+<p>\(\begin{equation}Q_A = 2p^4 Q_A^2 - p^6 Q_A^4 + 2p^3(1-p)Q_A^2 \implies   \boxed{Q_A(-p^6 Q_A^3 + 2p^3Q_A - 1) = 0} \end{equation}\)
+Now if we want to find the values of $p$ for which there is a non-negative value for $Q_A$ the probability of winning the game from the first move, then we need to find the smallest value of $p$ for which \(p^6 Q_A^3 - 2p^3Q_A + 1 = 0\) has a positive solution when we solve for $Q_A$.</p>
+
+<p>We can plug this into Mathematica and get the closed form expressions for $Q_A$, Note that this is a cubic equation in $Q_A$ and thus will always have a real root. But, we need $Q_A$ to be in the range $[0,1]$. The the values of $Q_A$ satisfing the above equality for a fixed value of $p$ are :</p>
+
+<p><small>
+\(\begin{align}
+r_1 &amp; = \frac{4 \sqrt[3]{3} p^9+\sqrt[3]{2} \left(\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}\right)^{2/3}}{6^{2/3} p^6 \sqrt[3]{\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}}}\\
+r_2 &amp; = -\frac{4 \sqrt[3]{3} p^9+\sqrt[3]{2} \left(\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}\right)^{2/3}}{2\ 6^{2/3} p^6 \sqrt[3]{\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}}} + i \left(\frac{ \left(3^{5/6} \left(2 \sqrt{81 p^{24}-96 p^{27}}-18 p^{12}\right)^{2/3}-12 \sqrt[3]{2} \sqrt[6]{3} p^9\right)}{12 p^6 \sqrt[3]{\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}}}\right)\\
+r_3 &amp; = \overline{r_2}
+\end{align}\)
+</small></p>
+
+<p>The keen eye may note that these are gross equations. As mentioned before, since our equation was cubic in $Q_A$, one of these is guarenteed to be real. The other two are either both real or both complex. What do we see when we plot these out as a funciton of $p$? We see that for $p \leq\frac{3}{2^{5/3}}$, there is only one real root and it is negative. However, for $p &gt; \frac{3}{2^{5/3}}$, the roots are all real with two positive and one negative.</p>
 
 
       </d-article>
