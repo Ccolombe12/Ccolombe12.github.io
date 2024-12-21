@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Seceratary Problem Variant
-description: A Variant of the classical Seceratary Problem
+title: Secretary Problem Variant
+description: A Variant of the classical Secretary Problem
 img: 
 published: false
 importance: 1

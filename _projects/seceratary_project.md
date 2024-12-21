@@ -30,6 +30,6 @@ This ended up being a really interesting problem to think about and mathematical
   <body>
     <h1></h1>
     <object data="/assets/pdf/Mdp_project.pdf" type="application/pdf" width="100%" height="700px">
-      <p>Unable to display PDF file. <a href="/uploads/media/default/0001/01/540cb75550adf33f281f29132dddd14fded85bfc.pdf">Download</a> instead.</p>
+      <p>Unable to display PDF file. <a href="/assets/pdf/Mdp_project.pdf">Download</a> instead.</p>
     </object>
   </body>
