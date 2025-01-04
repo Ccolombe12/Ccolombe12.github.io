@@ -6,7 +6,7 @@ subtitle: >
     <div style="line-height:5px">
     <p><strong>PhD Candidate<strong></p>
     <p><strong>Operations Research<strong></p>
-    <p><strong>University of Texas At Austin<strong></p>
+    <p><strong>University of Texas at Austin<strong></p>
     <p><strong>Email: ccolombe at utexas dot edu <strong></p>
     </div>
 profile:

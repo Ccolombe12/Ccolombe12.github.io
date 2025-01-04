@@ -6,10 +6,18 @@ body {
   padding-bottom: 70px;
   color: var(--global-text-color);
   background-color: var(--global-bg-color);
+  //background: linear-gradient(to bottom, #f0f0f0, #d3d3d3); /* Adjust the gradient colors */
+  margin: 0;
+  padding: 0;
 
   h1, h2, h3, h4, h5, h6 {
     scroll-margin-top: 66px;
   }
+  
+  font-size: 19px;
+  line-height: 1.6;
+  // font-weight: 300;
+
 }
 
 body.fixed-top-nav {

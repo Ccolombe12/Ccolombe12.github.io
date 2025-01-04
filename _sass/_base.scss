@@ -54,7 +54,10 @@ table.table a {
 figure,
 img {
   max-width: 90vw;
+  border-radius: 8px; /* Adjust for how rounded you want the edges */
+  overflow: hidden; /* Ensures no content overflows the rounded area */
 }
+
 
 blockquote {
   background: var(--global-bg-color);
@@ -91,7 +94,7 @@ blockquote {
 
   .card-title {
     color: var(--global-text-color);
-  }
+  }font-size: 19px;
 
   .card-item {
     width: auto;
@@ -390,7 +393,7 @@ footer.sticky-bottom {
   border-bottom: 1px solid var(--global-divider-color);
   text-align: center;
   padding-top: 2rem;
-  padding-bottom: 3rem;
+  padding-bottom: 1rem;
 
   h1 {
     color: var(--global-theme-color);
@@ -421,6 +424,7 @@ footer.sticky-bottom {
   margin: 0;
   margin-bottom: 40px;
   padding: 0;
+  color: var(--global-theme-color);
 
   li {
     border-bottom: 1px solid var(--global-divider-color);
@@ -429,7 +433,7 @@ footer.sticky-bottom {
     padding-bottom: 2rem;
 
     .post-meta {
-      color: var(--global-text-color-light);
+      color: var(--global-text-color);
       font-size: 0.875rem;
       margin-bottom: 0;
     }
@@ -442,11 +446,11 @@ footer.sticky-bottom {
     }
 
     a {
-      color: var(--global-text-color);
-      text-decoration: none;
+      color: var(--global-theme-color);
+      text-decoration: underline;
 
       &:hover {
-        color: var(--global-theme-color);
+        color: var(--global-hover-color);
       }
     }
   }
@@ -745,7 +749,7 @@ html.transition *:after {
 // Extra Markdown style (post Customization)
 .post {
   .post-meta {
-    color: var(--global-text-color-light);
+    color: var(--global-theme-color);
     font-size: 0.875rem;
     margin-bottom: 0;
   }
