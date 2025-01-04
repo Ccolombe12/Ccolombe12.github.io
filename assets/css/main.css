@@ -6,17 +6,17 @@
  * Themes
  ******************************************************************************/
 :root {
-  --global-bg-color: #ffffff;
+  --global-bg-color: #e0e0e0;
   --global-code-bg-color: rgba(181, 9, 172, 0.05);
   --global-text-color: #000000;
-  --global-text-color-light: #828282;
+  --global-text-color-light: #000000;
   --global-theme-color: #FF3636;
   --global-hover-color: #0076df;
   --global-footer-bg-color: #1C1C1D;
   --global-footer-text-color: #e8e8e8;
   --global-footer-link-color: #ffffff;
   --global-distill-app-color: #828282;
-  --global-divider-color: rgba(0,0,0,.1);
+  --global-divider-color: rgba(0,0,0,.2);
   --global-card-bg-color: #ffffff;
 }
 :root .fa-sun {
@@ -45,7 +45,7 @@ html[data-theme=dark] {
   --global-footer-text-color: #1C1C1D;
   --global-footer-link-color: #000000;
   --global-distill-app-color: #e8e8e8;
-  --global-divider-color: #424246;
+  --global-divider-color: #000000;
   --global-card-bg-color: #212529;
 }
 html[data-theme=dark] .fa-sun {
@@ -70,6 +70,10 @@ body {
   padding-bottom: 70px;
   color: var(--global-text-color);
   background-color: var(--global-bg-color);
+  margin: 0;
+  padding: 0;
+  font-size: 19px;
+  line-height: 1.6;
 }
 body h1, body h2, body h3, body h4, body h5, body h6 {
   scroll-margin-top: 66px;
@@ -145,6 +149,8 @@ table.table a:hover:after :not(.nav-item.dropdown) {
 figure,
 img {
   max-width: 90vw;
+  border-radius: 8px; /* Adjust for how rounded you want the edges */
+  overflow: hidden; /* Ensures no content overflows the rounded area */
 }
 
 blockquote {
@@ -169,6 +175,7 @@ blockquote {
 
 .card {
   background-color: var(--global-card-bg-color);
+  font-size: 19px;
 }
 .card img {
   width: 100%;
@@ -401,7 +408,7 @@ footer.sticky-bottom {
   border-bottom: 1px solid var(--global-divider-color);
   text-align: center;
   padding-top: 2rem;
-  padding-bottom: 3rem;
+  padding-bottom: 1rem;
 }
 .header-bar h1 {
   color: var(--global-theme-color);
@@ -429,6 +436,7 @@ footer.sticky-bottom {
   margin: 0;
   margin-bottom: 40px;
   padding: 0;
+  color: var(--global-theme-color);
 }
 .post-list li {
   border-bottom: 1px solid var(--global-divider-color);
@@ -437,7 +445,7 @@ footer.sticky-bottom {
   padding-bottom: 2rem;
 }
 .post-list li .post-meta {
-  color: var(--global-text-color-light);
+  color: var(--global-text-color);
   font-size: 0.875rem;
   margin-bottom: 0;
 }
@@ -448,11 +456,11 @@ footer.sticky-bottom {
   padding-bottom: 0;
 }
 .post-list li a {
-  color: var(--global-text-color);
-  text-decoration: none;
+  color: var(--global-theme-color);
+  text-decoration: underline;
 }
 .post-list li a:hover {
-  color: var(--global-theme-color);
+  color: var(--global-hover-color);
 }
 
 .pagination .page-item .page-link {
@@ -680,7 +688,7 @@ html.transition *:after {
 }
 
 .post .post-meta {
-  color: var(--global-text-color-light);
+  color: var(--global-theme-color);
   font-size: 0.875rem;
   margin-bottom: 0;
 }
@@ -868,6 +876,7 @@ d-article d-contents nav div {
   margin-bottom: 0.8em;
   color: rgba(0, 0, 0, 0.8);
   font-weight: bold;
+  font-size: 19px;
 }
 d-article d-contents nav ul {
   padding-left: 1em;
