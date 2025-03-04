@@ -159,20 +159,3 @@ $$
 \end{equation}
 $$
 which for $$N = 1000$$ gives us an expected number of moves of $$\approx$$ 44.2214 which is less than 45, as desired. This result is quite interesting! For large $N$, on average will will only need to guess $$\mathcal{O}\left(\frac{1}{\sqrt{N}}\right)$$ fraction of the numbers.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

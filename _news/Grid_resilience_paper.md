@@ -1,5 +1,6 @@
 ---
 layout: post
+title: Grid Resilience Paper Published
 date: 2024-02-20 00:00:01
 inline: true
 related_posts: false

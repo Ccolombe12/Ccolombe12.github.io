@@ -1,5 +1,8 @@
 {
     "cSpell.words": [
         "Beren"
-    ]
+    ],
+    "markdownlint.rules": {
+  "MD033": false  // Allows raw HTML inside Markdown
+}
 }

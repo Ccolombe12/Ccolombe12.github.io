@@ -1,5 +1,6 @@
 ---
 layout: post
+title: hello world
 date: 2023-11-04 00:00:01
 inline: true
 related_posts: false

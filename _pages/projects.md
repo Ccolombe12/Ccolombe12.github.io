@@ -4,7 +4,7 @@ title: Projects
 permalink: /Projects/
 description: Here is a collection of the recent course and personal projects I've worked on.
 nav: true
-nav_order: 2
+nav_order: 5
 display_categories: [work, fun]
 horizontal: false
 ---
