@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-12T10:54:06+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-12T21:28:25+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
 </subtitle><entry><title type="html">How Many Rabbits Can You Pull out of a Hat?</title><link href="https://ccolombe12.github.io/blog/2025/fiddler/" rel="alternate" type="text/html" title="How Many Rabbits Can You Pull out of a Hat?" /><published>2025-03-01T00:00:00+00:00</published><updated>2025-03-01T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/fiddler</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/fiddler/"><![CDATA[<p>I found a new source of puzzles: the excellent Substack page <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> run by Zach Wissner-Gross. This week’s puzzle is paraphrased as follows:</p>
 
 <blockquote>
@@ -20,12 +20,12 @@
 \(J(0, 0, 0) = 0.\)</li>
   <li>If any of \(r, g,\) or \(b\) are negative, we define:
 \(J\left(r, g, b \right) = 0, \; \text{if any } r &lt; 0, g &lt; 0, \text{or } b &lt; 0.\)
-While negative counts don’t have a physical interpretation, this condition will allow us simplify our recurrence relation.</li>
+While negative rabbit counts don’t have any physical interpretation, this condition will allow us to greatly simplify our recurrence relation.</li>
 </ul>
 
 <h3 id="recurrence-relation">Recurrence Relation</h3>
 
-<p>For a general state where \(r, g, b \geq 0\) and at <em>least one of them is positive</em>, we can determine the expected score maximizing guess for the next rabbit’s color by considering each option and selecting the best one. The probabilities for the next colors are:</p>
+<p>For a general state where \(r, g, b \geq 0\) and at <em>least one of them is positive</em>, we can determine the expected points-maximizing guess for the next rabbit’s color by considering each option and selecting the best one. The probabilities for the next color of rabbit drawn are:</p>
 
 <ul>
   <li>The probability of drawing a red rabbit \(P_r = \frac{r}{r + g + b}\).</li>
@@ -39,7 +39,7 @@ While negative counts don’t have a physical interpretation, this condition wil
 \(J\left(r, g, b \mid \text{guess green}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot (1 + J(r, g - 1, b)) + P_b\cdot J(r, g, b - 1),\)
 \(J \left(r, g, b \mid \text{guess blue}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot J(r, g - 1, b) + P_b\cdot (1 + J(r, g, b - 1)).\)</p>
 
-<p>To find the optimal expected score at state $(r, g, b)$, we take the maximum over these three choices.</p>
+<p>To find the optimal expected score at state \((r, g, b)\), we take the maximum over these three choices.</p>
 
 \[\boxed{J\left(r, g, b\right) = \max \left\{ J\left(r, g, b \mid \text{guess red}\right), J\left(r, g, b \mid \text{guess green}\right), J\left(r, g, b \mid \text{guess blue}\right) \right\}}.\]
 
@@ -47,7 +47,7 @@ While negative counts don’t have a physical interpretation, this condition wil
 
 <h3 id="implementation">Implementation</h3>
 
-<p>Now that we have a recursive formulation, we can efficiently compute \(J(r, g, b)\) using dynamic programming. Let’s code this up in Python!</p>
+<p>Now that we have a recursive formulation, we can efficiently compute \(J(r, g, b)\) using dynamic programming. Let’s code this up in Python<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>!</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
 
@@ -65,17 +65,17 @@ While negative counts don’t have a physical interpretation, this condition wil
         <span class="n">total_rabbits</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">b</span>
         <span class="n">Pr</span><span class="p">,</span> <span class="n">Pb</span><span class="p">,</span> <span class="n">Pg</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">b</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">g</span> <span class="o">/</span> <span class="n">total_rabbits</span>
         
-        <span class="n">guess_red</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>  
-            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">guess_red</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>  
+            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
         
-        <span class="n">guess_green</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pg</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>
-            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">guess_green</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pg</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>
+            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
                        
-        <span class="n">guess_blue</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pb</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span>
-            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        <span class="n">guess_blue</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pb</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span>
+            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
         
         <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">guess_green</span><span class="p">,</span> <span class="n">guess_red</span><span class="p">,</span> <span class="n">guess_blue</span><span class="p">)</span>
 
@@ -84,15 +84,29 @@ While negative counts don’t have a physical interpretation, this condition wil
     <span class="k">return</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
 </code></pre></div></div>
 
-<p>Now, if we plot the value of \(J(n, n, n)\) as a function of \(n\), we obtain Figure 1. Here we see that under the optimal guessing strategy, the expected score seems to grow 
-roughly like \(\sim \frac{n}{3}\). In fact, we can actually note that \(\frac{n}{3}\) is a lower bound on the optimal expected score and furthermore it can be <em>obtained with certainty</em> by choosing one color of rabbit and guessing that color each turn until the game ends.</p>
+<p>Now, if we plot the value of \(J(n, n, n)\) as a function of \(n\), we obtain Figure 1. Here we see that under the optimal guessing strategy, the expected score seems to grow roughly like \(\sim \frac{n}{3}\). In fact, we can actually note that \(\frac{n}{3}\) is a lower bound on the optimal expected score because it can be <em>obtained with certainty</em> by choosing one color of rabbit and guessing that color each turn until the game ends. We call this naive strategy the “stubborn guessing” strategy (since you refuse to change your guess each turn).</p>
 
 <figure>
     <img src="/assets/img/blog_images/2025-02-28-rabbits/optimal_rabbits.png" alt="Max Rabbits Optimal Score" width="80%" style="display: block; margin: auto;" />
     <figcaption style="text-align: center;">Figure 1: Maximum number of points possible with optimal rabbit selection.</figcaption>
 </figure>
 
-<p>We can see that our optimal strategy does outperform the stubborn guessing strategy, but not by too much!</p>]]></content><author><name>Connor Colombe</name></author><category term="programming," /><category term="math" /><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry><entry><title type="html">Leetcode Milestone</title><link href="https://ccolombe12.github.io/blog/2024/CP_intro/" rel="alternate" type="text/html" title="Leetcode Milestone" /><published>2024-06-17T00:00:01+00:00</published><updated>2024-06-17T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/CP_intro</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/CP_intro/"><![CDATA[<h2 id="my-journey-to-start-competitive-programming">My journey to start competitive programming</h2>
+<p>We can see that our optimal strategy does outperform the stubborn guessing strategy, but not by too much!</p>
+
+<p>Okay, we have found a way to compute the expected number of points we can score under the optimal guessing strategy, but <strong>what actually is the optimal guessing strategy?</strong>. By recording the optimal guess at each step in our recursion, we can observe the optimal strategy has a simple form:</p>
+
+<blockquote>
+  <p><em>At any given state, guess a color that has the most rabbits remaining in the hat</em>.</p>
+</blockquote>
+
+<p>This makes sense intuitively, and this simple rule provides us with the best heuristic for maximizing our expected score.</p>
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Instead of building the DP table explicitly, we use the <code class="language-plaintext highlighter-rouge">cache</code> tool from the <code class="language-plaintext highlighter-rouge">functools</code> library. It’s one of my favorite Python tools! <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name>Connor Colombe</name></author><category term="programming," /><category term="math" /><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry><entry><title type="html">Leetcode Milestone</title><link href="https://ccolombe12.github.io/blog/2024/CP_intro/" rel="alternate" type="text/html" title="Leetcode Milestone" /><published>2024-06-17T00:00:01+00:00</published><updated>2024-06-17T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/CP_intro</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/CP_intro/"><![CDATA[<h2 id="my-journey-to-start-competitive-programming">My journey to start competitive programming</h2>
 
 <p>It’s no secret that I love to think about and work on math/programming puzzles. Over the past several months I have decided to begin a new hobby: Competitive programming! Not only will this keep me sharp for my upcoming job search post grad school, but it is a great way to continue to bolster my problem solving skills and keep fresh the algorithm design skills that I learned during my time at UTD.</p>
 
