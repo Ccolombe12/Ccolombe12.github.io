@@ -8,9 +8,11 @@ nav_order: 5
 ---
 
 ---
-I host a weekly problem solving seminar at UT Austin loosely based on the [HMC Putnam Seminar](https://catalog.hmc.edu/preview_course_nopop.php?catoid=20&coid=6774)! We work on competition-math style problems and things you might encounter in a quantitative finance interview. If you are interested in attending or want to know more, feel free to reach out!
+I host a weekly problem-solving seminar at UT Austin, inspired by the [HMC Putnam Seminar](https://catalog.hmc.edu/preview_course_nopop.php?catoid=20&coid=6774). We focus on combinatorics, probability, and programming puzzles—both for fun and as preparation for quantitative interviews.  
 
-Here are some of the problems from the past seminars we have had so far (some weeks I don't write up the problems). You may see the solutions to some of these as [blog](https://ccolombe12.github.io/blog/) posts!
+If you're interested in attending or learning more, feel free to reach out!  
+
+Below, you'll find a collection of problems from past seminars (though not every session has a written record). Some solutions are also available as [blog posts](https://ccolombe12.github.io/blog/).
 
 ---
 ## Previous Seminars:
