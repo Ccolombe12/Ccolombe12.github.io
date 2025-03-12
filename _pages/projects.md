@@ -2,7 +2,7 @@
 layout: page
 title: Projects
 permalink: /Projects/
-description: Here is a collection of the recent course and personal projects I've worked on.
+description: A collection of the recent course and personal projects I've worked on.
 nav: true
 nav_order: 5
 display_categories: [work, fun]
