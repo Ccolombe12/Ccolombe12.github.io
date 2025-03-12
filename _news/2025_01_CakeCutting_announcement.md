@@ -11,7 +11,7 @@ I collaborated with Alejandro Leos on an in-depth research survey about envy-fre
 
 <center>
 <figure>
-<img src="/assets/img/project_images/CakeCuttingThumb.png" alt="Envy-Free Cake Cutting"  style="width: 360px; height: auto; object-fit: cover">
+<img src="/assets/img/project_images/CakeCuttingThumb.png" alt="Envy-Free Cake Cutting"   width="80%" style="display: block; margin: auto;">
 </figure>
 </center>
 
