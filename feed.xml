@@ -1,11 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-01-04T21:39:33+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
-</subtitle><entry><title type="html">Leetcode Milestone</title><link href="https://ccolombe12.github.io/blog/2024/CP_intro/" rel="alternate" type="text/html" title="Leetcode Milestone" /><published>2024-06-17T00:00:01+00:00</published><updated>2024-06-17T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/CP_intro</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/CP_intro/"><![CDATA[<style type="text/css">
-    ol { list-style-type: lower-alpha; }
-</style>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-12T00:45:41+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+</subtitle><entry><title type="html">How Many Rabbits Can You Pull out of a Hat?</title><link href="https://ccolombe12.github.io/blog/2025/fiddler/" rel="alternate" type="text/html" title="How Many Rabbits Can You Pull out of a Hat?" /><published>2025-03-01T00:00:00+00:00</published><updated>2025-03-01T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/fiddler</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/fiddler/"><![CDATA[<p>I found a new source of puzzles: the excellent Substack page <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> run by Zach Wissner-Gross. This week’s puzzle is paraphrased as follows:</p>
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<blockquote>
+  <p>Suppose I have a hat with \(3n\) small toy rabbits: \(n\) are red, \(n\) are green, and \(n\) are blue. I shuffle the rabbits around and randomly draw them out one at a time without replacement (i.e., once I draw a rabbit out, I never put it back in again).</p>
 
-<h2 id="beginning-competitive-programming-leetcode-milestone">Beginning Competitive Programming: Leetcode Milestone</h2>
+  <p>Your job is to guess the color of each rabbit I draw. For each guess, you know the history of the rabbits already drawn. So if we’re down to the final rabbit in the hat, you should be able to predict its color with certainty.</p>
+
+  <p>Every time you correctly predict the color of the rabbit I draw, you earn a point. If you play optimally (i.e., to maximize your expected points), <strong>how many points can you expect to earn on average?</strong></p>
+</blockquote>
+
+<h2 id="solution">Solution</h2>
+
+<p>We can solve this using <a href="https://en.wikipedia.org/wiki/Dynamic_programming">Dynamic Programming</a>! We represent the current state as a tuple \((r, g, b)\), where \(r, g,\) and \(b\) denote the number of rabbits of each color remaining in the hat. Let \(J(r, g, b)\) be the maximum expected score starting from state \((r, g, b)\). Our goal is to determine \(J(n, n, n)\). We can solve for \(J(n, n, n)\) by developing a <strong>recurrence relation</strong> on the current state. We begin with the base cases.</p>
+
+<h3 id="base-cases">Base Cases</h3>
+
+<ul>
+  <li>If there are no rabbits left, i.e., we are at state \((0, 0, 0)\), then there are zero points left to obtain, implying
+\(J(0, 0, 0) = 0.\)</li>
+  <li>If any of \(r, g,\) or \(b\) are negative, we define:
+\(J\left(r, g, b \right) = 0, \; \text{if any } r &lt; 0, g &lt; 0, \text{or } b &lt; 0.\)
+While negative counts don’t have a physical interpretation, this condition will allow us simplify our recurrence relation.</li>
+</ul>
+
+<h3 id="recurrence-relation">Recurrence Relation</h3>
+
+<p>For a general state where \(r, g, b \geq 0\) and at <em>least one of them is positive</em>, we can determine the expected score maximizing guess for the next rabbit’s color by considering each option and selecting the best one. The probabilities for the next colors are:</p>
+
+<ul>
+  <li>The probability of drawing a red rabbit \(P_r = \frac{r}{r + g + b}\).</li>
+  <li>The probability of drawing a green rabbit \(P_g = \frac{g}{r + g + b}\).</li>
+  <li>The probability of drawing a blue rabbit \(P_b = \frac{b}{r + g + b}\).</li>
+</ul>
+
+<p>Given these, the expected scores from guessing each color are:</p>
+
+<p>\(J\left(r, g, b \mid \text{guess red}\right) = P_r \cdot (1 + J(r - 1, g, b)) + P_g\cdot J(r, g - 1, b) + P_b\cdot J(r, g, b - 1),\)
+\(J\left(r, g, b \mid \text{guess green}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot (1 + J(r, g - 1, b)) + P_b\cdot J(r, g, b - 1),\)
+\(J \left(r, g, b \mid \text{guess blue}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot J(r, g - 1, b) + P_b\cdot (1 + J(r, g, b - 1)).\)</p>
+
+<p>To find the optimal expected score at state $(r, g, b)$, we take the maximum over these three choices.</p>
+
+\[\boxed{J\left(r, g, b\right) = \max \left\{ J\left(r, g, b \mid \text{guess red}\right), J\left(r, g, b \mid \text{guess green}\right), J\left(r, g, b \mid \text{guess blue}\right) \right\}}.\]
+
+<p>The optimal guess is the color that achieves this maximum.</p>
+
+<h3 id="implementation">Implementation</h3>
+
+<p>Now that we have a recursive formulation, we can efficiently compute \(J(r, g, b)\) using dynamic programming. Let’s code this up in Python!</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
+
+<span class="nd">@cache</span>
+<span class="k">def</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="sh">"""</span><span class="s"> Returns the maximum expected score under optimal play from the state
+(r, g, b) </span><span class="sh">"""</span>
+    <span class="c1"># Base Cases
+</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">g</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="c1"># Main recurrence Case 
+</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">total_rabbits</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">b</span>
+        <span class="n">Pr</span><span class="p">,</span> <span class="n">Pb</span><span class="p">,</span> <span class="n">Pg</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">b</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">g</span> <span class="o">/</span> <span class="n">total_rabbits</span>
+        
+        <span class="n">guess_red</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>  
+            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        
+        <span class="n">guess_green</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pg</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>
+            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+                       
+        <span class="n">guess_blue</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pb</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span>
+            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">guess_green</span><span class="p">,</span> <span class="n">guess_red</span><span class="p">,</span> <span class="n">guess_blue</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">optimal_score</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+  <span class="sh">"""</span><span class="s"> The value of J(n, n n) and the answer to our puzzle. </span><span class="sh">"""</span>
+    <span class="k">return</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now, if we plot the value of \(J(n, n, n)\) as a function of \(n\), we obtain Figure 1. Here we see that under the optimal guessing strategy, the expected score seems to grow 
+roughly like \(\sim \frac{n}{3}\). In fact, we can actually note that \(\frac{n}{3}\) is a lower bound on the optimal expected score and furthermore it can be <em>obtained with certainty</em> by choosing one color of rabbit and guessing that color each turn until the game ends.</p>
+
+<figure>
+    <img src="/assets/img/blog_images/2025-02-28-rabbits/optimal_rabbits.png" alt="Max Rabbits Optimal Score" width="80%" style="display: block; margin: auto;" />
+    <figcaption style="text-align: center;">Figure 1: Maximum number of points possible with optimal rabbit selection.</figcaption>
+</figure>
+
+<p>We can see that our optimal strategy does outperform the stubborn guessing strategy, but not by too much!</p>]]></content><author><name>Connor Colombe</name></author><category term="programming," /><category term="math" /><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry><entry><title type="html">Leetcode Milestone</title><link href="https://ccolombe12.github.io/blog/2024/CP_intro/" rel="alternate" type="text/html" title="Leetcode Milestone" /><published>2024-06-17T00:00:01+00:00</published><updated>2024-06-17T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/CP_intro</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/CP_intro/"><![CDATA[<h2 id="my-journey-to-start-competitive-programming">My journey to start competitive programming</h2>
 
 <p>It’s no secret that I love to think about and work on math/programming puzzles. Over the past several months I have decided to begin a new hobby: Competitive programming! Not only will this keep me sharp for my upcoming job search post grad school, but it is a great way to continue to bolster my problem solving skills and keep fresh the algorithm design skills that I learned during my time at UTD.</p>
 
@@ -13,41 +100,36 @@
 
 <h3><figure>
   <center>
-  <img src="/assets/img/blog_images/LC_post/LC_Knight.png" style="width: 40vw; min-width: 330px;" zoomable="true" />
+  <img src="/assets/img/blog_images/LC_post/LC_Knight.png" width="80%" style="display: block; margin: auto;" />
   </center>
 
-</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Jane Street Puzzle August 2024</title><link href="https://ccolombe12.github.io/blog/2024/JS_tree/" rel="alternate" type="text/html" title="Jane Street Puzzle August 2024" /><published>2024-06-17T00:00:01+00:00</published><updated>2024-06-17T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/JS_tree</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/JS_tree/"><![CDATA[<style type="text/css">
-    ol { list-style-type: lower-alpha; }
-</style>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<h2 id="tree-edge-triage">Tree-Edge Triage</h2>
+</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[My journey to start competitive programming]]></summary></entry><entry><title type="html">Jane Street Puzzle August 2024</title><link href="https://ccolombe12.github.io/blog/2024/JS_tree/" rel="alternate" type="text/html" title="Jane Street Puzzle August 2024" /><published>2024-06-17T00:00:01+00:00</published><updated>2024-06-17T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/JS_tree</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/JS_tree/"><![CDATA[<h1 id="tree-edge-triage">Tree-Edge Triage</h1>
 
 <p>It has become a hobby of mine to work on the monthly <a href="https://www.janestreet.com/puzzles/current-puzzle/">Jane Street Puzzle</a>. They usually pose some interesting math or programming problem and I have learned a lot from solving them. Last month’s puzzle was a game played on an infinite binary tree with a surprising result! The problem is as follows:</p>
+
+<h1 id="problem-statement">Problem Statement</h1>
+<blockquote>
+  <p>Aaron and Beren are playing a game on an infinite complete binary tree. At the beginning of the game, every edge of the tree is independently labeled \(A\) with probability \(p\) and \(B\) otherwise. Both players are able to inspect all of these labels. Then, starting with Aaron at the root of the tree, the players alternate turns moving a shared token down the tree (each turn the active player selects from the two descendants of the current node and moves the token along the edge to that node). If the token ever traverses an edge labeled B, Beren wins the game. Otherwise, Aaron wins.</p>
+
+  <p>An example game is in the picture below: after the labeling, Aaron chooses to go left to avoid immediate defeat, but after Beren goes right Aaron is doomed to choose one of two B paths and Beren wins.</p>
+
+  <p><strong>What is the infimum of the set of all probabilities \(p\) for which Aaron has a nonzero probability of winning the game?</strong> Give your answer in exact terms.</p>
+</blockquote>
 
 <h3><figure>
   <center>
   <img src="/assets/img/blog_images/JS_Aug_24/ps.png" style="width: 40vw; min-width: 330px;" zoomable="true" />
   </center>
-
 </figure></h3>
+<h1 id="solution">Solution</h1>
 
-<p>Aaron and Beren are playing a game on an infinite complete binary tree. At the beginning of the game, every edge of the tree is independently labeled $A$ with probability $p$ and $B$ otherwise. Both players are able to inspect all of these labels. Then, starting with Aaron at the root of the tree, the players alternate turns moving a shared token down the tree (each turn the active player selects from the two descendants of the current node and moves the token along the edge to that node). If the token ever traverses an edge labeled B, Beren wins the game. Otherwise, Aaron wins.</p>
+<p>The intuition behind my approach was to use the <strong>symmetry</strong> of an infinite binary tree. Once you move along an edge to a given node, you are once again faced with an infinite binary tree and <em>it’s like you started from the beginning again</em>. By that logic, it is sufficient to analyze the optimal strategy for the first two levels and we can let recursion handle the rest.</p>
 
-<p>An example game is in the picture above: after the labeling, Aaron chooses to go left to avoid immediate defeat, but after Beren goes right Aaron is doomed to choose one of two B paths and Beren wins.</p>
+<p>Suppose we are considering what Aaron should do on a given turn. On every \(A\) (odd) turn, Aaron wins if and only if the current node has at least one \(A\) edge out of it that leads to a node with two \(A\) edges and each of these edges has a winning \(A\) path out of it.</p>
 
-<p>What is the infimum of the set of all probabilities $p$ for which Aaron has a nonzero probability of winning the game? Give your answer in exact terms.</p>
+<p>We can write this using a recurrence relation. Let \(Q_A\) be the probability that, on an \(A\) turn, \(A\) can win from the current node from it. Similarly, let \(Q_B\) be the probability that at our current node on a \(B\) turn, it is one from which \(A\) <em>will</em> win.</p>
 
-<h2 id="solution">Solution</h2>
-
-<p>The intuition behind my approach was to use the symmetry of an infinite binary tree. Once you move along an edge to a given node, you are once again faced with an infinite binary tree and it’s like you started from the beginning again. By that logic, it is sufficient to analyze the optimal strategy for the first two levels and we can let recursion handle the rest.</p>
-
-<p>Suppose we are considering what Aaron should do on a given turn. On every $A$ (odd) turn, Aaron wins if and only if the current node has at least one $A$ edge out of it that leads to a node with two $A$ edges and each of these edges has a winning $A$ path out of it.</p>
-
-<p>We can write this using a recurrence relation. Let $Q_A$ be the probability that, on an $A$ turn, $A$ can win from the current node from it. Similarly, let $Q_B$ be the probability that at our current node on a $B$ turn, it is one from which $A$ can win.</p>
-
-<p>We have the relation</p>
+<p>Using this notation, we can develop our recurrence relation as:</p>
 
 \[\begin{align}
 Q_A &amp; = p^2(\underbrace{Q_B^2 + 2Q_B(1-Q_B)}_{\text{Pr at least one winning path out}}) + 2p(1-p)Q_B \\
@@ -57,22 +139,29 @@ Q_B &amp; = p^2 Q_A^2.
 <p>The fist equation represents the cases where we are on Aaron’s turn and either:</p>
 
 <ul>
-  <li>both of the edges out of our current node are labeled $A$ and Aaron can win from at least one of the children nodes</li>
-  <li>There is only one $A$ edge out of the current node and Aaron can win from the node it leads to.</li>
+  <li>both of the edges out of our current node are labeled \(A\) and Aaron can win from at least one of the children nodes</li>
+  <li>There is only one \(A\) edge out of the current node and Aaron can win from the node it leads to.</li>
 </ul>
 
 <p>The second equation represents the case where we are on Beren’s turn and:</p>
 
 <ul>
-  <li>Both of the edges out of the current node are labeled $A$ and lead to nodes at which Aaron wins.</li>
+  <li>Both of the edges out of the current node are labeled \(A\) and lead to nodes at which Aaron wins.</li>
 </ul>
 
-<p>Plugging in the latter equation into the former yields the equation for $Q_A$ in terms of $p$</p>
+<p>Plugging in the latter equation into the former yields the equation for \(Q_A\) in terms of \(p\)</p>
 
-<p>\(\begin{equation}Q_A = 2p^4 Q_A^2 - p^6 Q_A^4 + 2p^3(1-p)Q_A^2 \implies   \boxed{Q_A(-p^6 Q_A^3 + 2p^3Q_A - 1) = 0} \end{equation}\)
-Now if we want to find the values of $p$ for which there is a non-negative value for $Q_A$, the probability of Aaron winning the game from the first move, then we need to find the smallest value of $p$ for which \(p^6 Q_A^3 - 2p^3Q_A + 1 = 0\) has a positive solution when we solve for $Q_A$.</p>
+<p>\begin{equation}
+Q_A = 2p^4 Q_A^2 - p^6 Q_A^4 + 2p^3(1-p)Q_A^2 \implies   \boxed{Q_A(-p^6 Q_A^3 + 2p^3Q_A - 1) = 0} 
+\end{equation}</p>
 
-<p>We can plug this into Mathematica and get the closed form expressions for $Q_A$, Note that this is a cubic equation in $Q_A$ and thus will always have a real root. But, we need $Q_A$ to be in the range $[0,1]$. The the values of $Q_A$ satisfying the above equality for a fixed value of $p$ are :</p>
+<p>Now if we want to find the values of \(p\) for which there is a non-negative value for \(Q_A\) (the probability of Aaron winning the game from the first move), then we need to find the smallest value of \(p\) for which</p>
+
+<p>\begin{equation}p^6 Q_A^3 - 2p^3Q_A + 1 = 0 \label{eq:QA_zero}\end{equation}</p>
+
+<p>has a positive solution when we solve for \(Q_A\).</p>
+
+<p>Note that (\ref{eq:QA_zero}) is a <em>cubic equation</em> in \(Q_A\) and thus will always have a real root. But, we need \(Q_A\) to be in the range \([0,1]\). The values of \(Q_A\) satisfying the above (\ref{eq:QA_zero}) for a fixed value of \(p\) are:</p>
 
 <p><small>
 \(\begin{align}
@@ -82,17 +171,17 @@ r_3 &amp; = \overline{r_2}
 \end{align}\)
 </small></p>
 
-<p>The keen eye may notice that these are gross looking equations. As mentioned before, since our equation was cubic in $Q_A$, one of these is guaranteed to be real. The other two are either both real or both complex. What do we see when we plot these out as a function of $p$?</p>
+<p>The keen eye may notice that these are <em>gross</em> looking equations. As mentioned before, since our equation was cubic in \(Q_A\), one of these is guaranteed to be real. The other two are either both real or both complex. What do we see when we plot these out as a function of \(p\)?</p>
 
 <h3><figure>
   <center>
-  <img src="/assets/img/blog_images/JS_Aug_24/prob_plot.png" style="width: 40vw; min-width: 330px;" zoomable="true" />
-  </center>
-
+  <img src="/assets/img/blog_images/JS_Aug_24/prob_plot.png" width="80%" style="display: block; margin: auto;" />
+</center>
 </figure></h3>
 
-<p>We see that for $p \leq\frac{3}{2^{5/3}} \approx  0.94 $, there is only one real root and it is negative. However, for $\boxed{p &gt; \frac{3}{2^{5/3}}}$, the roots are all real with two positive and one negative. This value of $p$ comes from setting $p$ to ensure that the term $\sqrt{81 p^{24}-96 p^{27}}$ (which appears in each of the expressions for the roots), is real. Does this produce a valid probability value for $Q_A$? For $p$ just above this threshold value of 
-$\hat{p} = \frac{3}{2^{5/3}}$, we see $Q_A$ has near repeated roots of around $\approx 0.88$, validating our solution. Interestingly the probability of winning is zero until $p &gt; \hat{p}$ at which it jumps up to around $0.88$, as seen in the plot above!</p>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[My solution to last month's puzzle]]></summary></entry><entry><title type="html">Jane Street March 2024 Puzzle Solution</title><link href="https://ccolombe12.github.io/blog/2024/JS_Hooks10/" rel="alternate" type="text/html" title="Jane Street March 2024 Puzzle Solution" /><published>2024-04-01T00:00:01+00:00</published><updated>2024-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/JS_Hooks10</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/JS_Hooks10/"><![CDATA[<style type="text/css">
+<p>We see that for \(p \leq\frac{3}{2^{5/3}} \approx  0.94\), there is only <em>one real root and it is negative</em>. However, for \(\boxed{p &gt; \frac{3}{2^{5/3}}}\), the <em>roots are all real with two positive and one negative</em>. This value of \(p\) comes from setting \(p\) to ensure that the term \(\sqrt{81 p^{24}-96 p^{27}}\) (which appears in each of the expressions for the roots), is real. Does this produce a valid probability value for \(Q_A\)?</p>
+
+<p>For \(p\) just above this threshold value of \(\hat{p} = \frac{3}{2^{5/3}}\), we see \(Q_A\) has near repeated roots of around \(\approx 0.88\), validating our solution. Interestingly \(Q_A\) is <strong>zero</strong> until \(p &gt; \hat{p}\) at which it instantaneously jumps up to around \(Q_A \approx 0.88\), as seen in the plot above!</p>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[My solution to last month's puzzle]]></summary></entry><entry><title type="html">Jane Street March 2024 Puzzle Solution</title><link href="https://ccolombe12.github.io/blog/2024/JS_Hooks10/" rel="alternate" type="text/html" title="Jane Street March 2024 Puzzle Solution" /><published>2024-04-01T00:00:01+00:00</published><updated>2024-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/JS_Hooks10</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/JS_Hooks10/"><![CDATA[<style type="text/css">
     ol { list-style-type: lower-alpha; }
 </style>
 
@@ -569,28 +658,4 @@ In order to do this, we will need to know the probability distribution function 
     &amp; = \mathbb{E}[X^n]
   \end{align*}\]
 
-<p>as desired!</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[I recently decided to brush up on my stochastic processes knowledge and started reading Stochastic Processes by Sheldon Ross, 1995. In the problems section of the first chapter, I came across an expected value identity that I knew was true for non-negative discrete random variables, but I had never used for continuous random variables. Alongside it was a further generalization for higher order moments. Having worked out the problem, I think it was interesting enough to share! Problem Statement Let \(N\) denote a non-negative random variable. ) Show that \(\begin{equation}\mathbb{E}[N] = \sum_{k=0}^\infty \mathbb{P}[N &gt; k]\end{equation}\)]]></summary></entry><entry><title type="html">Optimal Weights</title><link href="https://ccolombe12.github.io/blog/2023/Grain_farmer/" rel="alternate" type="text/html" title="Optimal Weights" /><published>2023-04-11T00:00:01+00:00</published><updated>2023-04-11T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Grain_farmer</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Grain_farmer/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
-<p>A farmer, who sells grain, has a set of four weights that each weigh an integer number of pounds and a fair balance. She claims that she can weigh any integer number of pounds of grain up to a maximum of \(N\) using just these weights. What is the maximum value of \(N\) and what should the weights be? <em>Challenge: Given \(n\) weights what is the maximum value of \(N(n)\) and what should the weights be?</em></p>
-<hr />
-
-<h2 id="solution">Solution</h2>
-
-<p>Let us consider the generalized case and then use it to answer the question for when \(n = 4\). Given \(n\) weights, we would like to pick the value of their individual weights \(w_1,w_2,\ldots, w_n\) such that using the balance we can weigh items of weights \(1,2, \ldots, N(n)\) such that \(N(n)\) is maximized. In this problem we will say that you can <em>weigh</em> an item of weight \(x\) if by placing some our weights on the left side of the balance and potentially some weights on the right side of the balance, the two sides have an absolute weight difference of exactly \(x\). So, how can can we go about determining what the values should be?</p>
-
-<p>First off, we can place an upper bound on what \(N(n)\) by counting the number of distinct weight configurations on the balance. For a given weight, it can be either: on the left side of the balance, on the right side of the balance, or not on the balance. Since this is true for any of our \(n\) weights, there are \(3^n\) configurations of our weights on the balance. How many of these produce a unique weight difference? By symmetry, if we swap the  weights on either side, we produce the same net weight difference so we have over-counted by a factor of 2. The only case where this symmetry argument does not apply is when there are no weights on either side. By this logic, if each weight configuration produces a unique weight difference, then we have shown the upper bound \(\begin{equation}
-  N(n) \leq \frac{3^n - 1}{2}.
-\end{equation}\)</p>
-
-<p>Great! Now what should our weights be? Suppose we have found that with \(n\) weights we can measure weights up to \(N(n)\). This maximum value must be achieved when all weights are on one side of the balance. Now suppose we can add an additional weight \(w_{n+1}\) to our set. What should it be to maximize our new weighing potential? Well given our current weights, we can’t weigh \(N(n) + 1\) so our new weight ought to allow us to measure this. One such weight that satisfies this can be found</p>
-
-<p>\(\begin{equation}
-  w_{n+1} - N(n) = N(n) + 1 \implies w_{n+1} = 2 N(n) + 1.
-\end{equation}\)
-Using this new weight and the previous weight set, we can achieve all integral weights up to \(N(n) + w_{n+1} = 3 N(n) + 1.\) If we adopt this strategy of choosing the next weight to add to our set, starting at zero weights, we get the recurrence relation \(\begin{align}
-  N(n + 1) &amp; = 3 N(n) + 1\\ 
-  N(0) &amp; = 0
-\end{align}\)</p>
-
-<p>which can we solved to find \(\boxed{N(n) = \frac{3^n - 1}{2}}\), the theoretical upper-bound! It then follows that \(w_{n} =  3^{n-1}\). That is, if we have \(n\) weights the optimal assignment of their weight values are the first \(n\) powers of \(3\) starting at \(0\). Based on this, the solution to our original problem is \(\boxed{N(4) = 40}\) and using weights \(\boxed{\{1,3,9,27\}}\).</p>
-
-<p>Our colleague Brent Austgen cleverly pointed out that your can actually <strong>Double</strong> the value of \(N(n)\) if you double the values of all the weights. Using this strategy, only even numbers are achievable but to measure an odd number you simply determine which two adjacent even numbers the weight falls between! This strategy allows us to reach up to \(3^n - 1\) with \(n\) weights!</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[A fun problem about a grain farmer and their balance.]]></summary></entry></feed>
+<p>as desired!</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[I recently decided to brush up on my stochastic processes knowledge and started reading Stochastic Processes by Sheldon Ross, 1995. In the problems section of the first chapter, I came across an expected value identity that I knew was true for non-negative discrete random variables, but I had never used for continuous random variables. Alongside it was a further generalization for higher order moments. Having worked out the problem, I think it was interesting enough to share! Problem Statement Let \(N\) denote a non-negative random variable. ) Show that \(\begin{equation}\mathbb{E}[N] = \sum_{k=0}^\infty \mathbb{P}[N &gt; k]\end{equation}\)]]></summary></entry></feed>

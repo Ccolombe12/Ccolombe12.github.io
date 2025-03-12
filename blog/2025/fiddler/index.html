@@ -10,9 +10,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Jane Street Puzzle August 2024 | Connor  Colombe</title>
+    <title>How Many Rabbits Can You Pull out of a Hat? | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
-    <meta name="description" content="My solution to last month's puzzle">
+    <meta name="description" content="My solution to this week's Fiddler on the Proof Puzzle">
 
 
     <!-- Bootstrap & MDB -->
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9D%91&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://ccolombe12.github.io/blog/2024/JS_tree/">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2025/fiddler/">
     
     <!-- Dark Mode -->
     
@@ -113,165 +113,119 @@
     <!-- Content -->
     <div class="container mt-5">
       <!-- _layouts/post.html -->
-<!-- Page/Post style -->
-<style type="text/css">
-  .fake-img {
-  background: #bbb;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.1);
-  margin-bottom: 12px;
-} .fake-img p {
-  font-family: monospace;
-  color: white;
-  text-align: left;
-  margin: 14px 0;
-  text-align: center;
-  font-size: 16px;
-} .theorem {
-  display: block;
-  margin: 12px 0;
-  font-style: italic;
-} .theorem:before {
-  content: "Theorem.";
-  font-weight: bold;
-  font-style: normal;
-} .proposition {
-  display: block;
-  margin: 12px 0;
-  font-style: italic;
-} .proposition:before {
-  content: "Proposition.";
-  font-weight: bold;
-  font-style: normal;
-} .lemma {
-  display: block;
-  margin: 12px 0;
-  font-style: italic;
-} .lemma:before {
-  content: "Lemma.";
-  font-weight: bold;
-  font-style: normal;
-}
-.proof {
-  display: block;
-  margin: 12px 0;
-  font-style: normal;
-} .proof:before {
-  content: "Proof.";
-  font-style: italic;
-} .proof:after {
-  content: "\25FC";
-  float:right;
-}
-.definition {
-  display: block;
-  margin: 12px 0;
-  font-style: normal;
-} .definition:before {
-  content: "Definition.";
-  font-weight: bold;
-  font-style: normal;
-}
-
-</style>
-
 
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">Jane Street Puzzle August 2024</h1>
-    <p class="post-meta">June 17, 2024</p>
+    <h1 class="post-title">How Many Rabbits Can You Pull out of a Hat?</h1>
+    <p class="post-meta">March 1, 2025</p>
     <p class="post-tags">
-      <a href="/blog/2024"> <i class="fas fa-calendar fa-sm"></i> 2024 </a>
+      <a href="/blog/2025"> <i class="fas fa-calendar fa-sm"></i> 2025 </a>
         ·  
         <a href="/blog/tag/programming">
-          <i class="fas fa-hashtag fa-sm"></i> programming</a>  
+          <i class="fas fa-hashtag fa-sm"></i> programming,</a>  
+          <a href="/blog/tag/math">
+          <i class="fas fa-hashtag fa-sm"></i> math</a>  
           
 
     </p>
   </header>
 
   <article class="post-content">
-    <h1 id="tree-edge-triage">Tree-Edge Triage</h1>
+    <p>I found a new source of puzzles: the excellent Substack page <a href="https://thefiddler.substack.com" rel="external nofollow noopener" target="_blank">The Fiddler on the Proof</a> run by Zach Wissner-Gross. This week’s puzzle is paraphrased as follows:</p>
 
-<p>It has become a hobby of mine to work on the monthly <a href="https://www.janestreet.com/puzzles/current-puzzle/" rel="external nofollow noopener" target="_blank">Jane Street Puzzle</a>. They usually pose some interesting math or programming problem and I have learned a lot from solving them. Last month’s puzzle was a game played on an infinite binary tree with a surprising result! The problem is as follows:</p>
-
-<h1 id="problem-statement">Problem Statement</h1>
 <blockquote>
-  <p>Aaron and Beren are playing a game on an infinite complete binary tree. At the beginning of the game, every edge of the tree is independently labeled \(A\) with probability \(p\) and \(B\) otherwise. Both players are able to inspect all of these labels. Then, starting with Aaron at the root of the tree, the players alternate turns moving a shared token down the tree (each turn the active player selects from the two descendants of the current node and moves the token along the edge to that node). If the token ever traverses an edge labeled B, Beren wins the game. Otherwise, Aaron wins.</p>
+  <p>Suppose I have a hat with \(3n\) small toy rabbits: \(n\) are red, \(n\) are green, and \(n\) are blue. I shuffle the rabbits around and randomly draw them out one at a time without replacement (i.e., once I draw a rabbit out, I never put it back in again).</p>
 
-  <p>An example game is in the picture below: after the labeling, Aaron chooses to go left to avoid immediate defeat, but after Beren goes right Aaron is doomed to choose one of two B paths and Beren wins.</p>
+  <p>Your job is to guess the color of each rabbit I draw. For each guess, you know the history of the rabbits already drawn. So if we’re down to the final rabbit in the hat, you should be able to predict its color with certainty.</p>
 
-  <p><strong>What is the infimum of the set of all probabilities \(p\) for which Aaron has a nonzero probability of winning the game?</strong> Give your answer in exact terms.</p>
+  <p>Every time you correctly predict the color of the rabbit I draw, you earn a point. If you play optimally (i.e., to maximize your expected points), <strong>how many points can you expect to earn on average?</strong></p>
 </blockquote>
 
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/JS_Aug_24/ps.png" style="width: 40vw; min-width: 330px;" zoomable="true">
-  </center>
-</figure></h3>
-<h1 id="solution">Solution</h1>
+<h2 id="solution">Solution</h2>
 
-<p>The intuition behind my approach was to use the <strong>symmetry</strong> of an infinite binary tree. Once you move along an edge to a given node, you are once again faced with an infinite binary tree and <em>it’s like you started from the beginning again</em>. By that logic, it is sufficient to analyze the optimal strategy for the first two levels and we can let recursion handle the rest.</p>
+<p>We can solve this using <a href="https://en.wikipedia.org/wiki/Dynamic_programming" rel="external nofollow noopener" target="_blank">Dynamic Programming</a>! We represent the current state as a tuple \((r, g, b)\), where \(r, g,\) and \(b\) denote the number of rabbits of each color remaining in the hat. Let \(J(r, g, b)\) be the maximum expected score starting from state \((r, g, b)\). Our goal is to determine \(J(n, n, n)\). We can solve for \(J(n, n, n)\) by developing a <strong>recurrence relation</strong> on the current state. We begin with the base cases.</p>
 
-<p>Suppose we are considering what Aaron should do on a given turn. On every \(A\) (odd) turn, Aaron wins if and only if the current node has at least one \(A\) edge out of it that leads to a node with two \(A\) edges and each of these edges has a winning \(A\) path out of it.</p>
-
-<p>We can write this using a recurrence relation. Let \(Q_A\) be the probability that, on an \(A\) turn, \(A\) can win from the current node from it. Similarly, let \(Q_B\) be the probability that at our current node on a \(B\) turn, it is one from which \(A\) <em>will</em> win.</p>
-
-<p>Using this notation, we can develop our recurrence relation as:</p>
-
-\[\begin{align}
-Q_A &amp; = p^2(\underbrace{Q_B^2 + 2Q_B(1-Q_B)}_{\text{Pr at least one winning path out}}) + 2p(1-p)Q_B \\
-Q_B &amp; = p^2 Q_A^2.
-\end{align}\]
-
-<p>The fist equation represents the cases where we are on Aaron’s turn and either:</p>
+<h3 id="base-cases">Base Cases</h3>
 
 <ul>
-  <li>both of the edges out of our current node are labeled \(A\) and Aaron can win from at least one of the children nodes</li>
-  <li>There is only one \(A\) edge out of the current node and Aaron can win from the node it leads to.</li>
+  <li>If there are no rabbits left, i.e., we are at state \((0, 0, 0)\), then there are zero points left to obtain, implying
+\(J(0, 0, 0) = 0.\)</li>
+  <li>If any of \(r, g,\) or \(b\) are negative, we define:
+\(J\left(r, g, b \right) = 0, \; \text{if any } r &lt; 0, g &lt; 0, \text{or } b &lt; 0.\)
+While negative counts don’t have a physical interpretation, this condition will allow us simplify our recurrence relation.</li>
 </ul>
 
-<p>The second equation represents the case where we are on Beren’s turn and:</p>
+<h3 id="recurrence-relation">Recurrence Relation</h3>
+
+<p>For a general state where \(r, g, b \geq 0\) and at <em>least one of them is positive</em>, we can determine the expected score maximizing guess for the next rabbit’s color by considering each option and selecting the best one. The probabilities for the next colors are:</p>
 
 <ul>
-  <li>Both of the edges out of the current node are labeled \(A\) and lead to nodes at which Aaron wins.</li>
+  <li>The probability of drawing a red rabbit \(P_r = \frac{r}{r + g + b}\).</li>
+  <li>The probability of drawing a green rabbit \(P_g = \frac{g}{r + g + b}\).</li>
+  <li>The probability of drawing a blue rabbit \(P_b = \frac{b}{r + g + b}\).</li>
 </ul>
 
-<p>Plugging in the latter equation into the former yields the equation for \(Q_A\) in terms of \(p\)</p>
+<p>Given these, the expected scores from guessing each color are:</p>
 
-<p>\begin{equation}
-Q_A = 2p^4 Q_A^2 - p^6 Q_A^4 + 2p^3(1-p)Q_A^2 \implies   \boxed{Q_A(-p^6 Q_A^3 + 2p^3Q_A - 1) = 0} 
-\end{equation}</p>
+<p>\(J\left(r, g, b \mid \text{guess red}\right) = P_r \cdot (1 + J(r - 1, g, b)) + P_g\cdot J(r, g - 1, b) + P_b\cdot J(r, g, b - 1),\)
+\(J\left(r, g, b \mid \text{guess green}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot (1 + J(r, g - 1, b)) + P_b\cdot J(r, g, b - 1),\)
+\(J \left(r, g, b \mid \text{guess blue}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot J(r, g - 1, b) + P_b\cdot (1 + J(r, g, b - 1)).\)</p>
 
-<p>Now if we want to find the values of \(p\) for which there is a non-negative value for \(Q_A\) (the probability of Aaron winning the game from the first move), then we need to find the smallest value of \(p\) for which</p>
+<p>To find the optimal expected score at state $(r, g, b)$, we take the maximum over these three choices.</p>
 
-<p>\begin{equation}p^6 Q_A^3 - 2p^3Q_A + 1 = 0 \label{eq:QA_zero}\end{equation}</p>
+\[\boxed{J\left(r, g, b\right) = \max \left\{ J\left(r, g, b \mid \text{guess red}\right), J\left(r, g, b \mid \text{guess green}\right), J\left(r, g, b \mid \text{guess blue}\right) \right\}}.\]
 
-<p>has a positive solution when we solve for \(Q_A\).</p>
+<p>The optimal guess is the color that achieves this maximum.</p>
 
-<p>Note that (\ref{eq:QA_zero}) is a <em>cubic equation</em> in \(Q_A\) and thus will always have a real root. But, we need \(Q_A\) to be in the range \([0,1]\). The values of \(Q_A\) satisfying the above (\ref{eq:QA_zero}) for a fixed value of \(p\) are:</p>
+<h3 id="implementation">Implementation</h3>
 
-<p><small>
-\(\begin{align}
-r_1 &amp; = \frac{4 \sqrt[3]{3} p^9+\sqrt[3]{2} \left(\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}\right)^{2/3}}{6^{2/3} p^6 \sqrt[3]{\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}}}\\
-r_2 &amp; = -\frac{4 \sqrt[3]{3} p^9+\sqrt[3]{2} \left(\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}\right)^{2/3}}{2\ 6^{2/3} p^6 \sqrt[3]{\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}}} + i \left(\frac{ \left(3^{5/6} \left(2 \sqrt{81 p^{24}-96 p^{27}}-18 p^{12}\right)^{2/3}-12 \sqrt[3]{2} \sqrt[6]{3} p^9\right)}{12 p^6 \sqrt[3]{\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}}}\right)\\
-r_3 &amp; = \overline{r_2}
-\end{align}\)
-</small></p>
+<p>Now that we have a recursive formulation, we can efficiently compute \(J(r, g, b)\) using dynamic programming. Let’s code this up in Python!</p>
 
-<p>The keen eye may notice that these are <em>gross</em> looking equations. As mentioned before, since our equation was cubic in \(Q_A\), one of these is guaranteed to be real. The other two are either both real or both complex. What do we see when we plot these out as a function of \(p\)?</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
 
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/JS_Aug_24/prob_plot.png" width="80%" style="display: block; margin: auto;">
-</center>
-</figure></h3>
+<span class="nd">@cache</span>
+<span class="k">def</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="sh">"""</span><span class="s"> Returns the maximum expected score under optimal play from the state
+(r, g, b) </span><span class="sh">"""</span>
+    <span class="c1"># Base Cases
+</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">g</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+    <span class="c1"># Main recurrence Case 
+</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">total_rabbits</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">b</span>
+        <span class="n">Pr</span><span class="p">,</span> <span class="n">Pb</span><span class="p">,</span> <span class="n">Pg</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">b</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">g</span> <span class="o">/</span> <span class="n">total_rabbits</span>
+        
+        <span class="n">guess_red</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>  
+            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+        
+        <span class="n">guess_green</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pg</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>
+            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+                       
+        <span class="n">guess_blue</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pb</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span>
+            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
+            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_point</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+        
+        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">guess_green</span><span class="p">,</span> <span class="n">guess_red</span><span class="p">,</span> <span class="n">guess_blue</span><span class="p">)</span>
 
-<p>We see that for \(p \leq\frac{3}{2^{5/3}} \approx  0.94\), there is only <em>one real root and it is negative</em>. However, for \(\boxed{p &gt; \frac{3}{2^{5/3}}}\), the <em>roots are all real with two positive and one negative</em>. This value of \(p\) comes from setting \(p\) to ensure that the term \(\sqrt{81 p^{24}-96 p^{27}}\) (which appears in each of the expressions for the roots), is real. Does this produce a valid probability value for \(Q_A\)?</p>
+<span class="k">def</span> <span class="nf">optimal_score</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+  <span class="sh">"""</span><span class="s"> The value of J(n, n n) and the answer to our puzzle. </span><span class="sh">"""</span>
+    <span class="k">return</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+</code></pre></div></div>
 
-<p>For \(p\) just above this threshold value of \(\hat{p} = \frac{3}{2^{5/3}}\), we see \(Q_A\) has near repeated roots of around \(\approx 0.88\), validating our solution. Interestingly \(Q_A\) is <strong>zero</strong> until \(p &gt; \hat{p}\) at which it instantaneously jumps up to around \(Q_A \approx 0.88\), as seen in the plot above!</p>
+<p>Now, if we plot the value of \(J(n, n, n)\) as a function of \(n\), we obtain Figure 1. Here we see that under the optimal guessing strategy, the expected score seems to grow 
+roughly like \(\sim \frac{n}{3}\). In fact, we can actually note that \(\frac{n}{3}\) is a lower bound on the optimal expected score and furthermore it can be <em>obtained with certainty</em> by choosing one color of rabbit and guessing that color each turn until the game ends.</p>
 
+<figure>
+    <img src="/assets/img/blog_images/2025-02-28-rabbits/optimal_rabbits.png" alt="Max Rabbits Optimal Score" width="80%" style="display: block; margin: auto;">
+    <figcaption style="text-align: center;">Figure 1: Maximum number of points possible with optimal rabbit selection.</figcaption>
+</figure>
+
+<p>We can see that our optimal strategy does outperform the stubborn guessing strategy, but not by too much!</p>
 
   </article>
 
@@ -289,7 +243,7 @@ r_3 &amp; = \overline{r_2}
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/fiddler/">How Many Rabbits Can You Pull out of a Hat?</a>
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2024/JS_tree/">Jane Street Puzzle August 2024</a>
   </li>
 
   
