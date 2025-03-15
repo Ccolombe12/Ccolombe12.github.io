@@ -1,5 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-12T21:28:25+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
-</subtitle><entry><title type="html">How Many Rabbits Can You Pull out of a Hat?</title><link href="https://ccolombe12.github.io/blog/2025/fiddler/" rel="alternate" type="text/html" title="How Many Rabbits Can You Pull out of a Hat?" /><published>2025-03-01T00:00:00+00:00</published><updated>2025-03-01T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/fiddler</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/fiddler/"><![CDATA[<p>I found a new source of puzzles: the excellent Substack page <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> run by Zach Wissner-Gross. This week’s puzzle is paraphrased as follows:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-15T22:28:00+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+</subtitle><entry><title type="html">A Pi-Day Puzzle</title><link href="https://ccolombe12.github.io/blog/2025/Pi_day/" rel="alternate" type="text/html" title="A Pi-Day Puzzle" /><published>2025-03-14T00:00:00+00:00</published><updated>2025-03-14T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/Pi_day</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/Pi_day/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
+
+<blockquote>
+  <p>You are planning a picnic on the remote tropical island of \(\pi\)-land. The island’s shape is a perfect semi-disk with two beaches, as illustrated below. We have <strong>Semicircular Beach</strong> (along the northern semicircular edge of the disk) and <strong>Diametric Beach</strong> (along the southern diameter of the disk).</p>
+
+  <p><strong>Part 1:</strong><br />
+<em>If you pick a random spot on \(\pi\)-land for your picnic, what is the probability that it will be closer to Diametric Beach than to Semicircular Beach?</em></p>
+
+  <p><strong>Part 2:</strong><br />
+<em>Given the radius of \(\pi\)-land is 1, on average, what will be the expected shortest distance to shore?</em></p>
+</blockquote>
+
+<figure>
+    <img src="/assets/img/blog_images/2025-03-14-Pi_day/Pi_island.png" alt="Illustration of the island" width="80%" style="display: block; margin: auto;" />
+    <figcaption style="text-align: center;">Figure 1: The island.</figcaption>
+</figure>
+
+<hr />
+
+<h2 id="solution">Solution</h2>
+
+<h3 id="part-1">Part 1</h3>
+
+<p>The immediate intuition is that the set of points closer to the Diametric Beach than the Semicircular Beach should form a well-defined geometric region. If we can determine that region, denoted \(D\), the desired probability is simply the area of that region divided by the area of the entire semicircle.</p>
+
+<p>Let the island’s radius be 1, its center be at \((0, 0)\), and denote the points on the island by the region \(C\). Consider a point \((x, y)\) on the island, which beach is it closer to? The <strong>distance to Diametric Beach</strong> is just its \(y\)-coordinate. What about the <strong>distance to Semicircular Beach</strong>?</p>
+
+<p>The shortest path from \((x, y)\) to Semicircular Beach is along the radial line through \((0,0)\) and \((x,y)\).<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> This means the shortest distance to the Semicircular Beach is given by:</p>
+
+\[1 - \sqrt{x^2 + y^2}\]
+
+<p>Therefore, for a point to be <strong>closer to the Diametric Beach than the Semicircular Beach</strong>, the following inequality must hold:</p>
+
+\[y \leq 1 - \sqrt{x^2 + y^2}\]
+
+<p>Rearranging:</p>
+
+\[y \leq \frac{1 - x^2}{2}\]
+
+<p>Thus, the region \(D\) of points closer to the Diametric Beach than the Semicircular Beach is:</p>
+
+\[D = \left\{ (x, y) \in C \mid y \leq \frac{1 - x^2}{2} \right\}.\]
+
+<p>This region is depicted below:</p>
+
+<figure>
+    <img src="/assets/img/blog_images/2025-03-14-Pi_day/semicircle_plot.png" alt="Geometric region solution" width="80%" style="display: block; margin: auto;" />
+    <figcaption style="text-align: center;">Figure 2: The region closer to the Diameter Beach than the Semicircular Beach (Blue).</figcaption>
+</figure>
+
+<p>Now, we compute the area of this region using integration:</p>
+
+\[\text{Area}(D)  = \int_{-1}^1 \int_0^{\frac{1-x^2}{2}} dy \; dx = \frac{2}{3}.\]
+
+<p>Since the total area of the semicircle is \(\frac{\pi}{2}\), the <strong>probability of being closer to the Diametric Beach is</strong>:</p>
+
+\[\boxed{\frac{\text{Area}(D)}{\text{Area}(C)} = \frac{2/3}{\pi / 2} = \frac{4}{3\pi}}\]
+
+<hr />
+
+<h3 id="part-2">Part 2</h3>
+
+<p>We’ve already done most of the heavy lifting in part 1)! Define \(L\) as the random variable representing the shortest distance to a beach. At a given point \((x, y) \in C\):</p>
+
+<ul>
+  <li>If \((x, y) \in D\), the shortest distance is \(y\).</li>
+  <li>If \((x, y) \in D^c\), the shortest distance is \(1 - \sqrt{x^2 + y^2}\).</li>
+</ul>
+
+<p>Breaking up the expectation integral into two parts and solving yields:</p>
+
+\[\begin{align*}
+\mathbb{E}[L] &amp; = \frac{1}{\pi /2} \int_C \min\left(y, 1 - \sqrt{x^2 + y^2}\right) dy \; dx \\ 
+&amp; = \frac{1}{\pi/2} \int_D y \; dy \; dx + \frac{1}{\pi/2} \int_{D^c} \left(1 - \sqrt{x^2 + y^2}\right) dy \; dx\\ 
+&amp; = \frac{1}{\pi/2} \int_{-1}^1\int_0^{\frac{1-x^2}{2}} y \; dy \; dx + \frac{1}{\pi/2} \int_{-1}^1\int_{\frac{1-x^2}{2}}^{\sqrt{1 - x^2}}1 - \sqrt{x^2 + y^2}  \; dy \; dx\\
+ &amp; = \boxed{\frac{3 \pi - 4}{9 \pi }}
+\end{align*}\]
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Can you prove this? <em>Hint: Use the triangle inequality.</em> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry><entry><title type="html">How Many Rabbits Can You Pull out of a Hat?</title><link href="https://ccolombe12.github.io/blog/2025/fiddler/" rel="alternate" type="text/html" title="How Many Rabbits Can You Pull out of a Hat?" /><published>2025-03-01T00:00:00+00:00</published><updated>2025-03-01T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/fiddler</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/fiddler/"><![CDATA[<p>I found a new source of puzzles: the excellent Substack page <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> run by Zach Wissner-Gross. This week’s puzzle is paraphrased as follows:</p>
 
 <blockquote>
   <p>Suppose I have a hat with \(3n\) small toy rabbits: \(n\) are red, \(n\) are green, and \(n\) are blue. I shuffle the rabbits around and randomly draw them out one at a time without replacement (i.e., once I draw a rabbit out, I never put it back in again).</p>
@@ -599,77 +683,4 @@ In order to do this, we will need to know the probability distribution function 
 
 <h1 id="solution-2">Solution 2</h1>
 
-<p>Imagine that all of the throws have already occurred and we are revealing them one at a time. Up until the final throw, the first throw is the closest to the center of the dartboard. We are asked to find, given this knowledge, what is the probability that the first throw is the closest of all of the throws. At this point, the only way this could <em>not</em> be the case if is the last throw is the closest to the center of the \(n\) throws. Since his skill is constant, the probability that his last throw is the closest to the center is the same as for any other throw, \(1/n\). Therefore, the probability that the first throw was the closest of the \(n\) throws given it was closer than the next \(n-2\) throws is \(\boxed{1 - \frac{1}{n}}\).</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[Problem Statement]]></summary></entry><entry><title type="html">An Expected Value Identity</title><link href="https://ccolombe12.github.io/blog/2023/Expected_Value_Identity/" rel="alternate" type="text/html" title="An Expected Value Identity" /><published>2023-04-14T00:00:01+00:00</published><updated>2023-04-14T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Expected_Value_Identity</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Expected_Value_Identity/"><![CDATA[<style type="text/css">
-    ol { list-style-type: lower-alpha; }
-</style>
-
-<p>I recently decided to brush up on my stochastic processes knowledge and started reading <em>Stochastic Processes</em> by Sheldon Ross, 1995. In the problems section of the first chapter, I came across an expected value identity that I knew was true for non-negative discrete random variables, but I had never used for continuous random variables. Alongside it was a further generalization for higher order moments. Having worked out the problem, I think it was interesting enough to share!</p>
-<h2 id="problem-statement">Problem Statement</h2>
-<p>Let \(N\) denote a non-negative random variable.</p>
-<ol>
-  <li>
-    <p>) Show that \(\begin{equation}\mathbb{E}[N] = \sum_{k=0}^\infty \mathbb{P}[N &gt; k]\end{equation}\)</p>
-  </li>
-  <li>
-    <p>) In general, show that if \(X\) is a nonnegative random variable with distribution \(F\), then  \(\begin{equation}
-  \mathbb{E}[X] = \int_0^{\infty} \overline{F}(x)\; dx
-\end{equation}\)</p>
-  </li>
-</ol>
-
-<p>where \(\overline{F}(x) = 1 - F(x)\).</p>
-
-<ol>
-  <li>) and \(\begin{equation}
-  \mathbb{E}\left[X^n\right] = \int_0^{\infty}n x^{n-1} \overline{F}(x)\; dx \label{eq: janky expected val}
-\end{equation}\)</li>
-</ol>
-
-<hr />
-
-<h2 id="solution">Solution</h2>
-
-<p>a. ) Recall the equation for the expected value of a non-negative random variable \(N\), 
-\(\begin{equation}
-\mathbb{E}[N] = \sum_{k=0}^\infty k \cdot \mathbb{P}[N = k] = \sum_{k=1}^\infty k \cdot \mathbb{P}[N = k] \label{eq:discrete EV}
-\end{equation}\)</p>
-
-<p>Note that for a given \(k\), we are adding up \(k\) copies of \(\mathbb{P}[N =k]\). We can visualize this as a grid</p>
-
-\[\begin{align*}
-  &amp; \mathbb{P}[N = 1] + \\ 
-  &amp; \mathbb{P}[N = 2] + \mathbb{P}[N = 2] + \\ 
-  &amp; \mathbb{P}[N = 3] + \mathbb{P}[N = 3] + \mathbb{P}[N = 3] + \\ 
-  &amp; \quad \vdots \qquad \qquad \qquad \vdots \qquad \qquad \quad
-    \vdots 
-  \end{align*}\]
-
-<p>The standard expected value equation (\ref{eq:discrete EV}) assumes that we sum the rows of the above grid. The \(k\)-th row sum being \(k \cdot \mathbb{P}[N = k]\). However, if we consider the column sums, the \(k\)-th column sum is given by</p>
-
-\[\begin{equation*} \mathbb{P}[N = k] + \mathbb{P}[N = k + 1] + \cdots  = \mathbb{P}[N &gt; k - 1]
-  \end{equation*}\]
-
-<p>which implies that we can write (\ref{eq:discrete EV}) as</p>
-
-<p>\(\begin{equation*}
-    \mathbb{E}[N] = \sum_{k=0}^\infty\mathbb{P}[N &gt; k]
-  \end{equation*}\)
-  as desired. Note that this proof this proof relied on using the grid of probabilities and summing it in two different ways. This method will not work when \(N\) can take negative values since we can no longer construct the grid.</p>
-
-<p>c.) Note that b.) follows from c.) for \(n = 1\). Let \(n\) be some positive integer and consider the standard equation for \(\mathbb{E}[X^n]\) for a non-negative RV \(X\)</p>
-
-<p>\(\begin{equation}
-    \mathbb{E}[X^n] = \int_0^\infty x^n f(x)\; dx \label{eq:cont ev}
-  \end{equation}\)<br />
-  where \(f(x) = \frac{d F(x)}{dx}\) is the probability density function for the random variable \(X\). We will show using integration by parts that (\ref{eq: janky expected val}) reduces to the standard (\ref{eq:cont ev}).</p>
-
-<p>Consider
-  \(\int_0^{\infty}n x^{n-1} \overline{F}(x)\; dx\) and using the standard integration by parts notation let \(u = \overline{F}(x) = 1 - F(x)\) and \(dv = n x^{n-1}\), which implies \(du = - f(x)\; dx\) and \(V = x^n\). Using the standard integration by parts formula \(\int_{a}^b u \;dv  = [uv]^b_a - \int_{a}^b v \; du\), we obtain</p>
-
-\[\begin{align*}
-    \int_0^{\infty}n x^{n-1} \overline{F}(x)\; dx &amp; = \lim_{b \to \infty}\left[x^n \left(1 - F(x)\right)\right]_0^b + \int_0^{\infty}x^n f(x)\\ 
-    &amp; = (0 - 0) + \int_0^{\infty}x^n f(x)\\ 
-    &amp; = \mathbb{E}[X^n]
-  \end{align*}\]
-
-<p>as desired!</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[I recently decided to brush up on my stochastic processes knowledge and started reading Stochastic Processes by Sheldon Ross, 1995. In the problems section of the first chapter, I came across an expected value identity that I knew was true for non-negative discrete random variables, but I had never used for continuous random variables. Alongside it was a further generalization for higher order moments. Having worked out the problem, I think it was interesting enough to share! Problem Statement Let \(N\) denote a non-negative random variable. ) Show that \(\begin{equation}\mathbb{E}[N] = \sum_{k=0}^\infty \mathbb{P}[N &gt; k]\end{equation}\)]]></summary></entry></feed>
+<p>Imagine that all of the throws have already occurred and we are revealing them one at a time. Up until the final throw, the first throw is the closest to the center of the dartboard. We are asked to find, given this knowledge, what is the probability that the first throw is the closest of all of the throws. At this point, the only way this could <em>not</em> be the case if is the last throw is the closest to the center of the \(n\) throws. Since his skill is constant, the probability that his last throw is the closest to the center is the same as for any other throw, \(1/n\). Therefore, the probability that the first throw was the closest of the \(n\) throws given it was closer than the next \(n-2\) throws is \(\boxed{1 - \frac{1}{n}}\).</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[Problem Statement]]></summary></entry></feed>
