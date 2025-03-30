@@ -1,5 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-27T20:57:01+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
-</subtitle><entry><title type="html">A Pi-Day Puzzle</title><link href="https://ccolombe12.github.io/blog/2025/Pi_day/" rel="alternate" type="text/html" title="A Pi-Day Puzzle" /><published>2025-03-14T00:00:00+00:00</published><updated>2025-03-14T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/Pi_day</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/Pi_day/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-03-30T02:52:14+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic wepage of Connor Colombe
+</subtitle><entry><title type="html">Can You Root for the Underdog?</title><link href="https://ccolombe12.github.io/blog/2025/fiddler/" rel="alternate" type="text/html" title="Can You Root for the Underdog?" /><published>2025-03-28T00:00:00+00:00</published><updated>2025-03-28T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/fiddler</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/fiddler/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
+
+<blockquote>
+  <p>There are \(2^n\) teams playing in a single-elimination seeded tournament. The teams play in a traditional seeded tournament format. That is, in the first round, the sum of teams playing each other is \(2^n + 1\) (for example seed \(1\) plays seed \(2^n\), \(2\) plays \(2^n - 1\), etc). If the stronger team always advances, then the sum of opponents’ seeds in the second round is \(2^{n - 1} + 1\), and so on.</p>
+</blockquote>
+
+<blockquote>
+  <p>Each team possesses a “power index” equal to \(2^n + 1\) minus that team’s seed. For example, team \(1\) has power index \(2^n\). In any given matchup, the team with the <em>greater power index would emerge victorious</em>. However, March Madness fans love to root for the underdog. As a result, the team with the <em>lower</em> power index gets an effective “boost”  \(B\) applied to their power index, where \(B\) is some positive non-integer.</p>
+</blockquote>
+
+<blockquote>
+  <p>As an illustration, consider the matchup between the \(2\) and \(3\)-seeds. The favored \(2\)-seed has a power index of \(3\), while the underdog \(3\)-seed has a power index of \(2+B\). When \(B\) is greater than \(1\), the \(3\)-seed will defeat the \(2\)-seed in an upset.</p>
+
+  <p>Depending on the value of \(B\), different teams will win the tournament. <strong>Of the \(2^n\) teams, how many can never win, regardless of the value of \(B\)</strong>?</p>
+</blockquote>
+
+<p><br /><br /></p>
+<h2 id="solution">Solution</h2>
+
+<p>We can start out with some observations. First, for fixed \(B\), the winner of the tournament is deterministic. This suggests we should define a function \(W_n(B)\) that for a given \(n\) and \(B\) returns the winning seed in the tournament. To solve our problem, we could then determine which values that \(W_n(B)\) can and cannot take on. The next useful observation is that for \(B &gt; 2^n - 1\), the value of \(W_n(B)\) is a constant. Specifically, for \(B &gt; 2^n - 1\), the lowest seeded team will always win the tournament. Thus we need only consider the non-integral values of \(W_n(B)\) on the interval \(B \in [0, 2^n]\). The last observation we need to consider is that for any two teams playing, say with seeds \(a\) and \(b\) with \(a &lt; b\), the value of \(B\) for which the winner and loser of the game swap is \(b - a + \epsilon\) where \(\varepsilon &gt; 0\) is an arbitrarily small constant. Therefore, as we vary \(B\) from \(0 \to 2^n\), the only values of \(B\) where we may see the value of \(W_n(B)\) change are of the form \(k + \varepsilon\) where \(k\) is a non-negative integer.</p>
+
+<p>With those observations, our strategy for solving the problem can be made clear. For \(B = k + \varepsilon\) for \(k \in [2^n - 1]\), determine the value of \(W_n(B)\) for the given value of \(B\) and keep track of the winners as we iterate over the values of \(B\).  Then simply report the values in \([2^n]\) that were not found to be winners.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">gen_bracket</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Recursively generate a seeded bracket for n players (n must be a power of 2).
+    Returns a list where consecutive elements form a matchup.
+    </span><span class="sh">"""</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="nf">gen_bracket</span><span class="p">(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">mirror</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">seed</span> <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">prev</span><span class="p">]</span>
+        <span class="n">bracket</span> <span class="o">=</span> <span class="p">[</span><span class="n">seed</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">mirror</span><span class="p">)</span> <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">bracket</span>
+
+<span class="k">def</span> <span class="nf">winner</span><span class="p">(</span><span class="n">seedA</span><span class="p">,</span> <span class="n">seedB</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Returns the winner of the matchup seedA vs seedB in an 
+    N person tournament with boost B.
+    </span><span class="sh">"""</span>
+    <span class="c1"># make sure seedA is lower seed 
+</span>    <span class="k">if</span> <span class="n">seedA</span> <span class="o">&gt;</span> <span class="n">seedB</span><span class="p">:</span>
+        <span class="n">seedA</span><span class="p">,</span> <span class="n">seedB</span> <span class="o">=</span> <span class="n">seedB</span><span class="p">,</span> <span class="n">seedA</span>
+    <span class="n">power_rankA</span> <span class="o">=</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">seedA</span>
+    <span class="n">power_rankB</span> <span class="o">=</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">seedB</span> <span class="o">+</span> <span class="n">B</span>
+    <span class="k">if</span> <span class="n">power_rankA</span> <span class="o">&gt;</span> <span class="n">power_rankB</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">seedA</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">seedB</span>
+    
+
+<span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s"> 
+    The winner of a 2^n person tournament with boost B. 
+    </span><span class="sh">"""</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">n</span> 
+    <span class="n">bracket</span> <span class="o">=</span> <span class="nf">generate_bracket</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="c1"># keep simulating until one team left 
+</span>        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">bracket</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bracket</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">winners</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">bracket</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">seedA</span> <span class="o">=</span> <span class="n">bracket</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">seedB</span> <span class="o">=</span> <span class="n">bracket</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">winners</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">winner</span><span class="p">(</span><span class="n">seedA</span><span class="p">,</span> <span class="n">seedB</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B</span><span class="p">))</span>
+            <span class="n">bracket</span> <span class="o">=</span> <span class="n">winners</span>
+</code></pre></div></div>
+
+<p>Then to get the possible winners for a given tournament size of \(2^n\) and to compute 
+the number of teams that cannot win, we can run the below code.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># solve for 2^6 = 64 teams 
+</span>    
+<span class="n">can_win</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<span class="c1"># B-values where winner could swap values
+</span><span class="n">B_space</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">eps</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> 
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B_space</span><span class="p">:</span>
+    <span class="n">champ</span> <span class="o">=</span> <span class="nf">tournament_winner</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">can_win</span><span class="p">[</span><span class="n">champ</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">winners</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">sorted</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">can_win</span><span class="p">.</span><span class="nf">keys</span><span class="p">())))</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">The teams that CAN win are </span><span class="si">{</span><span class="n">winners</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">There are </span><span class="si">{</span><span class="mi">2</span> <span class="o">**</span> <span class="n">n</span>  <span class="o">-</span> <span class="nf">len</span><span class="p">(</span><span class="n">winners</span><span class="p">)</span><span class="si">}</span><span class="s"> teams that cannot win</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">The function that predicts this is </span><span class="si">{</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Since this code is for general \(n\), we can compute the number of teams that cannot 
+win for several values of \(n\), see table 1.</p>
+
+<figure>
+    <center>
+    <img src="/assets/img/blog_images/2025-03-28-Underdog/Teams_cant_win.png" alt="Table1" width="70%" style="display: block; margin: auto;" />
+    <figcaption> Table 1: The number of teams that cannot win in a \(2^n\) team tournament regardless of \(B\).
+    </figcaption>
+    </center>
+</figure>
+
+<p>Some of you may notice a pattern in this sequence. If we let \(a_n\) be the number of teams that cannot win in a \(2^n\) team tournament, then we see the pattern emerge</p>
+
+\[a_n = 2 a_{n - 1} + (n - 3), \; a_2 = 1\]
+
+<p>for \(n \geq 2\). Which would suggest that</p>
+
+\[\boxed{a_n = 2^{n - 1} - (n -  1)}.\]
+
+<p>We won’t attempt prove this conjecture here, but the pattern holds for \(n \leq 20\).</p>
+
+<p>Lastly, it would be interesting to see the plot of \(W_n(B)\) for various \(n\) so that we can get a sense of which teams are capable of winning. Below in Figure 1 is a gif that illustrates the function \(W_n(B)\) for various values of \(n\). We see that as \(n\) grows the shape of the function begins to approach some interesting limiting shape! 
+<br /></p>
+
+<figure>
+  <center>
+  <img src="/assets/img/blog_images/2025-03-28-Underdog/wnB_loop.gif" width="80%" style="display: block; margin: auto;" />
+  <figcaption> Figure 1. Plots of the winning team function, \(W_n(B)\) for various \(n\).
+</figcaption> 
+</center>
+</figure>
+
+<p>Upon inspection it appears there is a recursive description of how these curves relate to one another. Here is a very rough description of how they appear related.  We see for a given \(n\), for \(B &gt; 2^{n - 1}\), the \(W_n(B)\) is non-decreasing in \(B\) and produces \(2^{n - 2} + 1\) unique winners in that range. The curve for \(W_{n + 1}(B)\) has the same values as \(W_n(B)\) for \(B &lt; 2^{n - 1}\). Then for \(B \in [2^{n - 1}, 2^n]\), the previously increasing portion of the curve is reflected downward about its start point, and then for \(B &gt; 2^n\), the curve has the same monotonic behavior but for \(2^{n -1} + 1\) values. Note that for all \(n \geq 2\), \(W_n(B)\) is a one-to-one function. That is,  no winner is ever repeated for different \(B\). If this behavior is indeed an accurate description of the curves (as it empirically appears to be), then this would prove our conjecture about \(a_n\) <sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Can you show the equivalence? <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name>Connor Colombe</name></author><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry><entry><title type="html">A Pi-Day Puzzle</title><link href="https://ccolombe12.github.io/blog/2025/Pi_day/" rel="alternate" type="text/html" title="A Pi-Day Puzzle" /><published>2025-03-14T00:00:00+00:00</published><updated>2025-03-14T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/Pi_day</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/Pi_day/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
 
 <blockquote>
   <p>You are planning a picnic on the remote tropical island of \(\pi\)-land. The island’s shape is a perfect semi-disk with two beaches, as illustrated below. We have <strong>Semicircular Beach</strong> (along the northern semicircular edge of the disk) and <strong>Diametric Beach</strong> (along the southern diameter of the disk).</p>
@@ -619,68 +750,4 @@ P(n,k) &amp; = \frac{n + 1 - k}{n} + \frac{1}{n} \sum_{i=1}^{k-2}P(n - i, k - i)
 as desired.
 \(\begin{align*} &amp; \tag*{\(\blacksquare\)} \end{align*}\)</p>
 
-<p>Based on this we do recover the classic result that \(P(n,n) = 1/2\). Taking the derivative of \(P(n,k)\) with respect to \(k\) we can see that it is a decreasing function in \(k\) and that the later in the line you are, the less likely it is you will sit in your assigned seat with a worst case probability of \(1/2\).</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[I recently stumbled across a problem that asked for a generalization of the “Drunk Passenger” problem. The classic problem is as follows: Problem Statement There are \(n\) seats on an airplane and \(n\) passengers. The passengers are in a line to board the plane and the \(i\)-th passenger in line is assigned to seat number \(i\) on the plane. However, the first passenger in line is drunk and takes a seat on the plane uniformly at random. The rest of the passengers take a on the plane seat one by one. Passenger \(i \geq 2\) will sit in their assigned seat if it is available, otherwise they will sit in an open seat uniformly at random. What is the probability the \(n\)-th passenger in line sits in their assigned seat?]]></summary></entry><entry><title type="html">Throwing Darts</title><link href="https://ccolombe12.github.io/blog/2023/Throwing_Darts/" rel="alternate" type="text/html" title="Throwing Darts" /><published>2023-04-14T00:00:01+00:00</published><updated>2023-04-14T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Throwing_Darts</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Throwing_Darts/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
-
-<p>Jason throws two darts at a dartboard, aiming for the center. The second dart lands farther from the center than the first. If Jason throws a third dart aiming for the center, what is the probability that the third throw is farther from the center than the first? Assume Jason’s skillfulness is constant.</p>
-
-<p><em>Challenge: What if, after the first, his
-next \(n − 2\) throws are further from the center than the first? What is the probability that
-the \(n\)-th throw is farther from the center than the first?</em></p>
-<hr />
-
-<h2 id="solution">Solution</h2>
-
-<p>At first glance, it may seem that the information about the second throw is irrelevant. However, we shall see that that is not the case. We will present two solutions to this problem, both interesting in their own right. The first is perhaps a more traditional computational approach to the problem, and the second uses a cheeky symmetry argument.</p>
-<hr />
-
-<h1 id="solution-1">Solution 1</h1>
-<p>We will solve the general problem and apply it to the \(n = 3\) case. Let \(R_1,R_2,\ldots, R_n \in [0,1]\) be i.i.d. random variables denoting the radii at which each of the consecutive dart throws land. We would like to evaluate
-\(\begin{equation}
-  \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]
-\end{equation}\)</p>
-
-<p>Using Bayes Theorem, we can write this as 
-\(\begin{equation}
-  \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right] = \frac{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\ \cap \left(R_{n} &gt; R_1\right)\right]}{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]} \label{eq:solu}.
-\end{equation}\)</p>
-
-<p>Now it suffices to evaluate \(\begin{equation}  
-\mathbb{P}\left[ \cap_{i = 2}^n R_{i} &gt; R_1\right] \label{eq:key}.
-\end{equation}\)
-In order to do this, we will need to know the probability distribution function for \(R\), denoted \(f(r)\). We can deduce this by considering the unit circle (dartboard) and imagine a thin concentric ring at radius \(r\) of width \(dr\). The area of this ring is \(2 \pi r \; dr\), the area of the circle is \(\pi\) and thus the probability of Jason throwing a dart and it landing at radius \(r\) is \(f(r) = 2 r \; dr\) (see Figure 1).</p>
-
-<h3><figure><center>
-  <img height="50" src="/assets/img/blog_images/2023-04-14-Throwing_Darts/fig_dart_prob.png" class="img-fluid rounded z-depth-1" zoomable="true" />
-</center></figure></h3>
-<div class="caption">
-    Figure 1. Depicting the small area on a unit dartboard where a dart can land at a radius in $[r,r + dr]$.
-</div>
-<p>This then implies,</p>
-
-\[\begin{equation}
-  \mathbb{P}\left[R &gt; r\right] = \mathbb{P}\left[R \geq r\right] = 1 - r^2.
-\end{equation}\]
-
-<p>We can then evaluate (\ref{eq:key}) by conditioning on the value of \(R_1\).</p>
-
-\[\begin{align*}
-  \mathbb{P}\left[ \cap_{i = 2}^n R_{i} &gt; R_1\right] &amp; = \int_0^1 (1-r^2)^{n-1} 2 r \; dr \\ 
-  &amp; = 2 \int_0^1 (1-r^2)^{n-1} r \; dr  \\
-  &amp; = 1/ n.
-\end{align*}\]
-
-<p>Based on this, we can write (\ref{eq:solu}) as</p>
-
-\[\begin{align*}
- \mathbb{P}\left[R_n &gt; R_1 | R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right] &amp; = \frac{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\ \cap \left(R_{n} &gt; R_1\right)\right]}{\mathbb{P}\left[R_2 &gt; R_1 \cap \cdots \cap R_{n-1} &gt; R_1\right]}  \\ 
- &amp; = \frac{1/n}{1/(n-1)}\\ 
- &amp; = \frac{n-1}{n}\\ 
- &amp; = \boxed{1 - \frac{1}{n}}.
-\end{align*}\]
-
-<p>Plugging in \(n = 3\) yields the solution to our original problem \(\boxed{2/3}\).</p>
-<hr />
-
-<h1 id="solution-2">Solution 2</h1>
-
-<p>Imagine that all of the throws have already occurred and we are revealing them one at a time. Up until the final throw, the first throw is the closest to the center of the dartboard. We are asked to find, given this knowledge, what is the probability that the first throw is the closest of all of the throws. At this point, the only way this could <em>not</em> be the case if is the last throw is the closest to the center of the \(n\) throws. Since his skill is constant, the probability that his last throw is the closest to the center is the same as for any other throw, \(1/n\). Therefore, the probability that the first throw was the closest of the \(n\) throws given it was closer than the next \(n-2\) throws is \(\boxed{1 - \frac{1}{n}}\).</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[Problem Statement]]></summary></entry></feed>
+<p>Based on this we do recover the classic result that \(P(n,n) = 1/2\). Taking the derivative of \(P(n,k)\) with respect to \(k\) we can see that it is a decreasing function in \(k\) and that the later in the line you are, the less likely it is you will sit in your assigned seat with a worst case probability of \(1/2\).</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[I recently stumbled across a problem that asked for a generalization of the “Drunk Passenger” problem. The classic problem is as follows: Problem Statement There are \(n\) seats on an airplane and \(n\) passengers. The passengers are in a line to board the plane and the \(i\)-th passenger in line is assigned to seat number \(i\) on the plane. However, the first passenger in line is drunk and takes a seat on the plane uniformly at random. The rest of the passengers take a on the plane seat one by one. Passenger \(i \geq 2\) will sit in their assigned seat if it is available, otherwise they will sit in an open seat uniformly at random. What is the probability the \(n\)-th passenger in line sits in their assigned seat?]]></summary></entry></feed>

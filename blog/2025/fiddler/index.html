@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>How Many Rabbits Can You Pull out of a Hat? | Connor  Colombe</title>
+    <title>Can You Root for the Underdog? | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
     <meta name="description" content="My solution to this week's Fiddler on the Proof Puzzle">
 
@@ -117,126 +117,144 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">How Many Rabbits Can You Pull out of a Hat?</h1>
-    <p class="post-meta">March 1, 2025</p>
+    <h1 class="post-title">Can You Root for the Underdog?</h1>
+    <p class="post-meta">March 28, 2025</p>
     <p class="post-tags">
       <a href="/blog/2025"> <i class="fas fa-calendar fa-sm"></i> 2025 </a>
-        ·  
-        <a href="/blog/tag/programming">
-          <i class="fas fa-hashtag fa-sm"></i> programming,</a>  
-          <a href="/blog/tag/math">
-          <i class="fas fa-hashtag fa-sm"></i> math</a>  
-          
 
     </p>
   </header>
 
   <article class="post-content">
-    <p>I found a new source of puzzles: the excellent Substack page <a href="https://thefiddler.substack.com" rel="external nofollow noopener" target="_blank">The Fiddler on the Proof</a> run by Zach Wissner-Gross. This week’s puzzle is paraphrased as follows:</p>
+    <p>This week’s <a href="https://thefiddler.substack.com" rel="external nofollow noopener" target="_blank">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
 
 <blockquote>
-  <p>Suppose I have a hat with \(3n\) small toy rabbits: \(n\) are red, \(n\) are green, and \(n\) are blue. I shuffle the rabbits around and randomly draw them out one at a time without replacement (i.e., once I draw a rabbit out, I never put it back in again).</p>
-
-  <p>Your job is to guess the color of each rabbit I draw. For each guess, you know the history of the rabbits already drawn. So if we’re down to the final rabbit in the hat, you should be able to predict its color with certainty.</p>
-
-  <p>Every time you correctly predict the color of the rabbit I draw, you earn a point. If you play optimally (i.e., to maximize your expected points), <strong>how many points can you expect to earn on average?</strong></p>
+  <p>There are \(2^n\) teams playing in a single-elimination seeded tournament. The teams play in a traditional seeded tournament format. That is, in the first round, the sum of teams playing each other is \(2^n + 1\) (for example seed \(1\) plays seed \(2^n\), \(2\) plays \(2^n - 1\), etc). If the stronger team always advances, then the sum of opponents’ seeds in the second round is \(2^{n - 1} + 1\), and so on.</p>
 </blockquote>
 
+<blockquote>
+  <p>Each team possesses a “power index” equal to \(2^n + 1\) minus that team’s seed. For example, team \(1\) has power index \(2^n\). In any given matchup, the team with the <em>greater power index would emerge victorious</em>. However, March Madness fans love to root for the underdog. As a result, the team with the <em>lower</em> power index gets an effective “boost”  \(B\) applied to their power index, where \(B\) is some positive non-integer.</p>
+</blockquote>
+
+<blockquote>
+  <p>As an illustration, consider the matchup between the \(2\) and \(3\)-seeds. The favored \(2\)-seed has a power index of \(3\), while the underdog \(3\)-seed has a power index of \(2+B\). When \(B\) is greater than \(1\), the \(3\)-seed will defeat the \(2\)-seed in an upset.</p>
+
+  <p>Depending on the value of \(B\), different teams will win the tournament. <strong>Of the \(2^n\) teams, how many can never win, regardless of the value of \(B\)</strong>?</p>
+</blockquote>
+
+<p><br><br></p>
 <h2 id="solution">Solution</h2>
 
-<p>We can solve this using <a href="https://en.wikipedia.org/wiki/Dynamic_programming" rel="external nofollow noopener" target="_blank">Dynamic Programming</a>! We represent the current state as a tuple \((r, g, b)\), where \(r, g,\) and \(b\) denote the number of rabbits of each color remaining in the hat. Let \(J(r, g, b)\) be the maximum expected score starting from state \((r, g, b)\). Our goal is to determine \(J(n, n, n)\). We can solve for \(J(n, n, n)\) by developing a <strong>recurrence relation</strong> on the current state. We begin with the base cases.</p>
+<p>We can start out with some observations. First, for fixed \(B\), the winner of the tournament is deterministic. This suggests we should define a function \(W_n(B)\) that for a given \(n\) and \(B\) returns the winning seed in the tournament. To solve our problem, we could then determine which values that \(W_n(B)\) can and cannot take on. The next useful observation is that for \(B &gt; 2^n - 1\), the value of \(W_n(B)\) is a constant. Specifically, for \(B &gt; 2^n - 1\), the lowest seeded team will always win the tournament. Thus we need only consider the non-integral values of \(W_n(B)\) on the interval \(B \in [0, 2^n]\). The last observation we need to consider is that for any two teams playing, say with seeds \(a\) and \(b\) with \(a &lt; b\), the value of \(B\) for which the winner and loser of the game swap is \(b - a + \epsilon\) where \(\varepsilon &gt; 0\) is an arbitrarily small constant. Therefore, as we vary \(B\) from \(0 \to 2^n\), the only values of \(B\) where we may see the value of \(W_n(B)\) change are of the form \(k + \varepsilon\) where \(k\) is a non-negative integer.</p>
 
-<h3 id="base-cases">Base Cases</h3>
+<p>With those observations, our strategy for solving the problem can be made clear. For \(B = k + \varepsilon\) for \(k \in [2^n - 1]\), determine the value of \(W_n(B)\) for the given value of \(B\) and keep track of the winners as we iterate over the values of \(B\).  Then simply report the values in \([2^n]\) that were not found to be winners.</p>
 
-<ul>
-  <li>If there are no rabbits left, i.e., we are at state \((0, 0, 0)\), then there are zero points left to obtain, implying
-\(J(0, 0, 0) = 0.\)</li>
-  <li>If any of \(r, g,\) or \(b\) are negative, we define:
-\(J\left(r, g, b \right) = 0, \; \text{if any } r &lt; 0, g &lt; 0, \text{or } b &lt; 0.\)
-While negative rabbit counts don’t have any physical interpretation, this condition will allow us to greatly simplify our recurrence relation.</li>
-</ul>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
 
-<h3 id="recurrence-relation">Recurrence Relation</h3>
+<span class="k">def</span> <span class="nf">gen_bracket</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Recursively generate a seeded bracket for n players (n must be a power of 2).
+    Returns a list where consecutive elements form a matchup.
+    </span><span class="sh">"""</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="nf">gen_bracket</span><span class="p">(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">mirror</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">seed</span> <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">prev</span><span class="p">]</span>
+        <span class="n">bracket</span> <span class="o">=</span> <span class="p">[</span><span class="n">seed</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">mirror</span><span class="p">)</span> <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">bracket</span>
 
-<p>For a general state where \(r, g, b \geq 0\) and at <em>least one of them is positive</em>, we can determine the expected points-maximizing guess for the next rabbit’s color by considering each option and selecting the best one. The probabilities for the next color of rabbit drawn are:</p>
+<span class="k">def</span> <span class="nf">winner</span><span class="p">(</span><span class="n">seedA</span><span class="p">,</span> <span class="n">seedB</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Returns the winner of the matchup seedA vs seedB in an 
+    N person tournament with boost B.
+    </span><span class="sh">"""</span>
+    <span class="c1"># make sure seedA is lower seed 
+</span>    <span class="k">if</span> <span class="n">seedA</span> <span class="o">&gt;</span> <span class="n">seedB</span><span class="p">:</span>
+        <span class="n">seedA</span><span class="p">,</span> <span class="n">seedB</span> <span class="o">=</span> <span class="n">seedB</span><span class="p">,</span> <span class="n">seedA</span>
+    <span class="n">power_rankA</span> <span class="o">=</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">seedA</span>
+    <span class="n">power_rankB</span> <span class="o">=</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">seedB</span> <span class="o">+</span> <span class="n">B</span>
+    <span class="k">if</span> <span class="n">power_rankA</span> <span class="o">&gt;</span> <span class="n">power_rankB</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">seedA</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">seedB</span>
+    
 
-<ul>
-  <li>The probability of drawing a red rabbit \(P_r = \frac{r}{r + g + b}\).</li>
-  <li>The probability of drawing a green rabbit \(P_g = \frac{g}{r + g + b}\).</li>
-  <li>The probability of drawing a blue rabbit \(P_b = \frac{b}{r + g + b}\).</li>
-</ul>
-
-<p>Given these, the expected scores from guessing each color are:</p>
-
-<p>\(J\left(r, g, b \mid \text{guess red}\right) = P_r \cdot (1 + J(r - 1, g, b)) + P_g\cdot J(r, g - 1, b) + P_b\cdot J(r, g, b - 1),\)
-\(J\left(r, g, b \mid \text{guess green}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot (1 + J(r, g - 1, b)) + P_b\cdot J(r, g, b - 1),\)
-\(J \left(r, g, b \mid \text{guess blue}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot J(r, g - 1, b) + P_b\cdot (1 + J(r, g, b - 1)).\)</p>
-
-<p>To find the optimal expected score at state \((r, g, b)\), we take the maximum over these three choices.</p>
-
-\[\boxed{J\left(r, g, b\right) = \max \left\{ J\left(r, g, b \mid \text{guess red}\right), J\left(r, g, b \mid \text{guess green}\right), J\left(r, g, b \mid \text{guess blue}\right) \right\}}.\]
-
-<p>The optimal guess is the color that achieves this maximum.</p>
-
-<h3 id="implementation">Implementation</h3>
-
-<p>Now that we have a recursive formulation, we can efficiently compute \(J(r, g, b)\) using dynamic programming. Let’s code this up in Python<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>!</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
-
-<span class="nd">@cache</span>
-<span class="k">def</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="sh">"""</span><span class="s"> Returns the maximum expected score under optimal play from the state
-(r, g, b) </span><span class="sh">"""</span>
-    <span class="c1"># Base Cases
-</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">g</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">0</span>
-    <span class="c1"># Main recurrence Case 
-</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">total_rabbits</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">b</span>
-        <span class="n">Pr</span><span class="p">,</span> <span class="n">Pb</span><span class="p">,</span> <span class="n">Pg</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">b</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">g</span> <span class="o">/</span> <span class="n">total_rabbits</span>
-        
-        <span class="n">guess_red</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>  
-            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-        
-        <span class="n">guess_green</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pg</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>
-            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-                       
-        <span class="n">guess_blue</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pb</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span>
-            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
-        
-        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">guess_green</span><span class="p">,</span> <span class="n">guess_red</span><span class="p">,</span> <span class="n">guess_blue</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">optimal_score</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-  <span class="sh">"""</span><span class="s"> The value of J(n, n n) and the answer to our puzzle. </span><span class="sh">"""</span>
-    <span class="k">return</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s"> 
+    The winner of a 2^n person tournament with boost B. 
+    </span><span class="sh">"""</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">n</span> 
+    <span class="n">bracket</span> <span class="o">=</span> <span class="nf">generate_bracket</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="c1"># keep simulating until one team left 
+</span>        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">bracket</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bracket</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">winners</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">bracket</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">seedA</span> <span class="o">=</span> <span class="n">bracket</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">seedB</span> <span class="o">=</span> <span class="n">bracket</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">winners</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">winner</span><span class="p">(</span><span class="n">seedA</span><span class="p">,</span> <span class="n">seedB</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B</span><span class="p">))</span>
+            <span class="n">bracket</span> <span class="o">=</span> <span class="n">winners</span>
 </code></pre></div></div>
 
-<p>Now, if we plot the value of \(J(n, n, n)\) as a function of \(n\), we obtain Figure 1. Here we see that under the optimal guessing strategy, the expected score seems to grow roughly like \(\sim \frac{n}{3}\). In fact, we can actually note that \(\frac{n}{3}\) is a lower bound on the optimal expected score because it can be <em>obtained with certainty</em> by choosing one color of rabbit and guessing that color each turn until the game ends. We call this naive strategy the “stubborn guessing” strategy (since you refuse to change your guess each turn).</p>
+<p>Then to get the possible winners for a given tournament size of \(2^n\) and to compute 
+the number of teams that cannot win, we can run the below code.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># solve for 2^6 = 64 teams 
+</span>    
+<span class="n">can_win</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<span class="c1"># B-values where winner could swap values
+</span><span class="n">B_space</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">eps</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> 
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B_space</span><span class="p">:</span>
+    <span class="n">champ</span> <span class="o">=</span> <span class="nf">tournament_winner</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">can_win</span><span class="p">[</span><span class="n">champ</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">winners</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">sorted</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">can_win</span><span class="p">.</span><span class="nf">keys</span><span class="p">())))</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">The teams that CAN win are </span><span class="si">{</span><span class="n">winners</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">There are </span><span class="si">{</span><span class="mi">2</span> <span class="o">**</span> <span class="n">n</span>  <span class="o">-</span> <span class="nf">len</span><span class="p">(</span><span class="n">winners</span><span class="p">)</span><span class="si">}</span><span class="s"> teams that cannot win</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">The function that predicts this is </span><span class="si">{</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Since this code is for general \(n\), we can compute the number of teams that cannot 
+win for several values of \(n\), see table 1.</p>
 
 <figure>
-    <img src="/assets/img/blog_images/2025-02-28-rabbits/optimal_rabbits.png" alt="Max Rabbits Optimal Score" width="80%" style="display: block; margin: auto;">
-    <figcaption style="text-align: center;">Figure 1: Maximum number of points possible with optimal rabbit selection.</figcaption>
+    <center>
+    <img src="/assets/img/blog_images/2025-03-28-Underdog/Teams_cant_win.png" alt="Table1" width="70%" style="display: block; margin: auto;">
+    <figcaption> Table 1: The number of teams that cannot win in a \(2^n\) team tournament regardless of \(B\).
+    </figcaption>
+    </center>
 </figure>
 
-<p>We can see that our optimal strategy does outperform the stubborn guessing strategy, but not by too much!</p>
+<p>Some of you may notice a pattern in this sequence. If we let \(a_n\) be the number of teams that cannot win in a \(2^n\) team tournament, then we see the pattern emerge</p>
 
-<p>Okay, we have found a way to compute the expected number of points we can score under the optimal guessing strategy, but <strong>what actually is the optimal guessing strategy?</strong>. By recording the optimal guess at each step in our recursion, we can observe the optimal strategy has a simple form:</p>
+\[a_n = 2 a_{n - 1} + (n - 3), \; a_2 = 1\]
 
-<blockquote>
-  <p><em>At any given state, guess a color that has the most rabbits remaining in the hat</em>.</p>
-</blockquote>
+<p>for \(n \geq 2\). Which would suggest that</p>
 
-<p>This makes sense intuitively, and this simple rule provides us with the best heuristic for maximizing our expected score.</p>
+\[\boxed{a_n = 2^{n - 1} - (n -  1)}.\]
+
+<p>We won’t attempt prove this conjecture here, but the pattern holds for \(n \leq 20\).</p>
+
+<p>Lastly, it would be interesting to see the plot of \(W_n(B)\) for various \(n\) so that we can get a sense of which teams are capable of winning. Below in Figure 1 is a gif that illustrates the function \(W_n(B)\) for various values of \(n\). We see that as \(n\) grows the shape of the function begins to approach some interesting limiting shape! 
+<br></p>
+
+<figure>
+  <center>
+  <img src="/assets/img/blog_images/2025-03-28-Underdog/wnB_loop.gif" width="80%" style="display: block; margin: auto;">
+  <figcaption> Figure 1. Plots of the winning team function, \(W_n(B)\) for various \(n\).
+</figcaption> 
+</center>
+</figure>
+
+<p>Upon inspection it appears there is a recursive description of how these curves relate to one another. Here is a very rough description of how they appear related.  We see for a given \(n\), for \(B &gt; 2^{n - 1}\), the \(W_n(B)\) is non-decreasing in \(B\) and produces \(2^{n - 2} + 1\) unique winners in that range. The curve for \(W_{n + 1}(B)\) has the same values as \(W_n(B)\) for \(B &lt; 2^{n - 1}\). Then for \(B \in [2^{n - 1}, 2^n]\), the previously increasing portion of the curve is reflected downward about its start point, and then for \(B &gt; 2^n\), the curve has the same monotonic behavior but for \(2^{n -1} + 1\) values. Note that for all \(n \geq 2\), \(W_n(B)\) is a one-to-one function. That is,  no winner is ever repeated for different \(B\). If this behavior is indeed an accurate description of the curves (as it empirically appears to be), then this would prove our conjecture about \(a_n\) <sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</p>
+
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1">
-      <p>Instead of building the DP table explicitly, we use the <code class="language-plaintext highlighter-rouge">cache</code> tool from the <code class="language-plaintext highlighter-rouge">functools</code> library. It’s one of my favorite Python tools! <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>Can you show the equivalence? <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
   </ol>
 </div>
@@ -263,6 +281,12 @@ While negative rabbit counts don’t have any physical interpretation, this cond
   
 
   <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/fiddler/">How Many Rabbits Can You Pull out of a Hat?</a>
+  </li>
+
+  
+
+  <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2024/JS_tree/">Jane Street Puzzle August 2024</a>
   </li>
 
@@ -276,12 +300,6 @@ While negative rabbit counts don’t have any physical interpretation, this cond
 
   <li class="my-2">
     <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2024/JS_Hooks10/">Jane Street March 2024 Puzzle Solution</a>
-  </li>
-
-  
-
-  <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2023/Bugs_on_square/">A Generalization of The Classic Bugs on A Square Problem.</a>
   </li>
 
 <div id="giscus_thread" style="max-width: ; margin: 0 auto;">
@@ -319,7 +337,7 @@ While negative rabbit counts don’t have any physical interpretation, this cond
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
         © Copyright 2025 Connor  Colombe. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>.
-Last updated: March 27, 2025.
+Last updated: March 30, 2025.
       </div>
     </footer>
 
