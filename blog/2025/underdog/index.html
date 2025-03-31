@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <!-- Head -->
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">    <!-- Metadata, OpenGraph and Schema.org -->
+    
+
+    <!-- Standard metadata -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Can You Root for the Underdog? | Connor  Colombe</title>
+    <meta name="author" content="Connor  Colombe">
+    <meta name="description" content="My solution to this week's Fiddler on the Proof Puzzle">
+
+
+    <!-- Bootstrap & MDB -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha256-DF7Zhf293AJxJNTmh5zhoYYIMs2oXitRfBjY+9L//AY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+
+    <!-- Fonts & Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons">
+
+    <!-- Code Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jwarby/jekyll-pygments-themes@master/github.css" media="" id="highlight_theme_light">
+
+    <!-- Styles -->
+    
+    <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9D%91&lt;/text&gt;&lt;/svg&gt;">
+    
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2025/underdog/">
+    
+    <!-- Dark Mode -->
+    
+
+  </head>
+
+  <!-- Body -->
+  <body class="fixed-top-nav sticky-bottom-footer">
+
+    <!-- Header -->
+    <header>
+
+      <!-- Nav Bar -->
+      <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top">
+        <div class="container">
+          <a class="navbar-brand title font-weight-lighter" href="/"><span class="font-weight-bold">Connor </span>Colombe</a>
+          <!-- Navbar Toggle -->
+          <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar top-bar"></span>
+            <span class="icon-bar middle-bar"></span>
+            <span class="icon-bar bottom-bar"></span>
+          </button>
+
+          <div class="collapse navbar-collapse text-right" id="navbarNav">
+            <ul class="navbar-nav ml-auto flex-nowrap">
+
+              <!-- About -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/">About</a>
+              </li>
+              
+              <!-- Blog -->
+              <li class="nav-item active">
+                <a class="nav-link" href="/blog/">Blog<span class="sr-only">(current)</span></a>
+              </li>
+
+              <!-- Other pages -->
+              <li class="nav-item ">
+                <a class="nav-link" href="/Publications/">Publications</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="/ORIE%20problem%20seminar/">ORIE Problem Seminar</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link" href="/Projects/">Projects</a>
+              </li>
+<li id="show-cv" class="nav-item">
+              <a class="nav-link" target="_blank" href="https://Ccolombe12.github.io/assets/pdf/CC_CV.pdf"> CV </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Scrolling Progress Bar -->
+      <progress id="progress" value="0">
+        <div class="progress-container">
+          <span class="progress-bar"></span>
+        </div>
+      </progress>
+    </header>
+
+
+    <!-- Content -->
+    <div class="container mt-5">
+      <!-- _layouts/post.html -->
+
+<div class="post">
+
+  <header class="post-header">
+    <h1 class="post-title">Can You Root for the Underdog?</h1>
+    <p class="post-meta">March 28, 2025</p>
+    <p class="post-tags">
+      <a href="/blog/2025"> <i class="fas fa-calendar fa-sm"></i> 2025 </a>
+
+    </p>
+  </header>
+
+  <article class="post-content">
+    <p>This week’s <a href="https://thefiddler.substack.com" rel="external nofollow noopener" target="_blank">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
+
+<blockquote>
+  <p>There are \(2^n\) teams playing in a single-elimination seeded tournament. The teams play in a traditional seeded tournament format. That is, in the first round, the sum of teams playing each other is \(2^n + 1\) (for example seed \(1\) plays seed \(2^n\), \(2\) plays \(2^n - 1\), etc). If the stronger team always advances, then the sum of opponents’ seeds in the second round is \(2^{n - 1} + 1\), and so on.</p>
+</blockquote>
+
+<blockquote>
+  <p>Each team possesses a “power index” equal to \(2^n + 1\) minus that team’s seed. For example, team \(1\) has power index \(2^n\). In any given matchup, the team with the <em>greater power index would emerge victorious</em>. However, March Madness fans love to root for the underdog. As a result, the team with the <em>lower</em> power index gets an effective “boost”  \(B\) applied to their power index, where \(B\) is some positive non-integer.</p>
+</blockquote>
+
+<blockquote>
+  <p>As an illustration, consider the matchup between the \(2\) and \(3\)-seeds. The favored \(2\)-seed has a power index of \(3\), while the underdog \(3\)-seed has a power index of \(2+B\). When \(B\) is greater than \(1\), the \(3\)-seed will defeat the \(2\)-seed in an upset.</p>
+
+  <p>Depending on the value of \(B\), different teams will win the tournament. <strong>Of the \(2^n\) teams, how many can never win, regardless of the value of \(B\)</strong>?</p>
+</blockquote>
+
+<p><br><br></p>
+<h2 id="solution">Solution</h2>
+
+<p>We can start out with some observations. First, for fixed \(B\), the winner of the tournament is deterministic. This suggests we should define a function \(W_n(B)\) that for a given \(n\) and \(B\) returns the winning seed in the tournament. To solve our problem, we could then determine which values that \(W_n(B)\) can and cannot take on. The next useful observation is that for \(B &gt; 2^n - 1\), the value of \(W_n(B)\) is a constant. Specifically, for \(B &gt; 2^n - 1\), the lowest seeded team will always win the tournament. Thus we need only consider the non-integral values of \(W_n(B)\) on the interval \(B \in [0, 2^n]\). The last observation we need to consider is that for any two teams playing, say with seeds \(a\) and \(b\) with \(a &lt; b\), the value of \(B\) for which the winner and loser of the game swap is \(b - a + \epsilon\) where \(\varepsilon &gt; 0\) is an arbitrarily small constant. Therefore, as we vary \(B\) from \(0 \to 2^n\), the only values of \(B\) where we may see the value of \(W_n(B)\) change are of the form \(k + \varepsilon\) where \(k\) is a non-negative integer.</p>
+
+<p>With those observations, our strategy for solving the problem can be made clear. For \(B = k + \varepsilon\) for \(k \in [2^n - 1]\), determine the value of \(W_n(B)\) for the given value of \(B\) and keep track of the winners as we iterate over the values of \(B\).  Then simply report the values in \([2^n]\) that were not found to be winners.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="k">def</span> <span class="nf">gen_bracket</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Recursively generate a seeded bracket for n players (n must be a power of 2).
+    Returns a list where consecutive elements form a matchup.
+    </span><span class="sh">"""</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">prev</span> <span class="o">=</span> <span class="nf">gen_bracket</span><span class="p">(</span><span class="n">n</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">mirror</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">seed</span> <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">prev</span><span class="p">]</span>
+        <span class="n">bracket</span> <span class="o">=</span> <span class="p">[</span><span class="n">seed</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">prev</span><span class="p">,</span> <span class="n">mirror</span><span class="p">)</span> <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">pair</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">bracket</span>
+
+<span class="k">def</span> <span class="nf">winner</span><span class="p">(</span><span class="n">seedA</span><span class="p">,</span> <span class="n">seedB</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Returns the winner of the matchup seedA vs seedB in an 
+    N person tournament with boost B.
+    </span><span class="sh">"""</span>
+    <span class="c1"># make sure seedA is lower seed 
+</span>    <span class="k">if</span> <span class="n">seedA</span> <span class="o">&gt;</span> <span class="n">seedB</span><span class="p">:</span>
+        <span class="n">seedA</span><span class="p">,</span> <span class="n">seedB</span> <span class="o">=</span> <span class="n">seedB</span><span class="p">,</span> <span class="n">seedA</span>
+    <span class="n">power_rankA</span> <span class="o">=</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">seedA</span>
+    <span class="n">power_rankB</span> <span class="o">=</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">seedB</span> <span class="o">+</span> <span class="n">B</span>
+    <span class="k">if</span> <span class="n">power_rankA</span> <span class="o">&gt;</span> <span class="n">power_rankB</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">seedA</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">seedB</span>
+    
+
+<span class="k">def</span> <span class="nf">W</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">B</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s"> 
+    The winner of a 2^n person tournament with boost B. 
+    </span><span class="sh">"""</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">n</span> 
+    <span class="n">bracket</span> <span class="o">=</span> <span class="nf">generate_bracket</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="c1"># keep simulating until one team left 
+</span>        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">bracket</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">bracket</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">winners</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nf">len</span><span class="p">(</span><span class="n">bracket</span><span class="p">),</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">seedA</span> <span class="o">=</span> <span class="n">bracket</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">seedB</span> <span class="o">=</span> <span class="n">bracket</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+                <span class="n">winners</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nf">winner</span><span class="p">(</span><span class="n">seedA</span><span class="p">,</span> <span class="n">seedB</span><span class="p">,</span> <span class="n">N</span><span class="p">,</span> <span class="n">B</span><span class="p">))</span>
+            <span class="n">bracket</span> <span class="o">=</span> <span class="n">winners</span>
+</code></pre></div></div>
+
+<p>Then to get the possible winners for a given tournament size of \(2^n\) and to compute 
+the number of teams that cannot win, we can run the below code.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">n</span> <span class="o">=</span> <span class="mi">6</span> <span class="c1"># solve for 2^6 = 64 teams 
+</span>    
+<span class="n">can_win</span> <span class="o">=</span> <span class="nf">defaultdict</span><span class="p">(</span><span class="nb">bool</span><span class="p">)</span>
+<span class="c1"># B-values where winner could swap values
+</span><span class="n">B_space</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">eps</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span> 
+<span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">B_space</span><span class="p">:</span>
+    <span class="n">champ</span> <span class="o">=</span> <span class="nf">tournament_winner</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+    <span class="n">can_win</span><span class="p">[</span><span class="n">champ</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">winners</span> <span class="o">=</span> <span class="nf">list</span><span class="p">(</span><span class="nf">sorted</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">can_win</span><span class="p">.</span><span class="nf">keys</span><span class="p">())))</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">The teams that CAN win are </span><span class="si">{</span><span class="n">winners</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">There are </span><span class="si">{</span><span class="mi">2</span> <span class="o">**</span> <span class="n">n</span>  <span class="o">-</span> <span class="nf">len</span><span class="p">(</span><span class="n">winners</span><span class="p">)</span><span class="si">}</span><span class="s"> teams that cannot win</span><span class="sh">'</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">The function that predicts this is </span><span class="si">{</span><span class="mi">2</span> <span class="o">**</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Since this code is for general \(n\), we can compute the number of teams that cannot 
+win for several values of \(n\), see table 1.</p>
+
+<figure>
+    <center>
+    <img src="/assets/img/blog_images/2025-03-28-Underdog/Teams_cant_win.png" alt="Table1" width="70%" style="display: block; margin: auto;">
+    <figcaption> Table 1: The number of teams that cannot win in a \(2^n\) team tournament regardless of \(B\).
+    </figcaption>
+    </center>
+</figure>
+
+<p>Some of you may notice a pattern in this sequence. If we let \(a_n\) be the number of teams that cannot win in a \(2^n\) team tournament, then we see the pattern emerge</p>
+
+\[a_n = 2 a_{n - 1} + (n - 3), \; a_2 = 1\]
+
+<p>for \(n \geq 2\). Which would suggest that</p>
+
+\[\boxed{a_n = 2^{n - 1} - (n -  1)}.\]
+
+<p>We won’t attempt prove this conjecture here, but the pattern holds for \(n \leq 20\).</p>
+
+<p>Lastly, it would be interesting to see the plot of \(W_n(B)\) for various \(n\) so that we can get a sense of which teams are capable of winning. Below in Figure 1 is a gif that illustrates the function \(W_n(B)\) for various values of \(n\). We see that as \(n\) grows the shape of the function begins to approach some interesting limiting shape! 
+<br></p>
+
+<figure>
+  <center>
+  <img src="/assets/img/blog_images/2025-03-28-Underdog/wnB_loop.gif" width="80%" style="display: block; margin: auto;">
+  <figcaption> Figure 1. Plots of the winning team function, \(W_n(B)\) for various \(n\).
+</figcaption> 
+</center>
+</figure>
+
+<p>Upon inspection it appears there is a recursive description of how these curves relate to one another. Here is a very rough description of how they appear related.  We see for a given \(n\), for \(B &gt; 2^{n - 1}\), the \(W_n(B)\) is non-decreasing in \(B\) and produces \(2^{n - 2} + 1\) unique winners in that range. The curve for \(W_{n + 1}(B)\) has the same values as \(W_n(B)\) for \(B &lt; 2^{n - 1}\). Then for \(B \in [2^{n - 1}, 2^n]\), the previously increasing portion of the curve is reflected downward about its start point, and then for \(B &gt; 2^n\), the curve has the same monotonic behavior but for \(2^{n -1} + 1\) values. Note that for all \(n \geq 2\), \(W_n(B)\) is a one-to-one function. That is,  no winner is ever repeated for different \(B\). If this behavior is indeed an accurate description of the curves (as it empirically appears to be), then this would prove our conjecture about \(a_n\) <sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Can you show the equivalence? <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+  </ol>
+</div>
+
+  </article>
+
+
+  
+    
+    <br>
+    <hr>
+    <br>
+    <ul class="list-disc pl-8"></ul>
+
+    <!-- Adds related posts to the end of an article -->
+    <h2 class="text-3xl font-semibold mb-4 mt-12">Enjoy Reading This Article?</h2>
+    <p class="mb-2">Here are some more articles you might like to read next:</p>
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/Pi_day/">A Pi-Day Puzzle</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/fiddler/">How Many Rabbits Can You Pull out of a Hat?</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2024/JS_tree/">Jane Street Puzzle August 2024</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2024/CP_intro/">Leetcode Milestone</a>
+  </li>
+
+  
+
+  <li class="my-2">
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2024/JS_Hooks10/">Jane Street March 2024 Puzzle Solution</a>
+  </li>
+
+<div id="giscus_thread" style="max-width: ; margin: 0 auto;">
+  <script>
+    let giscusTheme = localStorage.getItem("theme");
+    let giscusAttributes = {
+        "src": "https://giscus.app/client.js",
+        "data-repo": "alshedivat/al-folio",
+        "data-repo-id": "MDEwOlJlcG9zaXRvcnk2MDAyNDM2NQ==",
+        "data-category": "Comments",
+        "data-category-id": "DIC_kwDOA5PmLc4CTBt6",
+        "data-mapping": "title",
+        "data-strict": "1",
+        "data-reactions-enabled": "1",
+        "data-emit-metadata": "0",
+        "data-input-position": "bottom",
+        "data-theme": giscusTheme,
+        "data-lang": "en",
+        "crossorigin": "anonymous",
+        "async": "",
+    };
+
+
+    let giscusScript = document.createElement("script");
+    Object.entries(giscusAttributes).forEach(([key, value]) => giscusScript.setAttribute(key, value));
+    document.getElementById("giscus_thread").appendChild(giscusScript);
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://giscus.app/?ref_noscript" rel="external nofollow noopener" target="_blank">comments powered by giscus.</a>
+</noscript>
+</div>
+</div>
+
+    </div>
+
+    <!-- Footer -->    <footer class="sticky-bottom mt-5">
+      <div class="container">
+        © Copyright 2025 Connor  Colombe. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>.
+Last updated: March 31, 2025.
+      </div>
+    </footer>
+
+    <!-- JavaScripts -->
+    <!-- jQuery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha256-fgLAgv7fyCGopR/gBNq2iW3ZKIdqIcyshnUULC4vex8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    <!-- Masonry & imagesLoaded -->
+  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+  <script defer src="/assets/js/masonry.js" type="text/javascript"></script>
+    
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.8/dist/medium-zoom.min.js" integrity="sha256-7PhEpEWEW0XXQ0k6kQrPKwuoIomz8R8IYyuU1Qew4P8=" crossorigin="anonymous"></script>
+  <script defer src="/assets/js/zoom.js"></script><!-- Load Common JS -->
+  <script defer src="/assets/js/common.js"></script>
+  <script defer src="/assets/js/copy_code.js" type="text/javascript"></script>
+
+    
+  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
+  <script async src="https://badge.dimensions.ai/badge.js"></script>
+
+    <!-- MathJax -->
+  <script type="text/javascript">
+    window.MathJax = {
+      tex: {
+        tags: 'ams'
+      }
+    };
+  </script>
+  <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-mml-chtml.js"></script>
+  <script defer src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id="></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ window.dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '');
+  </script>
+    
+
+<!-- Scrolling Progress Bar -->
+<script type="text/javascript">
+  /*
+   * This JavaScript code has been adapted from the article 
+   * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar, 
+   * published on the website https://css-tricks.com on the 7th of May, 2014.
+   * Couple of changes were made to the original code to make it compatible 
+   * with the `al-foio` theme.
+   */
+  const progressBar = $("#progress");
+  /*
+   * We set up the bar after all elements are done loading.
+   * In some cases, if the images in the page are larger than the intended
+   * size they'll have on the page, they'll be resized via CSS to accomodate
+   * the desired size. This mistake, however, breaks the computations as the
+   * scroll size is computed as soon as the elements finish loading.
+   * To account for this, a minimal delay was introduced before computing the
+   * values.
+   */
+  window.onload = function () {
+    setTimeout(progressBarSetup, 50);
+  };
+  /*
+   * We set up the bar according to the browser.
+   * If the browser supports the progress element we use that.
+   * Otherwise, we resize the bar thru CSS styling
+   */
+  function progressBarSetup() {
+    if ("max" in document.createElement("progress")) {
+      initializeProgressElement();
+      $(document).on("scroll", function() {
+        progressBar.attr({ value: getCurrentScrollPosition() });
+      });
+      $(window).on("resize", initializeProgressElement);
+    } else {
+      resizeProgressBar();
+      $(document).on("scroll", resizeProgressBar);
+      $(window).on("resize", resizeProgressBar);
+    }
+  }
+  /*
+   * The vertical scroll position is the same as the number of pixels that
+   * are hidden from view above the scrollable area. Thus, a value > 0 is
+   * how much the user has scrolled from the top
+   */
+  function getCurrentScrollPosition() {
+    return $(window).scrollTop();
+  }
+
+  function initializeProgressElement() {
+    let navbarHeight = $("#navbar").outerHeight(true);
+    $("body").css({ "padding-top": navbarHeight });
+    $("progress-container").css({ "padding-top": navbarHeight });
+    progressBar.css({ top: navbarHeight });
+    progressBar.attr({
+      max: getDistanceToScroll(),
+      value: getCurrentScrollPosition(),
+    });
+  }
+  /*
+   * The offset between the html document height and the browser viewport
+   * height will be greater than zero if vertical scroll is possible.
+   * This is the distance the user can scroll
+   */
+  function getDistanceToScroll() {
+    return $(document).height() - $(window).height();
+  }
+
+  function resizeProgressBar() {
+    progressBar.css({ width: getWidthPercentage() + "%" });
+  }
+  // The scroll ratio equals the percentage to resize the bar
+  function getWidthPercentage() {
+    return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+  }
+</script>
+
+  </body>
+</html>
