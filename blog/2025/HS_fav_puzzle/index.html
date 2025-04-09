@@ -10,7 +10,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>A Pi-Day Puzzle | Connor  Colombe</title>
+    <title>Can You Solve a High Schooler’s Favorite Puzzle? | Connor  Colombe</title>
     <meta name="author" content="Connor  Colombe">
     <meta name="description" content="My solution to this week's Fiddler on the Proof Puzzle">
 
@@ -32,7 +32,7 @@
     <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9D%91&lt;/text&gt;&lt;/svg&gt;">
     
     <link rel="stylesheet" href="/assets/css/main.css">
-    <link rel="canonical" href="https://ccolombe12.github.io/blog/2025/Pi_day/">
+    <link rel="canonical" href="https://ccolombe12.github.io/blog/2025/HS_fav_puzzle/">
     
     <!-- Dark Mode -->
     
@@ -104,14 +104,10 @@
 <div class="post">
 
   <header class="post-header">
-    <h1 class="post-title">A Pi-Day Puzzle</h1>
-    <p class="post-meta">March 14, 2025</p>
+    <h1 class="post-title">Can You Solve a High Schooler’s Favorite Puzzle?</h1>
+    <p class="post-meta">April 8, 2025</p>
     <p class="post-tags">
       <a href="/blog/2025"> <i class="fas fa-calendar fa-sm"></i> 2025 </a>
-        ·  
-        <a href="/blog/tag/math">
-          <i class="fas fa-hashtag fa-sm"></i> math</a>  
-          
 
     </p>
   </header>
@@ -120,85 +116,58 @@
     <p>This week’s <a href="https://thefiddler.substack.com" rel="external nofollow noopener" target="_blank">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
 
 <blockquote>
-  <p>You are planning a picnic on the remote tropical island of \(\pi\)-land. The island’s shape is a perfect semi-disk with two beaches, as illustrated below. We have <strong>Semicircular Beach</strong> (along the northern semicircular edge of the disk) and <strong>Diametric Beach</strong> (along the southern diameter of the disk).</p>
-
-  <p><strong>Part 1:</strong><br>
-<em>If you pick a random spot on \(\pi\)-land for your picnic, what is the probability that it will be closer to Diametric Beach than to Semicircular Beach?</em></p>
-
-  <p><strong>Part 2:</strong><br>
-<em>Given the radius of \(\pi\)-land is 1, on average, what will be the expected shortest distance to shore?</em></p>
+  <p>A teacher is handing out candy to his \(N\) students, of which \(N \geq 4\). He abides by the following rules:</p>
 </blockquote>
 
-<figure>
-    <img src="/assets/img/blog_images/2025-03-14-Pi_day/Pi_island.png" alt="Illustration of the island" width="80%" style="display: block; margin: auto;">
-    <figcaption style="text-align: center;">Figure 1: The island.</figcaption>
-</figure>
+<blockquote>
+  <p>He hands out candy to groups of three students (i.e., “trios”) at a time. Each member of the trio gets one piece of candy. Each unique trio can ask for candy, but that same trio can’t come back for seconds. If students in the trio want more candy, they must return as part of a different trio.
+When a trio gets candy, the next trio can’t contain any students from that previous trio.</p>
+</blockquote>
 
-<hr>
+<blockquote>
+  <p>It turns out that <em>every</em> possible trio can get a helping of candy. <strong>What is the smallest class size \(N\) for which this is possible?</strong></p>
+</blockquote>
 
+<p><br><br></p>
 <h2 id="solution">Solution</h2>
 
-<h3 id="part-1">Part 1</h3>
+<p>Instead of focusing on the case of trios, we will generalize the problem and consider groups of \(k\) students. If there is some ordering of groups such that every group of \(k\) students can receive candy, what is the smallest such \(N\) for which this is possible? Denote this smallest \(N\) as \(N(k)\).</p>
 
-<p>The immediate intuition is that the set of points closer to the Diametric Beach than the Semicircular Beach should form a well-defined geometric region. If we can determine that region, denoted \(D\), the desired probability is simply the area of that region divided by the area of the entire semicircle.</p>
+<p>Now, what are some initial observations we can make about the problem? Well, first off, we can actually place the lower bound that \(N(k) \geq 2 k + 1\). This is because if there are any fewer students, then we cannot find a sequence of 3 initial \(k\)-groups. This was the only bound I could find in my initial exploration—the problem turned out to be much harder than I expected!</p>
 
-<p>Let the island’s radius be 1, its center be at \((0, 0)\), and denote the points on the island by the region \(C\). Consider a point \((x, y)\) on the island, which beach is it closer to? The <strong>distance to Diametric Beach</strong> is just its \(y\)-coordinate. What about the <strong>distance to Semicircular Beach</strong>?</p>
+<p>Perhaps changing our perspective can help us gain traction on the problem. What if we instead thought of the students as <strong>nodes</strong> in a graph and the <strong>edges</strong> between nodes represented that the two groups the nodes represented were disjoint. Now, a <a href="https://en.wikipedia.org/wiki/Path_(graph_theory)" rel="external nofollow noopener" target="_blank">path</a> in this graph would represent a sequence of groups that could get candy such that every group in the sequence is disjoint from the adjacent groups in the sequence. If we could find a path such that every node appeared in it exactly once, then we would have found a sequence of the groups that allows every group to get candy! Such a path in a graph where every node is visited exactly once is called a <a href="https://en.wikipedia.org/wiki/Hamiltonian_path" rel="external nofollow noopener" target="_blank">Hamiltonian path</a>. Our problem has now become, for what \(N\) does a Hamiltonian path exist for a given \(k\)?</p>
 
-<p>The shortest path from \((x, y)\) to Semicircular Beach is along the radial line through \((0,0)\) and \((x,y)\).<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> This means the shortest distance to the Semicircular Beach is given by:</p>
+<p>It turns out that determining whether a Hamiltonian path exists in a graph <em>is a <a href="https://en.wikipedia.org/wiki/NP-completeness" rel="external nofollow noopener" target="_blank">hard problem</a></em>. But perhaps there are some special properties of the graph in our problem that make it a tractable endeavor without having to perform a brute-force search.</p>
 
-\[1 - \sqrt{x^2 + y^2}\]
+<p>We need to first better describe our graph. Suppose for now, we fix some \(N \geq 2 k + 1\) and construct our graph as follows:
+The set of nodes \(V\) is the set of subsets of size \(k\) from the group of \(N\) students. Nodes \(u, v \in V\) share an undirected edge if \(u \cap v = \emptyset\). This graph will have \(\binom{N}{k}\) nodes. For a given node \(u\), it will have \(\binom{N - k}{k}\) edges (one to each of the groups that it shares no members with) and thus by the handshake lemma, the graph has \(\frac{\binom{N}{k}\binom{N - k}{k}}{2}\) edges.</p>
 
-<p>Therefore, for a point to be <strong>closer to the Diametric Beach than the Semicircular Beach</strong>, the following inequality must hold:</p>
+<p>Now that we have a clearer picture of the graph, is there a particular aspect of it that allows us to determine if it has a Hamiltonian path? It turns out there is. One especially nice property of our graph is that it is <em>vertex transitive</em>. In simple terms, vertex transitive implies that from every node in the graph, the graph “looks the same” from the perspective of that node. It turns out that there is an open conjecture, the <a href="https://en.wikipedia.org/wiki/Lov%C3%A1sz_conjecture" rel="external nofollow noopener" target="_blank">Lovász Conjecture</a> that states:</p>
+<blockquote>
+  <p><em>Lovász conjecture: Every finite, connected, vertex regular graph has a Hamiltonian cycle (and thus a Hamiltonian path).</em></p>
+</blockquote>
 
-\[y \leq 1 - \sqrt{x^2 + y^2}\]
+<p>While this is an open conjecture, it implies that there is some evidence to suggest: as long as our choice of \(N\) allows our graph to be connected, since it is vertex transitive, it may indeed contain a Hamiltonian path. This leads us to the natural question, for what \(N\) is our graph connected?</p>
 
-<p>Rearranging:</p>
+<p>It turns out that for \(N \geq 2k + 1\), our graph is connected! To see why, consider any two distinct nodes \(u, v \in V\). If \(u \cap v = \emptyset\), then they share an edge by definition. Otherwise, Suppose \(u\) represents the group of students \((A, S)\) and \(v\) represents the students \((B, S)\) where \(A \cap B = \emptyset\) and \(\|S\| = x\). Under this framing, we can show that that the set of students \(W\) that are not in  \(u \cup v\) has size \(x + 1\). We can now construct a path from \(u \to v\) using the following intuition.</p>
 
-\[y \leq \frac{1 - x^2}{2}\]
+<p>We make a path that has the form</p>
 
-<p>Thus, the region \(D\) of points closer to the Diametric Beach than the Semicircular Beach is:</p>
+\[(A, S) \to (B, W') \to (A, S') \to (B, W'') \to (A, S'')\to   \dots \to (B, S)\]
 
-\[D = \left\{ (x, y) \in C \mid y \leq \frac{1 - x^2}{2} \right\}.\]
+<p>where we use the extra student in \(W\) to iteratively swap in one more student of \(S\) into the group with \(B\) and vice versa until the subgroup paired with the \(B\) subgroup eventually becomes the desired \(S\) subgroup <sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</p>
 
-<p>This region is depicted below:</p>
+<p>Now that we have argued that \(N=2k + 1\) is sufficient for our graph to be connected, and we have “evidence” now that suggests this should also be sufficient for there to exist a hamiltonian path, what else can we do except also conjecture that \(N(k) = 2k + 1\) and call it a day? Well it turns out that our graph with \(N = 2k + 1\) nodes is actually a special and well-studied graph. It turns out for \(N = 2 k + 1\), we have actually described the <em><a href="https://en.wikipedia.org/wiki/Odd_graph" rel="external nofollow noopener" target="_blank">Odd Graph</a></em>, \(O_{k + 1}\) which, for \(k \geq 3\),  <strong>is known to have a Hamiltonian cycle (and thus a path)!</strong><sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>  Therefore, our choice of \(N = 2k + 1\) will ensure that every grouping of children can get candy and since this is the lower bound on possible values of \(N\), we indeed have that</p>
 
-<figure>
-    <img src="/assets/img/blog_images/2025-03-14-Pi_day/semicircle_plot.png" alt="Geometric region solution" width="80%" style="display: block; margin: auto;">
-    <figcaption style="text-align: center;">Figure 2: The region closer to the Diameter Beach than the Semicircular Beach (Blue).</figcaption>
-</figure>
-
-<p>Now, we compute the area of this region using integration:</p>
-
-\[\text{Area}(D)  = \int_{-1}^1 \int_0^{\frac{1-x^2}{2}} dy \; dx = \frac{2}{3}.\]
-
-<p>Since the total area of the semicircle is \(\frac{\pi}{2}\), the <strong>probability of being closer to the Diametric Beach is</strong>:</p>
-
-\[\boxed{\frac{\text{Area}(D)}{\text{Area}(C)} = \frac{2/3}{\pi / 2} = \frac{4}{3\pi}}\]
-
-<hr>
-
-<h3 id="part-2">Part 2</h3>
-
-<p>We’ve already done most of the heavy lifting in part 1)! Define \(L\) as the random variable representing the shortest distance to a beach. At a given point \((x, y) \in C\):</p>
-
-<ul>
-  <li>If \((x, y) \in D\), the shortest distance is \(y\).</li>
-  <li>If \((x, y) \in D^c\), the shortest distance is \(1 - \sqrt{x^2 + y^2}\).</li>
-</ul>
-
-<p>Breaking up the expectation integral into two parts and solving yields:</p>
-
-\[\begin{align*}
-\mathbb{E}[L] &amp; = \frac{1}{\pi /2} \int_C \min\left(y, 1 - \sqrt{x^2 + y^2}\right) dy \; dx \\ 
-&amp; = \frac{1}{\pi/2} \int_D y \; dy \; dx + \frac{1}{\pi/2} \int_{D^c} \left(1 - \sqrt{x^2 + y^2}\right) dy \; dx\\ 
-&amp; = \frac{1}{\pi/2} \int_{-1}^1\int_0^{\frac{1-x^2}{2}} y \; dy \; dx + \frac{1}{\pi/2} \int_{-1}^1\int_{\frac{1-x^2}{2}}^{\sqrt{1 - x^2}}1 - \sqrt{x^2 + y^2}  \; dy \; dx\\
- &amp; = \boxed{\frac{1}{3} - \frac{4}{9 \pi}}
-\end{align*}\]
+\[\boxed{N(k) = 2k + 1}.\]
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1">
-      <p>Can you prove this? <em>Hint: Use the triangle inequality.</em> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
+      <p>To really see how this works, try to do this with the case of \(k= 3\) and \(N = 7\)! <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
+    </li>
+    <li id="fn:2">
+      <p>A bit anticlimactic that we’re able that we are able to simply point to the literature and call it a day but, but that’s research sometimes! This was a great problem to learn more graph theory! <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
   </ol>
 </div>
@@ -219,13 +188,13 @@
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/HS_fav_puzzle/">Can You Solve a High Schooler’s Favorite Puzzle?</a>
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/underdog/">Can You Root for the Underdog?</a>
   </li>
 
   
 
   <li class="my-2">
-    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/underdog/">Can You Root for the Underdog?</a>
+    <a class="text-pink-700 underline font-semibold hover:text-pink-800" href="/blog/2025/Pi_day/">A Pi-Day Puzzle</a>
   </li>
 
   

@@ -1,5 +1,62 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-04-03T18:09:33+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
-</subtitle><entry><title type="html">Can You Root for the Underdog?</title><link href="https://ccolombe12.github.io/blog/2025/underdog/" rel="alternate" type="text/html" title="Can You Root for the Underdog?" /><published>2025-03-28T00:00:00+00:00</published><updated>2025-03-28T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/underdog</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/underdog/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-04-09T05:59:02+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+</subtitle><entry><title type="html">Can You Solve a High Schooler’s Favorite Puzzle?</title><link href="https://ccolombe12.github.io/blog/2025/HS_fav_puzzle/" rel="alternate" type="text/html" title="Can You Solve a High Schooler’s Favorite Puzzle?" /><published>2025-04-08T00:00:00+00:00</published><updated>2025-04-08T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/HS_fav_puzzle</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/HS_fav_puzzle/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
+
+<blockquote>
+  <p>A teacher is handing out candy to his \(N\) students, of which \(N \geq 4\). He abides by the following rules:</p>
+</blockquote>
+
+<blockquote>
+  <p>He hands out candy to groups of three students (i.e., “trios”) at a time. Each member of the trio gets one piece of candy. Each unique trio can ask for candy, but that same trio can’t come back for seconds. If students in the trio want more candy, they must return as part of a different trio.
+When a trio gets candy, the next trio can’t contain any students from that previous trio.</p>
+</blockquote>
+
+<blockquote>
+  <p>It turns out that <em>every</em> possible trio can get a helping of candy. <strong>What is the smallest class size \(N\) for which this is possible?</strong></p>
+</blockquote>
+
+<p><br /><br /></p>
+<h2 id="solution">Solution</h2>
+
+<p>Instead of focusing on the case of trios, we will generalize the problem and consider groups of \(k\) students. If there is some ordering of groups such that every group of \(k\) students can receive candy, what is the smallest such \(N\) for which this is possible? Denote this smallest \(N\) as \(N(k)\).</p>
+
+<p>Now, what are some initial observations we can make about the problem? Well, first off, we can actually place the lower bound that \(N(k) \geq 2 k + 1\). This is because if there are any fewer students, then we cannot find a sequence of 3 initial \(k\)-groups. This was the only bound I could find in my initial exploration—the problem turned out to be much harder than I expected!</p>
+
+<p>Perhaps changing our perspective can help us gain traction on the problem. What if we instead thought of the students as <strong>nodes</strong> in a graph and the <strong>edges</strong> between nodes represented that the two groups the nodes represented were disjoint. Now, a <a href="https://en.wikipedia.org/wiki/Path_(graph_theory)">path</a> in this graph would represent a sequence of groups that could get candy such that every group in the sequence is disjoint from the adjacent groups in the sequence. If we could find a path such that every node appeared in it exactly once, then we would have found a sequence of the groups that allows every group to get candy! Such a path in a graph where every node is visited exactly once is called a <a href="https://en.wikipedia.org/wiki/Hamiltonian_path">Hamiltonian path</a>. Our problem has now become, for what \(N\) does a Hamiltonian path exist for a given \(k\)?</p>
+
+<p>It turns out that determining whether a Hamiltonian path exists in a graph <em>is a <a href="https://en.wikipedia.org/wiki/NP-completeness">hard problem</a></em>. But perhaps there are some special properties of the graph in our problem that make it a tractable endeavor without having to perform a brute-force search.</p>
+
+<p>We need to first better describe our graph. Suppose for now, we fix some \(N \geq 2 k + 1\) and construct our graph as follows:
+The set of nodes \(V\) is the set of subsets of size \(k\) from the group of \(N\) students. Nodes \(u, v \in V\) share an undirected edge if \(u \cap v = \emptyset\). This graph will have \(\binom{N}{k}\) nodes. For a given node \(u\), it will have \(\binom{N - k}{k}\) edges (one to each of the groups that it shares no members with) and thus by the handshake lemma, the graph has \(\frac{\binom{N}{k}\binom{N - k}{k}}{2}\) edges.</p>
+
+<p>Now that we have a clearer picture of the graph, is there a particular aspect of it that allows us to determine if it has a Hamiltonian path? It turns out there is. One especially nice property of our graph is that it is <em>vertex transitive</em>. In simple terms, vertex transitive implies that from every node in the graph, the graph “looks the same” from the perspective of that node. It turns out that there is an open conjecture, the <a href="https://en.wikipedia.org/wiki/Lovász_conjecture">Lovász Conjecture</a> that states:</p>
+<blockquote>
+  <p><em>Lovász conjecture: Every finite, connected, vertex regular graph has a Hamiltonian cycle (and thus a Hamiltonian path).</em></p>
+</blockquote>
+
+<p>While this is an open conjecture, it implies that there is some evidence to suggest: as long as our choice of \(N\) allows our graph to be connected, since it is vertex transitive, it may indeed contain a Hamiltonian path. This leads us to the natural question, for what \(N\) is our graph connected?</p>
+
+<p>It turns out that for \(N \geq 2k + 1\), our graph is connected! To see why, consider any two distinct nodes \(u, v \in V\). If \(u \cap v = \emptyset\), then they share an edge by definition. Otherwise, Suppose \(u\) represents the group of students \((A, S)\) and \(v\) represents the students \((B, S)\) where \(A \cap B = \emptyset\) and \(\|S\| = x\). Under this framing, we can show that that the set of students \(W\) that are not in  \(u \cup v\) has size \(x + 1\). We can now construct a path from \(u \to v\) using the following intuition.</p>
+
+<p>We make a path that has the form</p>
+
+\[(A, S) \to (B, W') \to (A, S') \to (B, W'') \to (A, S'')\to   \dots \to (B, S)\]
+
+<p>where we use the extra student in \(W\) to iteratively swap in one more student of \(S\) into the group with \(B\) and vice versa until the subgroup paired with the \(B\) subgroup eventually becomes the desired \(S\) subgroup <sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>.</p>
+
+<p>Now that we have argued that \(N=2k + 1\) is sufficient for our graph to be connected, and we have “evidence” now that suggests this should also be sufficient for there to exist a hamiltonian path, what else can we do except also conjecture that \(N(k) = 2k + 1\) and call it a day? Well it turns out that our graph with \(N = 2k + 1\) nodes is actually a special and well-studied graph. It turns out for \(N = 2 k + 1\), we have actually described the <em><a href="https://en.wikipedia.org/wiki/Odd_graph">Odd Graph</a></em>, \(O_{k + 1}\) which, for \(k \geq 3\),  <strong>is known to have a Hamiltonian cycle (and thus a path)!</strong><sup id="fnref:2"><a href="#fn:2" class="footnote" rel="footnote" role="doc-noteref">2</a></sup>  Therefore, our choice of \(N = 2k + 1\) will ensure that every grouping of children can get candy and since this is the lower bound on possible values of \(N\), we indeed have that</p>
+
+\[\boxed{N(k) = 2k + 1}.\]
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>To really see how this works, try to do this with the case of \(k= 3\) and \(N = 7\)! <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>A bit anticlimactic that we’re able that we are able to simply point to the literature and call it a day but, but that’s research sometimes! This was a great problem to learn more graph theory! <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry><entry><title type="html">Can You Root for the Underdog?</title><link href="https://ccolombe12.github.io/blog/2025/underdog/" rel="alternate" type="text/html" title="Can You Root for the Underdog?" /><published>2025-03-28T00:00:00+00:00</published><updated>2025-03-28T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/underdog</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/underdog/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
 
 <blockquote>
   <p>There are \(2^n\) teams playing in a single-elimination seeded tournament. The teams play in a traditional seeded tournament format. That is, in the first round, the sum of teams playing each other is \(2^n + 1\) (for example seed \(1\) plays seed \(2^n\), \(2\) plays \(2^n - 1\), etc). If the stronger team always advances, then the sum of opponents’ seeds in the second round is \(2^{n - 1} + 1\), and so on.</p>
@@ -673,81 +730,4 @@ v_k + w(v_k, k-1) = \int_0^1 w(x, k - 1) \;  \label{eq:v_k equal}.
 <p>\(\begin{equation}
 w(v,k)= \max\left\{\underbrace{v + w(v, k - 1)}_{\text{receive payout}}, \; \underbrace{\frac{1}{n} \sum_{u=1}^n w(u, k - 1)}_{\text{re-roll}}\right\}.\label{eq: disc rec.}
 \end{equation}\)
-Otherwise, the insights from the continuous case still hold!</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[It’s no secret that I really enjoy solving interview brainteaser problems. I recently stumbled across a problem from a Jane Street Interview that I thought was interesting. Problem Statement The original problem is as follows: You are playing a game with a fair \(n\) sided dice, with faces 1 through \(n\) and \(T\) turns. The die starts with side 1 facing up. On each turn, you may either]]></summary></entry><entry><title type="html">Generalizing the “Drunk Pasenger” Problem</title><link href="https://ccolombe12.github.io/blog/2023/Drunk_passenger/" rel="alternate" type="text/html" title="Generalizing the “Drunk Pasenger” Problem" /><published>2023-08-16T00:00:01+00:00</published><updated>2023-08-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Drunk_passenger</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Drunk_passenger/"><![CDATA[<style type="text/css">
-    ol { list-style-type: lower-alpha; }
-</style>
-
-<p>I recently stumbled across a problem that asked for a generalization of the “Drunk Passenger” problem. The classic problem is as follows:</p>
-<h2 id="problem-statement">Problem Statement</h2>
-<p>There are \(n\) seats on an airplane and \(n\) passengers. The passengers are in a line to board the plane and the \(i\)-th passenger in line is assigned to seat number \(i\) on the plane. However, the first passenger in line is drunk and takes a seat on the plane uniformly at random. The rest of the passengers take a on the plane seat one by one. Passenger \(i \geq 2\) will sit in their assigned seat if it is available, otherwise they will sit in an open seat uniformly at random. What is the probability the \(n\)-th passenger in line sits in their assigned seat?</p>
-
-<p>The version of the problem we will solve is: find the probability that the \(k\)-th passenger in line sits in their assigned seat for \(k = 1,\ldots,n\).</p>
-<hr />
-
-<h2 id="solution">Solution</h2>
-
-<p>Let \(P(n, k)\) be the probability that the \(k\)-th passenger sits in their assigned seat. Let’s do a little exploration. We can immediately reason that because the first passenger (\(k=1\)) always picks their seat uniformly at random, we have that \(P(n,1) = 1/n\) for all \(n\). But what about for \(k=2\) ? The second passenger will sit in their assigned seat only if the first passenger does not steal their seat. This implies \(P(n,2) = \frac{n-1}{n}\). For \(k \geq 3\), we rely on an important observation:</p>
-
-<blockquote>
-  <p>If the first passenger sits in seat \(i\) such that \(3 \leq  i \leq n\), then the passengers \(2,\ldots, i - 1\) will all sit in their assigned seats.</p>
-</blockquote>
-
-<p>We can now find \(P(n,k)\) by conditioning on three events:</p>
-
-<ol>
-  <li>The first passenger sits in seat \(1\).</li>
-  <li>The first passenger sits in seat \(i\) where \(i &gt; k\).</li>
-  <li>The first passenger sits in seat \(i\) where \(2 \leq i \leq k -1\).</li>
-</ol>
-
-<p>In events a) and c) passenger \(k\) sits in their assigned seat with probability 1. Event b) requires some more careful analysis.</p>
-
-<p>Say passenger \(1\) sits in seat \(i\) such that \(2 \leq i \leq k -1\). In this case, passengers \(2,\ldots,i-1\) all get their assigned seats. Passenger \(i\), now without their assigned seat, will sit uniformly at random in one of the seats numbered \(1, i+1, i+2, \ldots, n\). But this is the same problem as before with passenger \(i\) as the new “drunk passenger” whose assigned seat is \(1\). In this smaller problem, there are \(n-i+1\) passengers and passenger \(k\) in the larger problem is now passenger \(k - i + 1\) in the smaller problem. Therefore in the event that passenger \(1\) sits in seat \(i\), the probability that passenger \(k &gt; i\) sits in their assigned seat is \(P(n+1 - i, k + 1 - i)\).</p>
-
-<p>To put this all into a recurrence relation, we have</p>
-
-\[\begin{equation}
-\begin{split}
-P(n,k) &amp; = \Pr\left[\text{$k$ sits in seat $k$}|\text{1 sits in seat 1} \right]\cdot \Pr[\text{1 sits in seat 1} ]\\ 
-&amp;  + \Pr\left[\text{$k$ sits in seat $k$}|\text{1 sits in seat $i &gt; k$} \right]\cdot \Pr[\text{1 sits in seat $i &gt; k$} ]\\ 
-&amp; + \sum_{i=1}^{k-1} \Pr\left[\text{$k$ sits in seat $k$}|\text{1 sits in seat $i$} \right]\cdot \Pr[\text{1 sits in seat $i$} ]\\ 
-&amp; = 1 \cdot \frac{1}{n} + 1 \cdot \frac{n-k}{n} + \sum_{i=2}^{k-1}P(n+1 - i, k + 1 - i)\cdot \frac{1}{n}\\ 
-&amp; = \frac{n+1 -k}{n} + \frac{1}{n} \sum_{i=2}^{k-1}P(n+1 - i, k + 1 - i)\\ 
-&amp; = \frac{n+1 -k}{n} + \frac{1}{n} \sum_{i=1}^{k-2}P(n - i, k - i)\\
-\end{split}\label{eq:recurrence}
-\end{equation}\]
-
-<p>with base cases \(P(n,1) = \frac{1}{n}\) and \(P(n,2) = \frac{n-1}{n}\) for all \(n\). But how might we go about evaluating (\ref{eq:recurrence})?</p>
-
-<p>Well, by solving for a few small values of \(k\) by hand, we find that \(P(n,3) = \frac{n-2}{n-1}\) and \(P(n,4) = \frac{n-3}{n-2}\). This leads us to the following proposition which we will then prove by induction on \(k\).</p>
-
-<div class="proposition">
-For \(n \in \mathbb{Z}_+ \) and integer \(k \leq n\) the probability that passenger \(k\) sits in their assigned seat in the drunk passenger problem is 
-\begin{equation}
-    \boxed{P(n,k) = \begin{cases}
-      \frac{n + 1 - k}{n + 2 - k} &amp; k\geq 2\\ 
-      \frac{1}{n} &amp; k = 1.
-      \end{cases}}
-  \end{equation}
-</div>
-
-<p><em>Proof.</em></p>
-
-<p>We will prove this by induction on \(k\). First note the base cases for \(P(n,1)\) holds. Then using (\ref{eq:recurrence}) we have \(P(n,2) = \frac{n-1}{n}\) which agrees with our previous results. These two base cases hold for all \(n \geq 2\). We will now proceed with the inductive hypothesis and assume the result holds for all \(k' &lt; k\). It now suffices to show \(P(n,k) = \frac{n + 1 - k}{n + 2 - k}\).</p>
-
-<p>From (\ref{eq:recurrence}) we have 
-\(\begin{equation}  
-\begin{split}
-P(n,k) &amp; = \frac{n + 1 - k}{n} + \frac{1}{n} \sum_{i=1}^{k-2}P(n - i, k - i)\\ 
-       &amp; = \frac{n + 1 - k}{n} + \frac{1}{n} \sum_{i=1}^{k-2}\frac{(n-i) + 1 - (k-i)}{(n-i) + 2 - (k-i)}\\ 
-       &amp; = \frac{n + 1 - k}{n} + \frac{1}{n} \sum_{i=1}^{k-2}\frac{n + 1 - k}{n + 2 - k}\\ 
-       &amp; = \frac{n + 1 - k}{n} + \frac{k-2}{n}\cdot\frac{n + 1 - k}{n + 2 - k}\\
-       &amp; = \frac{n + 1 - k}{n}\left(1  + \frac{k-2}{n + 2 - k}\right)\\
-       &amp;  = \frac{n + 1 - k}{n}\left(\frac{n}{n + 2 - k}\right)\\
-       &amp; = \frac{n + 1 - k}{n + 2 - k}
-\end{split}
-\end{equation}\)
-as desired.
-\(\begin{align*} &amp; \tag*{\(\blacksquare\)} \end{align*}\)</p>
-
-<p>Based on this we do recover the classic result that \(P(n,n) = 1/2\). Taking the derivative of \(P(n,k)\) with respect to \(k\) we can see that it is a decreasing function in \(k\) and that the later in the line you are, the less likely it is you will sit in your assigned seat with a worst case probability of \(1/2\).</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[I recently stumbled across a problem that asked for a generalization of the “Drunk Passenger” problem. The classic problem is as follows: Problem Statement There are \(n\) seats on an airplane and \(n\) passengers. The passengers are in a line to board the plane and the \(i\)-th passenger in line is assigned to seat number \(i\) on the plane. However, the first passenger in line is drunk and takes a seat on the plane uniformly at random. The rest of the passengers take a on the plane seat one by one. Passenger \(i \geq 2\) will sit in their assigned seat if it is available, otherwise they will sit in an open seat uniformly at random. What is the probability the \(n\)-th passenger in line sits in their assigned seat?]]></summary></entry></feed>
+Otherwise, the insights from the continuous case still hold!</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[It’s no secret that I really enjoy solving interview brainteaser problems. I recently stumbled across a problem from a Jane Street Interview that I thought was interesting. Problem Statement The original problem is as follows: You are playing a game with a fair \(n\) sided dice, with faces 1 through \(n\) and \(T\) turns. The die starts with side 1 facing up. On each turn, you may either]]></summary></entry></feed>
