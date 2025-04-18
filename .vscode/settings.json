@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
-        "Beren"
+      "Beren",
+      "Lovász",
+      "upperbound"
     ],
     "markdownlint.rules": {
   "MD033": false  // Allows raw HTML inside Markdown
