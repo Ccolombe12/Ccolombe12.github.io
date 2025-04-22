@@ -1,5 +1,173 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-04-19T22:53:34+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
-</subtitle><entry><title type="html">Can You Solve a High Schooler’s Favorite Puzzle?</title><link href="https://ccolombe12.github.io/blog/2025/HS_fav_puzzle/" rel="alternate" type="text/html" title="Can You Solve a High Schooler’s Favorite Puzzle?" /><published>2025-04-08T00:00:00+00:00</published><updated>2025-04-08T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/HS_fav_puzzle</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/HS_fav_puzzle/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-04-22T21:08:53+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+</subtitle><entry><title type="html">Can You Throw the Hammer?</title><link href="https://ccolombe12.github.io/blog/2025/hammer_toss/" rel="alternate" type="text/html" title="Can You Throw the Hammer?" /><published>2025-04-21T00:00:00+00:00</published><updated>2025-04-21T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/hammer_toss</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/hammer_toss/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
+
+<blockquote>
+  <p>You (Player 1) and your opponent (Player 2) are competing in a <a href="https://tglgolf.com">TGL golf match</a>. On any given hole you play, each of you has a 50-percent chance of winning the hole (and a zero percent chance of tying). That said, scorekeeping in this match is a little different from the norm.</p>
+</blockquote>
+
+<blockquote>
+  <p>Each hole is worth 1 point. Before starting each hole, either you or your opponent can “throw the hammer.” When the hammer has been thrown, whoever did not throw the hammer must either accept the hammer or reject it. If they accept the hammer, the hole is worth 2 points. If they reject the hammer, they concede the hole and its 1 point to their opponent. Both players can throw the hammer on as many holes as they wish. (Should both players decide to throw the hammer at the exact same time—something that can’t be planned in advance—the hole is worth 2 points.)</p>
+</blockquote>
+
+<blockquote>
+  <p>The first player to reach \(n\) points wins the match. Suppose all players always make rational decisions to maximize their own chances of winning. <strong>If the first player wins the first hole and the score is \((1 - 0)\) what is the probability that they win the match?</strong></p>
+</blockquote>
+
+<p><br /><br /></p>
+
+<h2 id="solution"><strong>Solution</strong></h2>
+
+<p>This is a quick one this week! For each round, the players are playing in a <a href="https://en.wikipedia.org/wiki/Zero-sum_game">zero-sum game</a>.We can view them as competing for the “resource” that is the probability that they win the overall game given the current round. To solve for the probability that Player 1 wins from the score-state \((1,0)\), which we denote as \(V(1, 0)\), we need to develop a recursive relationship for \(V(i, j)\), the probability that the first player wins from state \((i, j)\) (Player 1 has \(i\) points and Player 2 has \(j\) points).</p>
+
+<p>We observe that, at the start of each turn each player has two actions to start the turn: throw the hammer or do not throw the hammer. In the case that they do not throw the hammer, then they may have to then make the secondary choice of “accept” or “reject” if the other player chooses to throw their hammer. We adopt the convention that Player 1 chooses their actions based on the objective of <em>maximizing</em> the probability that they win the overall game at state \((i, j)\), \(V(i, j)\). Conversely, Player 2 chooses actions with the objective of <em>minimizing</em> this \(V(i, j)\). This leads us to the recurrence relation:</p>
+
+\[\begin{equation}
+\begin{aligned}
+V(i,j) = &amp;  \max\Bigl\{\,%
+\underbrace{\min\bigl\{\tfrac12\,V(i+2,j) + \tfrac12\,V(i,j+2),\;V(i+1,j)\bigr\}}_{\text{Player 1 Tosses Hammer}},\\
+&amp;\quad \underbrace{\min\Bigl\{\,
+   \tfrac12\, V(i+1,j) + \tfrac12\,V(i,j+1),\;
+   \max\bigl\{\tfrac12\,V(i+2,j) + \tfrac12\,V(i,j+2),\;V(i,j+1)\bigr\}
+\Bigr\}}_{\text{Player 1 does not toss Hammer}} \Bigr\}. 
+\end{aligned}\label{eq:rec}
+\end{equation}\]
+
+<p>With the base case(s) of</p>
+
+\[\begin{align}
+V(n, j)  = 1 &amp; \quad \forall \; j \in [n - 1] &amp;&amp; \text{(Player 1 has won)}\\
+V(i, n)  = 0 &amp; \quad \forall \; i \in [n - 1] &amp;&amp; \text{(Player 1 has lost)}
+\end{align}\]
+
+<p>Here we can see Player 1 is taking the action that maximizes their probability of winning the game given that, if they took a particular action, Player 2 would choose the action to minimize Player 1’s probability of winning under that action. We see in (\ref{eq:rec}) that in the case Player 1 chooses not to hammer, they may then face a secondary decision to accept or reject a Player 2 hammer toss, in which they would again choose the probability-maximizing action.</p>
+
+<p>We can code this recurrence up in python using <a href="https://www.geeksforgeeks.org/dynamic-programming/">Dynamic Programming</a> and visualize the probability of Player 1 winning at any given state. Here we have actually taken the liberty of slightly generalizing the problem. We are assuming that the Player 1’s probability of winning on round \(i + j\) (the current round, zero indexed) is known and is given by a list <code class="language-plaintext highlighter-rouge">hole_probs</code>. In the context of our original problem, every entry of <code class="language-plaintext highlighter-rouge">hole_probs</code> would be \(1/2\)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
+
+<span class="nd">@cache</span>
+<span class="k">def</span> <span class="nf">V</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s"> Probability Player 1 wins the game given we are at state (i, j) and they
+    are playing to score n. We assume there is some list of probabilities 
+    hole_probs such that hole_probs[i + j] is the probability that Player 1
+    wins the current hole.  </span><span class="sh">"""</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    <span class="k">elif</span> <span class="n">j</span> <span class="o">&gt;=</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="c1"># the prob Player 1 wins current hole   
+</span>    <span class="n">p</span> <span class="o">=</span> <span class="n">hole_probs</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">j</span><span class="p">]</span> 
+
+    <span class="c1"># Player 1 hammers
+</span>    <span class="n">prob_toss_win</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span>
+        <span class="n">p</span> <span class="o">*</span> <span class="nc">V</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="nc">V</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span> 
+        <span class="nc">V</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Player 1 does not hammer
+</span>    <span class="n">prob_pass_win</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span>
+        <span class="n">p</span> <span class="o">*</span> <span class="nc">V</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="nc">V</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="nf">max</span><span class="p">(</span>
+            <span class="n">p</span> <span class="o">*</span> <span class="nc">V</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="nc">V</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span>
+            <span class="nc">V</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="p">)</span>
+     <span class="p">)</span>
+
+    <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">prob_toss_win</span><span class="p">,</span> <span class="n">prob_pass_win</span><span class="p">)</span>  
+
+<span class="c1"># now input problem specific parameters and solve 
+</span><span class="n">n</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">hole_probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span><span class="p">)]</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s"> The probability of Player 1 winning is </span><span class="si">{</span><span class="nc">V</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+<p>With this, we can get visualize the probability of Player 1 winning from any state. Here are two examples of the original problem (each player is equally skilled) for small and large \(n\).</p>
+<figure style="max-width: 100%;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div style="width: 48%;">
+      <img src="/assets/img/blog_images/2025-04-18-hammer/winning_heatmap.png" style="width: 100%; display: block;" alt="Heatmap small" />
+    </div>
+    <div style="width: 48%;">
+      <img src="/assets/img/blog_images/2025-04-18-hammer/heatmap_2_5050.png" style="width: 100%; display: block;" alt="Heatmap large" />
+    </div>
+  </div>
+  <figcaption style="text-align: center; margin-top: 0.5em;">
+    Comparison of win‑probability heatmaps (Player 1 perspective) for equally skilled opponents: \(n = 5\) on the left and \(n = 50\) on the right.
+  </figcaption>
+</figure>
+
+<p>It’s worth noting that <strong>the “no hammer” option is never used by either player in this setting</strong>. For any \(n\) we can compute the value of \(V(1,0)\) in \(\mathcal{O}(n^2)\) time using our dynamic programming approach. For small \(n\), Player 1 has a significant advantage (for example \(n =3\) has \(V(1, 0) = 3/4\)) but as \(n\) increases, the value of \(V(1, 0)\) approaches \(1/2\) as we might expect.</p>
+
+<p>Just for fun, we can also test out a different <code class="language-plaintext highlighter-rouge">hole_probs</code> distribution and see how this changes things. One interesting scenario is when Player 1 gradually improves over time. Specifically, at state \((i, j)\) the probability that they win the round is given by</p>
+
+\[p_{ij} = \frac{i + j}{2n - 2}\]
+
+<p>(as the round number increases Player 1 gets linearly better). Initially Player 1 would be very bad and unlikely to win, but in the higher rounds they would be increasingly more clutch over Player 2.</p>
+
+<p>The win‑probability heatmaps now look like the figures below, revealing three asymmetric regions of the state space (one favoring each player and one where they are neutral). In this case, we see the “no hammer” option become used more widely.</p>
+<figure style="max-width: 100%;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div style="width: 48%;">
+      <img src="/assets/img/blog_images/2025-04-18-hammer/heatmap_3_clutch.png" style="width: 100%; display: block;" alt="Heatmap small" />
+    </div>
+    <div style="width: 48%;">
+      <img src="/assets/img/blog_images/2025-04-18-hammer/heatmap_clutch_larger.png" style="width: 100%; display: block;" alt="Heatmap large" />
+    </div>
+  </div>
+  <figcaption style="text-align: center; margin-top: 0.5em;">
+    Comparison of win‑probability heatmaps (Player 1 perspective) when Player 1 gets increasingly better (linearly): \(n = 50\) on the left and \(n = 300\) on the right.
+  </figcaption>
+</figure>
+
+<p>Lastly, here is one more scenario where</p>
+
+\[p_{ij} = \left(\frac{i + j}{2n - 2}\right)^2\]
+
+<p>Here Player 1 still improves over the rounds but their skill grows quadratically. See if you can come up with your own funky distribution and see what the heatmap looks like using the code above and below!</p>
+
+<figure style="max-width: 100%;">
+  <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+    <div style="width: 48%;">
+      <img src="/assets/img/blog_images/2025-04-18-hammer/heatmap_quad50.png" style="width: 100%; display: block;" alt="Heatmap small" />
+    </div>
+    <div style="width: 48%;">
+      <img src="/assets/img/blog_images/2025-04-18-hammer/heatmap_quad_300.png" style="width: 100%; display: block;" alt="Heatmap large" />
+    </div>
+  </div>
+  <figcaption style="text-align: center; margin-top: 0.5em;">
+    Comparison of win‑probability heatmaps (Player 1 perspective) when Player 1 gets increasingly better (quadratic): \(n = 50\) on the left and \(n = 300\) on the right.
+  </figcaption>
+</figure>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">hole_probs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="c1">#hole_probs = [i / (2 * n  - 2) for i in range(2 * n - 1)]
+#hole_probs = [np.sqrt(i / (2 * n  - 2)) for i in range(2 * n - 1)]
+#hole_probs = [(i / (2 * n  - 2)) ** 2 for i in range(2 * n - 1)]
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">for n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s">, the probability of Player 1 winning from the start is </span><span class="si">{</span><span class="nc">V</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="s"> and with a 1 point lead is </span><span class="si">{</span><span class="nc">V</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">4</span><span class="n">f</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">plot_prob_win_heatmap</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s"> heatmap of win probabilities V(i, j) for 0 &lt;= i, j &lt; n.</span><span class="sh">"""</span>
+    <span class="c1"># matrix of V(i, j) 
+</span>    <span class="n">M</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">((</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+            <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nf">float</span><span class="p">(</span><span class="nc">V</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="n">i</span><span class="p">))</span>
+    
+    <span class="c1"># plot the heatmap
+</span>    <span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">imshow</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">origin</span><span class="o">=</span><span class="sh">'</span><span class="s">lower</span><span class="sh">'</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="sh">'</span><span class="s">RdYlGn</span><span class="sh">'</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="sh">'</span><span class="s">nearest</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sh">'</span><span class="s">Probability of Win</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">$i$, Player 1 score</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="sh">'</span><span class="s">$j$, Player 2 score</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sa">fr</span><span class="sh">'</span><span class="s">Player $1$ Win Probability Heatmap for $n = </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s">$</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">plt</span><span class="p">.</span><span class="nf">show</span><span class="p">()</span>
+
+<span class="c1"># try it out 
+</span><span class="nf">plot_prob_win_heatmap</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+</code></pre></div></div>]]></content><author><name></name></author><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry><entry><title type="html">Can You Solve a High Schooler’s Favorite Puzzle?</title><link href="https://ccolombe12.github.io/blog/2025/HS_fav_puzzle/" rel="alternate" type="text/html" title="Can You Solve a High Schooler’s Favorite Puzzle?" /><published>2025-04-08T00:00:00+00:00</published><updated>2025-04-08T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/HS_fav_puzzle</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/HS_fav_puzzle/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
 
 <blockquote>
   <p>A teacher is handing out candy to his \(N\) students, of which \(N \geq 4\). He abides by the following rules:</p>
@@ -811,50 +979,4 @@ note again we recover that \(\phi(t) \to \infty\) as \(t \to T\) meaning the bug
   <img src="/assets/img/blog_images/Bugs_On_A_Square/my_gif.gif" style="width: 35vw; min-width: 330px;" />
   <figcaption> Figure 5. Path a bug take to the center on the unit 20-gon. </figcaption> 
 </center>
-</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">Alice and Bob Play a Guessing Game</title><link href="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/" rel="alternate" type="text/html" title="Alice and Bob Play a Guessing Game" /><published>2023-10-16T00:00:01+00:00</published><updated>2023-10-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Alice_and_Bob_Guessing_game/"><![CDATA[<style type="text/css">
-    ol { list-style-type: lower-alpha; }
-</style>
-
-<p>Here is another cool problem I stumbled upon the other day.</p>
-<h2 id="problem-statement">Problem Statement</h2>
-<p>Bob chooses a integer uniformly at random between 1 and 1000. Alice has to guess the chosen number as quickly as possible. Bob will let Alice know whether her guess is smaller than, larger than, or equal to his number. If Alice’s guess is smaller than Bob’s number, Bob replaces the number with another integer chosen uniformly at random from $[1,1000]$. Prove that there exists a strategy that Alice can use to finish the game in such a way that the expected number of steps is smaller than 45.</p>
-<hr />
-
-<h2 id="solution">Solution</h2>
-
-<p>Let’s generalize and suppose Bob picks integers uniformly from the set \([N] = \{1,2,3,\ldots, N \}\). I initially set out to try to determine the <em>optimal</em> strategy using dynamic programming. Let \(E_k\) be the expected number of turns to finish the game given that we know that Bob’s current number is at most \(k\).</p>
-
-<p>We can set up the recurrence</p>
-
-\[\begin{equation}
-E_k = 1 + \min_{j \in [k]}\left(\underbrace{\frac{k-j}{k}E_N}_{\text{guess too low}} + \underbrace{\frac{1}{k} \cdot 0}_{\text{guess correct}} + \underbrace{\frac{j-1}{k}E_j}_{\text{guess too high}}\right) \quad \forall k \in [N].
-\end{equation}\]
-
-<p>But since every \(k\) relies on \(E_n\), the quantity we are trying to solve for, this ends up to not be as straightforwards to evaluate as we might hope.</p>
-
-<p>What else can we try? Well this problem is sort of similar to the <a href="https://brilliant.org/wiki/egg-dropping/#n-eggs-k-floors">egg drop problem</a> with one egg and each time it breaks we start with a new building with a randomly chosen number of floors. In the egg drop problem with two eggs, if the first egg breaks on the first floor tested, \(x\) then the next drops must necessarily be \(x-1, x-2, \ldots, 1\) until the least-breaking floor is found. Let’s try to build a heuristic strategy off this intuition.</p>
-
-<p>We can pick some threshold \(\ell\) and use the strategy:</p>
-<ul>
-  <li>Guess \(\ell\) repeatedly until either we guess correct or Bob rolls a number less than \(\ell\).</li>
-  <li>Guess down from \(\ell, \ell - 1, \ldots, 1\) until we hit the target</li>
-</ul>
-
-<p>The number of turns until the first step succeeds is a geometric random variable with parameter \(\ell/N\) and thus the expected number of turns until we succeed is \(N / \ell\). Now, given that the target number is at most \(\ell\), it has a uniform distribution over \(1,\ldots,\ell\) and thus the expected number of guesses needed to reach it is:
-\(\begin{align*}
-  \mathbb{E}[\text{# steps needed given step 1 succeeds}]&amp; = \underbrace{\frac{1}{\ell}\cdot 0}_{x = \ell} + \underbrace{\frac{\ell-1}{\ell}\left(\frac{1}{\ell - 1}\sum_{k=1}^{\ell-1} k\right)}_{x &lt; \ell}\\ 
-  &amp; = \frac{\ell-1}{2}.
-\end{align*}\)</p>
-
-<p>Putting it together, let \(f(\ell)\) be the expected number of turns to guess Bob’s number under our strategy with threshold number \(\ell\). This is given by</p>
-
-\[\begin{equation}
-f(\ell) = \frac{N}{\ell} + \frac{\ell-1}{2}. \label{eq: f}
-\end{equation}\]
-
-<p>We would like to minimize this function. Taking the derivative, we find a single critical point at \(\boxed{\ell^* = \sqrt{2 N}}\), and the second derivative is positive for all $\ell &gt; 0$ which implies we have found a global minimum for our problem. Plugging this value into (\ref{eq: f}), we have that</p>
-
-<p>\(\begin{equation}
-  \boxed{f(\ell^*) = \sqrt{2 N} - \frac{1}{2}}
-\end{equation}\)
-which for \(N = 1000\) gives us an expected number of moves of \(\approx\) 44.2214 which is less than 45, as desired. This result is quite interesting! For large $N$, on average will will only need to guess \(\mathcal{O}\left(\frac{1}{\sqrt{N}}\right)\) fraction of the numbers.</p>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[Here is another cool problem I stumbled upon the other day. Problem Statement Bob chooses a integer uniformly at random between 1 and 1000. Alice has to guess the chosen number as quickly as possible. Bob will let Alice know whether her guess is smaller than, larger than, or equal to his number. If Alice’s guess is smaller than Bob’s number, Bob replaces the number with another integer chosen uniformly at random from $[1,1000]$. Prove that there exists a strategy that Alice can use to finish the game in such a way that the expected number of steps is smaller than 45.]]></summary></entry></feed>
+</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[]]></summary></entry></feed>
