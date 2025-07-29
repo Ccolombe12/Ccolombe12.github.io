@@ -3,6 +3,10 @@
   <script type="text/javascript">
     window.MathJax = {
       tex: {
+        packages: ['base', 'ams', 'require', 'color', 'bbox', 'mathtools'],
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
         tags: 'ams'
       }
     };
