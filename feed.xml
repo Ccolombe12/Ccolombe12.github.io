@@ -1,5 +1,158 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-07-29T02:39:41+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
-</subtitle><entry><title type="html">Can You Throw the Hammer?</title><link href="https://ccolombe12.github.io/blog/2025/hammer_toss/" rel="alternate" type="text/html" title="Can You Throw the Hammer?" /><published>2025-04-21T00:00:00+00:00</published><updated>2025-04-21T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/hammer_toss</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/hammer_toss/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-08-01T19:54:15+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+</subtitle><entry><title type="html">Jane Street Puzzle: Robot Road Trip</title><link href="https://ccolombe12.github.io/blog/2025/robot-road-trip/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Road Trip" /><published>2025-08-01T00:00:01+00:00</published><updated>2025-08-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/robot-road-trip</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/robot-road-trip/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
+<blockquote>
+  <p>Robot cars have a top speed (which they prefer to maintain at all times while driving) that’s a real number randomly drawn uniformly between $1$ and \(2\) miles per minute. A two-lane highway for robot cars has a fast-lane (with minimum speed \(a\)) and a slow-lane (with maximum speed \(a\)). When a faster car overtakes a slower car in the same lane, the slower car is required to decelerate to either change lanes (if both cars start in the fast-lane) or stop on the shoulder (if both cars start in the slow-lane). Robot cars decelerate and accelerate at a constant rate of $1$ mile per minute per minute, timed so the faster, overtaking car doesn’t have to change speed at all, and passing happens instantaneously.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>If cars rarely meet (so you never have to consider a car meeting more than one other car on its trip, see Mathematical clarification below), and you want to minimize the miles not driven due to passing, what should \(a\) be set to, in miles per minute? Give your answer to 10 decimal places.</strong></p>
+</blockquote>
+
+<blockquote>
+  <p><em>Mathematical clarification:</em>  Say car trips arrive at a rate of $z &gt; 0$ car trip beginnings per mile per minute, uniformly across the infinite highway (cars enter and exit their trips at their preferred speed due to on/off ramps), and car trips have a constant length of \(N\) miles. Define \(f(z,N)\) to be the value of $a$ that minimizes the expected lost distance per car trip due to passing. Find:</p>
+</blockquote>
+
+\[a^* = \lim_{N \to \infty} \lim_{z \to 0^+} f(z,N)\]
+
+<hr />
+<h2 id="solution">Solution</h2>
+
+<p>At a high-level, our solution will do the following:</p>
+
+<ul>
+  <li>For car $C$ entering the roadway at a given location, time, and speed, determine the necessary conditions for another car to overtake $C$ during $C$’s journey.</li>
+  <li>Determine, for each overtake, the total miles not driven due to passing</li>
+  <li>Combine these two to determine the expected miles not driven due to passing for a car traveling at speed $v$.</li>
+  <li>Average over all $v$ and determine the optimal speed threshold $f(z, N)$ for the highway.</li>
+  <li>Determine $a^* = \lim_{N \to \infty} \lim_{z \to 0^+} f(z,N)$</li>
+</ul>
+
+<p>Before diving into the analysis, we will point out an observation from the mathematical clarification. Suppose we have an infinitely long highway at which cars enter at rate $z$ starts/mile/minute. Based on this description, we can say that the number of cars that enter the highway on a strip of length $\Delta x$ during a duration of time $\Delta t$ is a <a href="https://en.wikipedia.org/wiki/Poisson_distribution">Poisson random variable</a> with mean/rate $\lambda = z \Delta x \Delta t$. An important property of Poisson random variables is that their sum is also a Poisson random variable in which their rates have been added. With this in mind, we begin our analysis.</p>
+
+<p>Let us consider a car $C$ that enters the highway (WLOG) at $x = 0$ and $t = 0$ with speed $v \in [1, 2]$. This car will travel for $N / v$ minutes and exit the highway at its destination $x = N$. We would like to determine the distribution for the number of cars will catch up to and pass $C$. First some observations. For a car $C’$ to pass car $C$, it must meeting the following conditions:</p>
+
+<ul>
+  <li>Have speed $u &gt; v$ (It is moving faster than $C$).</li>
+  <li>If it starts its trip at time $t = t_s$, $C’$ must be behind where $C$ is at $t = t_s$ (It must start behind $C$ to overtake it).</li>
+  <li>Share the same position as $C$ at some time $t$ during the time interval at which both cars are driving.</li>
+</ul>
+
+<p>Using these, we would like to get a distribution for the number of cars that will pass $C$.
+Let us start by fixing the speed of car $C’$, to be some $u$ such that $u &gt; v$. What are the conditions on the starting time and position of $C’$ that will allow it to pass $C$? Suppose $C’$ starts at position $x_s$ at time $t_s$ and the two cars intersect at time $t$. Based the previous conditions, we get the following inequalities:</p>
+
+\[\begin{align}
+&amp; t_s \leq t \leq t_s + N/u &amp;&amp; (\text{intersect while $C'$ exists})  \\
+&amp; 0 \leq t \leq N/v &amp;&amp; (\text{intersect while $C$ exists}) \\
+&amp; x_s + u(t - t_s) = v t &amp;&amp; (\text{Both at same location at time $t$}) \label{eq:same_x}.
+\end{align}\]
+
+<p>Using (\ref{eq:same_x}), we can solve for $t$ as $t = \frac{u t_s - x_s}{u - v}$ and plug this into the other inequalities to get a set of four inequalities in the $(x_s, t_s)$-space.</p>
+
+\[\begin{align}
+&amp; t_s \leq \frac{u t_s - x_s}{u - v} \leq t_s + N/u  \\
+&amp; 0 \leq \frac{u t_s - x_s}{u - v} \leq N/v \\
+\end{align}\]
+
+<p>Which when plotted in the $(x_s, t_s)$-space, these inequalities define a region $R$ which is a convex quadrilateral. This region is the set of all pairs of $(x_s, t_s)$ that would allow $C’$, traveling at speed $u$ to intersect $C$. See an example below.</p>
+
+<figure>
+    <img src="/assets/img/blog_images/2025_08_01-robot-roadtrip/fig1.png" width="70%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center;">Figure 1: Example of the region in $(x_s, t_s)$-space, $R$, in which cars of speed $u$ will overtake $C$.</figcaption>
+</figure>
+
+<p>The vertices of $R$ are given by</p>
+
+\[\begin{align*}
+P_1 &amp; = (0, 0)\\
+P_2 &amp; = (0, \frac{N(u - v)}{uv})\\
+P_3 &amp; = (N, N/v) \\
+P_4 &amp; = (-N, -N/u),
+\end{align*}\]
+
+<p>which imply that the area of our quadrilateral is \(\boxed{ Area(R) = \frac{N^2 (u - v)}{uv}}\).</p>
+
+<p>Using our earlier observation about the number of cars for a given region of time and space being a Poisson random variable with parameter proportional to the area of that region, we deduce that the distribution for the number of  which cars of speed $u$ that arrive in the time-space region $R$ is a Poisson random variable with rate parameter $\lambda(u)$ given by</p>
+
+\[\lambda(u) = z dF(u) \frac{N^2 (u - v)}{uv}  = z \frac{N^2 (u - v)}{uv} du.\]
+
+<p>Where $z dF(u)$ is the rate at which car of speed $u$ arrive per mile per minute. Since the speed of cars is distributed $U(1, 2)$, we have $dF(u) = du / 1$.</p>
+
+<p>We now have enough to compute the rate of overtakes for $C$ when it is in the slow-lane $\Lambda_S$ and when it is in the fast-lane, $\Lambda_F$.</p>
+
+<p>For the slow-lane, we have</p>
+
+\[\begin{align*}
+\Lambda_S  &amp; = \int_v^a z \frac{N^2 (u - v)}{uv} du \\ 
+&amp; = \frac{N^2 z \left(a  - v \log \left(\frac{a e}{v}\right)\right)}{v}.
+\end{align*}\]
+
+<p>And for the fast-lane</p>
+
+\[\begin{align*}
+\Lambda_F  &amp; = \int_v^2 \frac{N^2 (u - v)}{uv} du \\ 
+&amp; = \frac{N^2 z \left(2  -v \log \left(\frac{2e}{v}\right)\right)}{v}.
+\end{align*}\]
+
+<p>These are the expected number of intersections per trip for a car of speed $v$, depending on whether the car is in the slow-lane or the fast-lane (since they are Poisson random variables). Now, we need to determine the “loss of distance traveled” for each overtake in either scenario.</p>
+
+<p>Suppose we are in the slow-lane. Whenever we are passed, we must fully stop and then speed up to speed $v$ again. Since the acceleration is fixed to be $1$, the time it take to stop and speed up are the same and is $\delta t = v$ minutes. The total distance that would be traveled during this time without intersection is</p>
+
+\[d_0 = v(\delta t + \delta t) = 2 v^2.\]
+
+<p>On the other hand, when we have to stop, the distance traveled during the deceleration is</p>
+
+\[d_1 = v \delta t - \frac{1}{2}(\delta t)^2 = v^2 / 2,\]
+
+<p>and acceleration</p>
+
+\[d_2 =\frac{1}{2}(\delta t)^2 = v^2 / 2.\]
+
+<p>Thus the “loss of distance” for each passing in the slow-lane is:</p>
+
+<p>\(\boxed{d_0 - d_1 - d_2 = v^2}\).</p>
+
+<p>By similar calculations, we find the “loss of distance” per passing in the fast-lane is:</p>
+
+\[\boxed{(v - a)^2}.\]
+
+<p>Putting these together, for a car of speed $v$ the expected lost distance due to passing, $\ell(v)$, is given by:</p>
+
+\[\begin{align*}
+\boxed{
+\ell(v) = \begin{cases} v^2 \cdot \frac{N^2 z \left(a  - v \log \left(\frac{a e}{v}\right)\right)}{v} &amp; v \leq a \\
+(v - a)^2  \cdot \frac{N^2 z \left(2  -v \log \left(\frac{2e}{v}\right)\right)}{v} &amp; v &gt; a
+\end{cases}}
+\end{align*}\]
+
+<p>Since the speed of cars is distributed $U(1, 2)$, we need to compute the expected total lost distance for a car entering the highway with speed threshold $a$, denoted $L(a)$. We find</p>
+
+\[\begin{align*}
+L(a) &amp; = \int_{1}^2 \ell(v)\;  d v \\ 
+     &amp; =\frac{1}{18} N^2 z \bigg(a^3 (18+\log (64))+18 a^2 (\log (4)-1)-6 \left(a^3+6 a^2-1\right) \log (a)-45 a+16\bigg).
+\end{align*}\]
+
+<p>Now, for fixed $z$ and $N$, we would like to find the value of $a$ that minimizes the above expression. However, note that $N$ and $z$ simply contribute a positive scaling factor and do not affect minimizing the overall expression. Therefore, it suffices to remove the constant factors and instead minimize the function</p>
+
+\[g(a) := a^3 (18+\log (64))+18 a^2 (\log (4)-1)-6 \left(a^3+6 a^2-1\right) \log (a)-45 a+16.\]
+
+<p>If we plot $g(a)$ over the interval $a \in [1,2]$, (see Figure 2) it appears that the function should have a unique minimizer over the desired interval.</p>
+
+<figure>
+    <img src="/assets/img/blog_images/2025_08_01-robot-roadtrip/fig2.pdf" width="70%" style="display: block; margin: auto;" />
+    <figcaption style="text-align: center;">Figure 2: Plot of the loss function $g(a)$ over [1,2]</figcaption>
+</figure>
+
+<p>Unfortunately, there is not a nice closed form solution for the minimizer, so we will have to solve for it numerically. Doing so yields for fixed $N$ and $z$,</p>
+
+\[\begin{equation*}
+\boxed{f(z, N) = 1.177141417}
+\end{equation*}\]
+
+<p>taking the limit of which for $N$ and $z$ has no effect, and thus we have found the value of $a^*$ that minimizes the expected lost distance due to passing.</p>
+
+<p>This value is pretty close to the minimum end of possible speeds on the highway! Around $82\%$ of the cars, on the highway are in the fast-lane. Why might that be? Well we can note that it is pretty expensive for a car in the slow-lane to be passed. Since $v \geq 1$ the loss of distance for every car in the slow-lane is at least $1$ whereas the maximum penalty for a passing in the fast-lane <em>is at most</em> 1. We see that passings in the slow-lane are much more expensive and thus we would need to have fewer of them than in the fast-lane in an optimal solution.</p>
+
+<p>This was a fun problem that had me brushing up on my Poisson processes. I even found several problems in the Poisson Process section of <a href="https://www.amazon.com/Stochastic-Processes-Sheldon-M-Ross/dp/0471120626">Sheldon Ross’s Stochastic Processes textbook</a> that were about cars entering a highway according to a similar rule which served as a great warm-up to tackling this problem!</p>]]></content><author><name></name></author><category term="programming," /><category term="math" /><summary type="html"><![CDATA[My solution to the 2025 July Puzzle]]></summary></entry><entry><title type="html">Can You Throw the Hammer?</title><link href="https://ccolombe12.github.io/blog/2025/hammer_toss/" rel="alternate" type="text/html" title="Can You Throw the Hammer?" /><published>2025-04-21T00:00:00+00:00</published><updated>2025-04-21T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/hammer_toss</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/hammer_toss/"><![CDATA[<p>This week’s <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> puzzle is paraphrased as follows:</p>
 
 <blockquote>
   <p>You (Player 1) and your opponent (Player 2) are competing in a <a href="https://tglgolf.com">TGL golf match</a>. On any given hole you play, each of you has a 50-percent chance of winning the hole (and a zero percent chance of tying). That said, scorekeeping in this match is a little different from the norm.</p>
@@ -868,115 +1021,4 @@ r_3 &amp; = \overline{r_2}
 
 <p>The problem boils down to finding a feasible arrangement of hooks and cells for the given constraints. Luckily for me and my operations research background, this can essentially be represented as a large integer program (IP)! I saw this was the 10’th iteration of the Hooks puzzles and found (<a href="https://github.com/gowen100/Jane-Street-Solutions">Gowen100’s</a>) IP approach to the previous Hooks puzzle. This was a great opportunity to learn a new tool: The <a href="https://www.microsoft.com/en-us/research/project/z3-3/">Z3 theorem prover </a> from Microsoft research. I was able to use what I learned to create the necessary augmentations to solve the newest iteration of the the hooks puzzle! Looking forward to solving the future puzzles with this new tool!</p>
 
-<iframe src="/assets/Jane_Street_Mar_2024.html" width="125%" height="900"></iframe>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">A Generalization of The Classic Bugs on A Square Problem.</title><link href="https://ccolombe12.github.io/blog/2023/Bugs_on_square/" rel="alternate" type="text/html" title="A Generalization of The Classic Bugs on A Square Problem." /><published>2023-12-16T00:00:01+00:00</published><updated>2023-12-16T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2023/Bugs_on_square</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2023/Bugs_on_square/"><![CDATA[<style type="text/css">
-    ol { list-style-type: lower-alpha; }
-</style>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<h2 id="problem-statement">Problem Statement</h2>
-<p>In the classic bugs on a square problem, 4 bugs start out on the vertices of a square with side length 1. At \(t = 0\) the bugs all begin moving with speed \(v\) towards their counter-clockwise neighbor. The question is to determine how long the bugs take to reach the center of the square and how many rotations around the center will each bug make in doing so?</p>
-<h3><figure><center>
-  <img src="/assets/img/blog_images/Bugs_On_A_Square/square.png" />
- 
-</center></figure></h3>
-
-<h2 id="solution">Solution</h2>
-
-<p>Let’s first solve the square case and see if we can then generalize the argument. We will use polar coordinates and focus on the upper right bug. We can represent its position as a function of time as \((r(t), \phi(t))\), with initial conditions $r(0) = \sqrt{2}/2$ and $\phi(0) = \pi /4$.</p>
-
-<p>The key here is to use symmetry to reason that at every moment in time, the bugs maintain their relative positions as the vertices of square. In otherwords, at each moment in time, the bugs remain in a square formation.</p>
-
-<p>With this in mind, we can consider the bug’s position after a small change in time $\Delta t$.</p>
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/Bugs_On_A_Square/square_dt.jpeg" style="width: 40vw; min-width: 330px;" zoomable="true" />
-  <figcaption> Figure 2. A bug's relative position after a small moment in time $\Delta t$.
-</figcaption> 
-</center>
-</figure></h3>
-<p>The bug moves a distance $v \Delta t$ towards the it’s adjacent bug. We can then do some geometery to and use a small angle approximation to find the change in $r$ and $\phi$. Noting the right trangle we can form with hypotenuse $v \cdot \Delta t$, we have</p>
-
-<p>\(\begin{align}
-  r(t + \Delta t) - r(t) &amp; = - v \cdot  \Delta t \cos \theta\\ 
-  r(t + \Delta t) \cdot \Delta \phi &amp; = v \Delta t \sin \theta
-\end{align}\)
-Rearranging these and taking the limit as $\Delta t \to 0$, we obtain</p>
-
-\[\boxed{
-\begin{align}
-  r'(t)&amp; = - v \cos \theta\\ 
-  \phi'(t) &amp; = \frac{v \sin \theta}{r(t)}.
-\end{align}}\]
-
-<p>We can solve (3) for \(r(t)\) using our initial condiditon  $\theta = \pi /4 $ and \(r(0) = 1/\sqrt{2}\) to get</p>
-
-<p>\(\begin{equation}
-  r(t) = - \frac{v}{\sqrt{2}}  t + \frac{1}{\sqrt{2}}.
-\end{equation}\) 
-It then follows that the time it takes to reach the center $T$ is \(T = \frac{1}{v}.\) Now that we have an equation for \(r(t)\) we can plug it into (4) and solve for $\phi(t)$ to get</p>
-
-<p>\(\begin{equation}
-\boxed{\phi(t) = \pi/4 - \log\left( 1 - v t\right)}.
-\end{equation}\)
-As \(t \to T\), we have \(\phi \to \infty\), implying that the bug makes an infinite number of rotations around the center of the circle as the approach the center!</p>
-
-<p>This analysis was for the square but every step we used is actually applicable to the general case of a regular $n$-gon. In the general case \(\theta = 2 \pi / n\) and we can use the law-of-cosines and then a double angle formula for cosine to determine that \(r(0) = \frac{1}{\sqrt{2 \left(1 - \cos \left(\frac{2 \pi}{n} \right)\right)}} = \frac{1}{2 \sin \frac{\pi}{n}}\). Consider one of the \(n\) wedges from a regular $n$-gon shown below. Here the angle \(\alpha = \frac{\pi - 2\pi/n}{2} = \frac{\pi}{2} - \frac{\pi}{n}\).</p>
-
-<h3><figure>
-
-
-
-  <center>
-  <img src="/assets/img/blog_images/Bugs_On_A_Square/n_gon.jpeg" style="width: 50vw; min-width: 330px;" zoomable="true" />
-  <figcaption> Figure 2. A bug's relative position after a small moment in time $\Delta t$.
-</figcaption> 
-</center>
-</figure></h3>
-
-<p>Using our same steps as before, we find the differential equations</p>
-
-\[\begin{align}
-   r'(t)&amp; = - v \cos \alpha = - v \sin \frac{\pi}{n}\\ 
-  \phi'(t) &amp; = \frac{v \sin \alpha}{r(t)} = \frac{v \cos \frac{\pi}{n}}{r(t)}.
-\end{align}\]
-
-<p>We can solve these once again with our initial conditions to get</p>
-
-<p>\(\begin{equation}
-  \boxed{r(t) = \frac{1}{2 \sin \left(\frac{\pi}{n}\right) }- v \sin \left(\frac{\pi}{n}\right)\;  t}.
-\end{equation}\)
-Which implies the time to reach the center for a bug on a regular $n$-gon is \(\boxed{T = \frac{1}{2 v \sin^2\left(\frac{\pi}{n}\right)}}\). Lastly we solve for \(\phi(t)\) to get 
-\(\begin{equation}
-  \boxed{\phi(t) =  \frac{\pi}{n} - \cot\left(\frac{\pi}{n}\right) \log \left(1 - 2 v \sin^2 \left(\frac{\pi}{n}\right) t\right)}.
-\end{equation}\)
-note again we recover that \(\phi(t) \to \infty\) as \(t \to T\) meaning the bug will always rotate around the center of the $n$-gon an infinite number of times as it approaches the center.</p>
-
-<p>Can we say anything about these results for large $n$? We can make a rough approximation for large $n$ using the small-angle approximation for sine. For large enough \(n\), \(\begin{equation}T = \frac{1}{2 v \sin^2\left(\frac{\pi}{n}\right)} \approx \frac{1}{2 v \left(\frac{\pi}{n}\right)^2} = \frac{n^2}{2 \pi^2 v}
-\end{equation}\) which grows unboundely as $n$ increases.</p>
-
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/Bugs_On_A_Square/big_n_t.png" style="width: 50vw; min-width: 330px;" zoomable="true" />
-  </center>
-  <figcaption> Figure 3. The time it takes for a bug on an $n$-gon to reach the center for $v = 1$. The large $n$ approximation is shown in blue. We can see they agree rather quickly.
-</figcaption> 
-
-</figure></h3>
-
-<p>Lastly, it is fun to look at the actual path of the bug as a function of time for different $n$.Here are the paths to the center of the first bug for \(n = 4\) and \(n=20\).</p>
-
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/Bugs_On_A_Square/my_gif2.gif" style="width: 35vw; min-width: 330px;" />
-  <figcaption> Figure 4. Path a bug take to the center on the unit square.
-</figcaption> 
-</center>
-</figure></h3>
-
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/Bugs_On_A_Square/my_gif.gif" style="width: 35vw; min-width: 330px;" />
-  <figcaption> Figure 5. Path a bug take to the center on the unit 20-gon. </figcaption> 
-</center>
-</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[]]></summary></entry></feed>
+<iframe src="/assets/Jane_Street_Mar_2024.html" width="125%" height="900"></iframe>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[]]></summary></entry></feed>
