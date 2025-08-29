@@ -14,3 +14,9 @@ $max-content-width: {{ site.max_content_width | default: "900px" }};
   "base",
   "distill"
 ;
+.pub-awards li {
+  font-weight: 500; /* slightly heavier than normal, lighter than bold */
+  list-style-type: disc;
+  
+  color: #006D77;   /* dark navy blue */
+ }

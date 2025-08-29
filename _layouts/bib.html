@@ -132,6 +132,16 @@
         <div class="periodical">
           {{ entry.note | strip }}
         </div>
+        {% if entry.award %}
+  {% assign awards = entry.award | split: ';' %}
+  <div class="pub-awards mt-2 mb-0">
+    <ul class="pub-awards awards-list mt-2 mb-0">
+    {% for a in awards %}
+      <li>{{ a | strip }}</li>
+    {% endfor %}
+  </ul>
+  </div>
+{% endif %}
 
           <!-- Links/Buttons -->
           <div class="links">
