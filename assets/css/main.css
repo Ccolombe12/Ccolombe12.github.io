@@ -962,4 +962,10 @@ blockquote strong, blockquote b {
   font-weight: bold !important;
 }
 
+.pub-awards li {
+  font-weight: 500; /* slightly heavier than normal, lighter than bold */
+  list-style-type: disc;
+  color: #006D77; /* dark navy blue */
+}
+
 /*# sourceMappingURL=main.css.map */
