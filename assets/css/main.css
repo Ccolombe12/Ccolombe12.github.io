@@ -72,11 +72,13 @@ body {
   background-color: var(--global-bg-color);
   margin: 0;
   padding: 0;
-  font-size: 19px;
-  line-height: 1.6;
 }
 body h1, body h2, body h3, body h4, body h5, body h6 {
   scroll-margin-top: 66px;
+}
+body {
+  font-size: 19px;
+  line-height: 1.6;
 }
 
 body.fixed-top-nav {
@@ -175,13 +177,15 @@ blockquote {
 
 .card {
   background-color: var(--global-card-bg-color);
-  font-size: 19px;
 }
 .card img {
   width: 100%;
 }
 .card .card-title {
   color: var(--global-text-color);
+}
+.card {
+  font-size: 19px;
 }
 .card .card-item {
   width: auto;

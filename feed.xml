@@ -1,5 +1,166 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-08-30T06:17:19+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
-</subtitle><entry><title type="html">Jane Street Puzzle: Robot Road Trip</title><link href="https://ccolombe12.github.io/blog/2025/robot-road-trip/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Road Trip" /><published>2025-08-01T00:00:01+00:00</published><updated>2025-08-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/robot-road-trip</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/robot-road-trip/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2025-12-14T20:55:15+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+</subtitle><entry><title type="html">Jane Street Puzzle: Robot Baseball</title><link href="https://ccolombe12.github.io/blog/2025/JS_baseball/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Baseball" /><published>2025-11-01T00:00:01+00:00</published><updated>2025-11-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/JS_baseball</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/JS_baseball/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
+<blockquote>
+  <p>The Artificial Automaton Athletics Association (Quad-A) is at it again, to compete with postseason baseball they are developing a Robot Baseball competition. Games are composed of a series of independent at-bats in which the Batter is trying to <em>maximize expected score</em> and the Pitcher is trying to <em>minimize expected score</em>.</p>
+</blockquote>
+
+<blockquote>
+  <p>An at-bat is a series of pitches with a running count of balls and strikes, both starting at zero. For each pitch, the Pitcher decides whether to throw a ball or strike, and the Batter decides whether to wait or swing; these decisions are made secretly and simultaneously. The results of these choices are as follows.</p>
+  <ul>
+    <li>If the Pitcher throws a ball and the Batter waits, the count of balls is incremented by $1$.</li>
+    <li>If the Pitcher throws a strike and the Batter waits, the count of strikes is incremented by $1$.</li>
+    <li>If the Pitcher throws a ball and the Batter swings, the count of strikes is incremented by $1$.</li>
+    <li>If the Pitcher throws a strike and the Batter swings, with probability $p$ the Batter hits a home run and with probability $1-p$ the count of strikes is incremented by $1$.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>An at-bat ends when either:</p>
+  <ul>
+    <li>The count of balls reaches $4$, in which case the Batter receives $1$ point.</li>
+    <li>The count of strikes reaches $3$, in which case the Batter receives $0$ points.</li>
+    <li>The Batter hits a home run, in which case the Batter receives $4$ points.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>By varying the size of the strike zone, Quad-A can adjust the value $p$, the probability a pitched strike that is swung at results in a home run. They have found that viewers are most excited by at-bats that reach a full count, that is, the at-bats that reach the state of three balls and two strikes. Let $q$ be the probability of at-bats reaching full count; $q$ is dependent on p. Assume the Batter and Pitcher are both using optimal mixed strategies and Quad-A has chosen the $p$ that maximizes $q$. <strong>Find this $q$, the maximal probability at-bats reach full count, to ten decimal places</strong>.</p>
+</blockquote>
+
+<hr />
+<h1 id="solution">Solution</h1>
+
+<p>We can solve this problem by modeling it as finite-state Markov chain. Let the states be given by the set \(S = \left\{(b, s) : s \in \{0,\ldots,3\}, b \in \{0,\ldots,4\}\right\}\) where $(b, s)$ represents the state with $b$ balls and $s$ strikes. Depending on the decisions made by the pair of robots at a given state (<code class="language-plaintext highlighter-rouge">swing</code> or <code class="language-plaintext highlighter-rouge">wait</code> for the Batter and <code class="language-plaintext highlighter-rouge">strike</code> and <code class="language-plaintext highlighter-rouge">ball</code> for the Pitcher respectively), we transition to one of several possible states, each with their own transition probability.</p>
+
+<p>If we knew the transition probabilities between all states as a function of $p$, then we can tune $p$ such that the probability of reaching a full count from the initial state $(0,0)$ is maximized. Thus we will approach the remainder of the problem in three steps:</p>
+
+<ul>
+  <li>For a given state $(b, s)$ determine the optimal strategies for each player.</li>
+  <li>Given the optimal strategies, determine the transition probabilities between states in the induced Markov chain.</li>
+  <li>Determine the probability of reaching a full count and then select $p$ as to maximize it.</li>
+</ul>
+
+<h3 id="optimal-strategies">Optimal Strategies</h3>
+<p>Let $V(b, s)$ be the expected score of the Batter at state $(b, s)$. For a given state, we have a subgame where the Batter is trying to maximize the  expected score and the Pitcher to minimize it. What are the optimal strategies for this subgame?</p>
+
+<p>We can describe the strategies of the players using the concept of mixed-strategies. Let $x \in [0,1]$ and $y \in [0, 1]$ be the probabilities that the Batter  plays <code class="language-plaintext highlighter-rouge">swing</code> and the Pitcher plays <code class="language-plaintext highlighter-rouge">strike</code> at state $(b,s)$ respectively. How can we determine what these two ought to be in an equilibrium strategy? Recall that in a <a href="https://en.wikipedia.org/wiki/Nash_equilibrium">Nash equilibrium</a>, neither player can increase their objective by altering their current strategy. By the nature of our game, we can reason that neither player should use a pure strategy, as the opponent (or the player) could then deviate and improve their payout (Think rock, paper, scissors here – If your opponent always plays <code class="language-plaintext highlighter-rouge">rock</code> you should drop whatever strategy you are using and play <code class="language-plaintext highlighter-rouge">paper</code>). So what does a mixed strategy equilibrium look like in this case, does one even exist?</p>
+
+<p>It turns out that, yes, one does exist! Since the subgame has a finite number of players (two) and a finite number of pure strategies (two each), it famously follows that the game will indeed have <a href="https://en.wikipedia.org/wiki/Nash_equilibrium#Existence">at least one Nash equillibrium in mixed-strategies</a>. Now, can we find it?</p>
+
+<p>Suppose that $(x, y)$ forms a mixed-strategy Nash equilibrium and that the Batter was considering changing $x$ in an attempt to increase their score. The expected payoff to the Batter using strategy $x$, for fixed $y$, is given by:</p>
+
+\[\begin{equation}
+\begin{aligned}
+V(b, s | x) &amp; = x \underbrace{\bigg(y(4 p  + (1 - p) V(b, s + 1) ) + (1 - y) V(b, s + 1)\bigg)}_{\text{Expected score from SWING}} \\
+&amp; \qquad + (1 - x)\underbrace{\bigg(y V(b, s + 1) + (1 - y) V(b + 1, s)\bigg)}_{\text{Expected score from WAIT}}.
+\end{aligned}\label{eq:payoff1}
+\end{equation}\]
+
+<p>To determine their strategy $y$, the Pitcher should choose $y$ such that the Batter cannot do better by deviating from $x$. For <em>fixed</em> $y$, we can write (\ref{eq:payoff1}) as</p>
+
+\[\begin{equation}
+V(b, s | x)  = x C_1(y) + (1 - x) C_2(y) \label{eq:payoff2}
+\end{equation}\]
+
+<p>where $C_1(y), C_2(y)$ are constants that depend on $y$. Observe that (\ref{eq:payoff2}) is maximized at $x = 0$ when $C_1(y) &lt; C_2(y)$, $x = 1$ when $C_1(y) &gt; C_2(y)$, and any $x \in [0, 1]$ when $C_1 = C_2$. From this observation, it follows that if the Pitcher were to set $y$ such that $C_1(y) = C_2(y)$, then the Batter cannot improve their payoff by deviating from $x$.</p>
+
+<p>We can solve for $y$ such that $C_1(y) = C_2(y)$. Doing so, we find that</p>
+
+\[\begin{equation}
+\boxed{y^*(b, s) = \frac{V(b + 1,s)-V(b,s + 1)}{V(b + 1,s) - V(b,s + 1) + p(4 - V(b,s+1))}}. \label{eq:y_strat}
+\end{equation}\]
+
+<p>From (\ref{eq:y_strat}), since for any $(b, s) \in S$, we have that $V(b, s) \leq 4$ and $V(b + 1,s) \geq V(b,s + 1)$, it follows that $y(b, s) \in [0,1]$, which implies $y$ is a well-defined probability value.</p>
+
+<p>Now, since the Batter and Pitcher share the same objective function, but different optimization directions, we can apply the same logic to ensure that the Pitcher cannot improve their payoff by deviating from $y(b, s)$, to find the corresponding Nash equilibrium strategy of</p>
+
+\[\begin{equation}
+\boxed{x^*(b, s) = y^*(b, s) }. \label{eq:x_strat}
+\end{equation}\]
+
+<p>Now that we have found the unique Nash equilibrium strategy pair in this game <sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup> . We need to apply backwards induction using our state payoffs $V$ to find the exact value of each $x(b, s)$.</p>
+
+<p>As mentioned in the problem statement, the payout to the Batter for striking out is $0$, for getting a walk is $1$, and for hitting a Homerun is $4$. Therefore the payouts are $V(b, 3) = 0$, $V(4, s) = 1$. We can solve for the Batter score function under the equilibrium strategies using the Mathematica code below.</p>
+
+<div class="language-mathematica highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">4</span><span class="o">;</span><span class="w">
+</span><span class="nv">S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="o">;</span><span class="w">
+</span><span class="c">(* Base Cases *)</span><span class="w">
+</span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="o">_</span><span class="w"> </span><span class="o">/;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">B</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="m">1</span><span class="w"> 
+</span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="o">_,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="w"> </span><span class="o">/;</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">S</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="m">0</span><span class="w">
+
+</span><span class="c">(*Define equilibrium strategies*)</span><span class="w">
+</span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">_,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> 
+ </span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> 
+  </span><span class="nb">Simplify</span><span class="p">[(</span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="w">
+   </span><span class="m">4</span><span class="w"> </span><span class="nv">p</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">p</span><span class="p">)</span><span class="w"> </span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">])]</span><span class="w">
+
+</span><span class="c">(*Define Payoff recurrence under optimal strategy*)</span><span class="w">
+</span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="o">_,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="w"> </span><span class="p">(</span><span class="m">4</span><span class="w">  </span><span class="nv">p</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">p</span><span class="p">)</span><span class="w"> </span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">])</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+    </span><span class="m">2</span><span class="w"> </span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">])</span><span class="w"> </span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">])</span><span class="o">^</span><span class="m">2</span><span class="w"> </span><span class="nv">V</span><span class="p">[</span><span class="nv">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Note $V(b, s)$ and $x(b, s)$ only rely on states that are further along in the count (namely $V(b +1, s)$ and $V(b, s + 1)$) so we can use backwards induction to solve for them.</p>
+
+<h3 id="transition-probabilities">Transition Probabilities</h3>
+
+<p>Given that we now have a system to compute the optimal strategies and valuations of each state, to complete our Markov chain, we need to determine the transition probabilities between states.</p>
+
+<p>We will have the absorption states: $(b, 3)$ and $(4, s)$ for $b \in[3]$ and $s \in [2]$ which represent the outcomes of <code class="language-plaintext highlighter-rouge">strikeout</code> and <code class="language-plaintext highlighter-rouge">walk</code> respectively, and an auxiliary state that represents a <code class="language-plaintext highlighter-rouge">Homerun</code>, which can be reached from any non-terminal state in the game. We visualize the Markov chain below in Figure 1 (omitting the <code class="language-plaintext highlighter-rouge">Homerun</code> state for clarity).</p>
+
+<figure>
+    <img src="/assets/img/blog_images/2025-11-01-robot-baseball/MC.png" width="70%" style="display: block; margin: auto;" />
+    <figcaption style="text-align: center;">Figure 1: Plot of the states of the Markov chain and their possible transitions. The Homerun state has been omitted but every state has the probability to end the game in a Homerun. The full-count state has been highlighted in <span style="color:green">green</span>. </figcaption>
+</figure>
+
+<p>Given that we are at the non-absorbing state $(b, s)$, we can either transition to $(b + 1, s)$, $(b, s + 1)$ or the <code class="language-plaintext highlighter-rouge">Homerun</code> state. Let $Q(b, s)$ be the probability of reaching a full count given we are at state $(b, s)$. We can write $Q(b,s)$ as</p>
+
+\[Q(b, s) = {x}^2 \bigg(p \cdot 0 + (1-p) Q(b, s + 1)\bigg) + 2x(1-x) Q(b, s + 1) + (1 - x)^2 Q(b + 1, s)\]
+
+<p>where $x$ is the Nash-equilibrium strategy given in (\ref{eq:y_strat}).  The base cases for our function $Q$ are  $Q(3, 2) = 1$ and $Q(b, s) = 0$ for any terminal state. For a given $p$, we can now use dynamic programming to compute $Q(0, 0)$, using the snippet of Mathematica code below. We want to know the value of $p \in [0,1]$ that maximizes the value of $Q(0, 0)$.</p>
+
+<div class="language-mathematica highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">(* Base Cases *)</span><span class="w">
+</span><span class="nv">Q</span><span class="p">[</span><span class="nv">b</span><span class="o">_</span><span class="w"> </span><span class="o">/;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">B</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="w"> </span><span class="o">/;</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">S</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="m">1</span><span class="w"> 
+</span><span class="nv">Q</span><span class="p">[</span><span class="nv">b</span><span class="o">_</span><span class="w"> </span><span class="o">/;</span><span class="w"> </span><span class="nv">b</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">B</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span><span class="nv">Q</span><span class="p">[</span><span class="nv">b</span><span class="o">_,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="w"> </span><span class="o">/;</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nv">S</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="m">0</span><span class="w">
+
+</span><span class="c">(*General recurrence *)</span><span class="w">
+</span><span class="nv">Q</span><span class="p">[</span><span class="nv">b</span><span class="o">_,</span><span class="w"> </span><span class="nv">s</span><span class="o">_</span><span class="p">]</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nv">Q</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="o">^</span><span class="m">2</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">p</span><span class="p">)</span><span class="w"> </span><span class="nv">Q</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> 
+   </span><span class="m">2</span><span class="w"> </span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">])</span><span class="w"> </span><span class="nv">Q</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="m">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nv">x</span><span class="p">[</span><span class="nv">b</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">])</span><span class="w"> </span><span class="o">^</span><span class="m">2</span><span class="w"> </span><span class="nv">Q</span><span class="p">[</span><span class="nv">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="o">,</span><span class="w"> </span><span class="nv">s</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="optimizing-for-a-full-count">Optimizing for a Full-Count.</h3>
+
+<p>We can plot $Q(0,0)$ as a function of $p$.</p>
+
+<figure>
+    <img src="/assets/img/blog_images/2025_08_01-robot-roadtrip/image.png" width="70%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center;">Figure 2: The probability of reaching a full-count as a function of Homerun probability $p$.</figcaption>
+</figure>
+
+<p>Based on the figure, we can see the probability is unimodal in $p$ and we can use our favorite <code class="language-plaintext highlighter-rouge">Binary Search</code> method to determine the $p$ that maximizes our function. Alternatively, we can ask Mathematica to do this for us!</p>
+
+<div class="language-mathematica highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">(* Maximize Q[0,0] over the interval [0,1] *)</span><span class="w">
+</span><span class="nb">NMaximize</span><span class="p">[{</span><span class="nv">Q</span><span class="p">[</span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="m">0</span><span class="p">]</span><span class="o">,</span><span class="w"> </span><span class="nv">p</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="m">0</span><span class="o">,</span><span class="w"> </span><span class="nv">p</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="m">1</span><span class="p">}</span><span class="o">,</span><span class="w"> </span><span class="nv">p</span><span class="o">,</span><span class="w"> </span><span class="nb">WorkingPrecision</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="m">20</span><span class="p">]</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Which produces a value of $\boxed{p^* \approx 0.2269732325}$ and the probability of reaching a full count in this case $\boxed{q \approx 0.2959679934}$, which is the answer to this month’s puzzle!</p>
+
+<p>For fun, I experimented with changing the value of the <code class="language-plaintext highlighter-rouge">Homerun</code> state. In the given description, the value of a <code class="language-plaintext highlighter-rouge">Homerun</code> is 4 which implies the Batter has the bases loaded! What if this was instead a lower stakes scenario for the pitcher, and there were instead fewer points on the line if the Batter hit a <code class="language-plaintext highlighter-rouge">Homerun</code>. Below are the probabilities of reaching a full count, for various numbers of runners on base, as a function of $p$. We can see that with more players on base, the lower the value of $p$ needs to be to maximize the odds of reaching a full count!</p>
+
+<figure>
+  <center>
+  <img src="/assets/img/blog_images/2025-11-01-robot-baseball/q_evolution.gif" width="60%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center;"> Figure 3. The probability of reaching a full-count given different numbers of players on base. </figcaption>
+    </center>
+</figure>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1">
+      <p>Can you prove it? <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>]]></content><author><name></name></author><summary type="html"><![CDATA[My solution to the 2025 October Puzzle]]></summary></entry><entry><title type="html">Jane Street Puzzle: Robot Road Trip</title><link href="https://ccolombe12.github.io/blog/2025/robot-road-trip/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Road Trip" /><published>2025-08-01T00:00:01+00:00</published><updated>2025-08-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/robot-road-trip</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/robot-road-trip/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
 <blockquote>
   <p>Robot cars have a top speed (which they prefer to maintain at all times while driving) that’s a real number randomly drawn uniformly between $1$ and \(2\) miles per minute. A two-lane highway for robot cars has a fast-lane (with minimum speed \(a\)) and a slow-lane (with maximum speed \(a\)). When a faster car overtakes a slower car in the same lane, the slower car is required to decelerate to either change lanes (if both cars start in the fast-lane) or stop on the shoulder (if both cars start in the slow-lane). Robot cars decelerate and accelerate at a constant rate of $1$ mile per minute per minute, timed so the faster, overtaking car doesn’t have to change speed at all, and passing happens instantaneously.</p>
 </blockquote>
@@ -1009,16 +1170,4 @@ r_3 &amp; = \overline{r_2}
 
 <p>We see that for \(p \leq\frac{3}{2^{5/3}} \approx  0.94\), there is only <em>one real root and it is negative</em>. However, for \(\boxed{p &gt; \frac{3}{2^{5/3}}}\), the <em>roots are all real with two positive and one negative</em>. This value of \(p\) comes from setting \(p\) to ensure that the term \(\sqrt{81 p^{24}-96 p^{27}}\) (which appears in each of the expressions for the roots), is real. Does this produce a valid probability value for \(Q_A\)?</p>
 
-<p>For \(p\) just above this threshold value of \(\hat{p} = \frac{3}{2^{5/3}}\), we see \(Q_A\) has near repeated roots of around \(\approx 0.88\), validating our solution. Interestingly \(Q_A\) is <strong>zero</strong> until \(p &gt; \hat{p}\) at which it instantaneously jumps up to around \(Q_A \approx 0.88\), as seen in the plot above!</p>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[My solution to last month's puzzle]]></summary></entry><entry><title type="html">Jane Street March 2024 Puzzle Solution</title><link href="https://ccolombe12.github.io/blog/2024/JS_Hooks10/" rel="alternate" type="text/html" title="Jane Street March 2024 Puzzle Solution" /><published>2024-04-01T00:00:01+00:00</published><updated>2024-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/JS_Hooks10</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/JS_Hooks10/"><![CDATA[<style type="text/css">
-    ol { list-style-type: lower-alpha; }
-</style>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<h2 id="jane-street-hooks-10">Jane Street: Hooks 10</h2>
-
-<p>My solution to the March 2024 month <a href="https://www.janestreet.com/puzzles/hooks-10-index/">Jane Street Puzzle: Hooks 10</a>.</p>
-
-<p>The problem boils down to finding a feasible arrangement of hooks and cells for the given constraints. Luckily for me and my operations research background, this can essentially be represented as a large integer program (IP)! I saw this was the 10’th iteration of the Hooks puzzles and found (<a href="https://github.com/gowen100/Jane-Street-Solutions">Gowen100’s</a>) IP approach to the previous Hooks puzzle. This was a great opportunity to learn a new tool: The <a href="https://www.microsoft.com/en-us/research/project/z3-3/">Z3 theorem prover </a> from Microsoft research. I was able to use what I learned to create the necessary augmentations to solve the newest iteration of the the hooks puzzle! Looking forward to solving the future puzzles with this new tool!</p>
-
-<iframe src="/assets/Jane_Street_Mar_2024.html" width="125%" height="900"></iframe>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[]]></summary></entry></feed>
+<p>For \(p\) just above this threshold value of \(\hat{p} = \frac{3}{2^{5/3}}\), we see \(Q_A\) has near repeated roots of around \(\approx 0.88\), validating our solution. Interestingly \(Q_A\) is <strong>zero</strong> until \(p &gt; \hat{p}\) at which it instantaneously jumps up to around \(Q_A \approx 0.88\), as seen in the plot above!</p>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[My solution to last month's puzzle]]></summary></entry></feed>
