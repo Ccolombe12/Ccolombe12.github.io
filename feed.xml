@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-01-25T06:36:07+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-01-25T06:48:02+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
 </subtitle><entry><title type="html">Jane Street Puzzle: Robot Javelin</title><link href="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Javelin" /><published>2025-12-30T00:00:01+00:00</published><updated>2025-12-30T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
 
 <blockquote>
@@ -85,9 +85,9 @@ which is the unique Nash-equilibrium threshold strategy in the vanilla game and 
 
 <p>The next step is to determine what value of $d$ player $S$ should use to cheat in an optimal way. Recall that $S$ is choosing $d$ with the belief that $J$ is using the vanilla strategy with threshold $\tau$.</p>
 
-<p>To choose $d$, $S$ can utilize two pieces of information: their initial throw value and a bit indicating whether or not $J$’s first throw exceeded $d$. From this information, $S$ must decide to <code class="language-plaintext highlighter-rouge">throw</code> or <code class="language-plaintext highlighter-rouge">keep</code>. Like in the previous section, we will develop an expression for the probability $S$ wins when $d \leq \tau$ and $d &gt; \tau$ and use those to determine an optimal value for $d$.</p>
+<p>To choose $d$, $S$ can utilize two pieces of information: their initial throw value and a bit indicating whether or not $J$’s first throw exceeded $d$. From this information, $S$ must decide to <code class="language-plaintext highlighter-rouge">rethrow</code> or <code class="language-plaintext highlighter-rouge">keep</code>. Like in the previous section, we will develop an expression for the probability $S$ wins when $d \leq \tau$ and $d &gt; \tau$ and use those to determine an optimal value for $d$.</p>
 <h3 id="case-1-d--tau">Case 1: $d &lt; \tau$</h3>
-<p>Suppose $d \leq \tau$ and $S$’s initial throw was $s_1$. We can break up the probability $S$ wins by considering the cases where $J$’s first throw, denoted $j_1$, was more or less than $d$. If $j_1 &lt; d \leq \tau$, then $S$ knows that $J$ will <code class="language-plaintext highlighter-rouge">throw</code>. In that case, $S$ will <code class="language-plaintext highlighter-rouge">keep</code> if their initial throw was at least $1/2$ and <code class="language-plaintext highlighter-rouge">rethrow</code> otherwise. Therefore, the probability of $S$ winning if they initially throw $s$ and observe that $j_1 &lt; d$ is $P_{lo}(s_1) = \max(s_1, 1/2)$ where the first term represents keeping their initial throw of $s$ and the second is the event they both <code class="language-plaintext highlighter-rouge">rethrow</code>.</p>
+<p>Suppose $d \leq \tau$ and $S$’s initial throw was $s_1$. We can break up the probability $S$ wins by considering the cases where $J$’s first throw, denoted $j_1$, was more or less than $d$. If $j_1 &lt; d \leq \tau$, then $S$ knows that $J$ will <code class="language-plaintext highlighter-rouge">rethrow</code>. In that case, $S$ will <code class="language-plaintext highlighter-rouge">keep</code> if their initial throw was at least $1/2$ and <code class="language-plaintext highlighter-rouge">rethrow</code> otherwise. Therefore, the probability of $S$ winning if they initially throw $s$ and observe that $j_1 &lt; d$ is $P_{lo}(s_1) = \max(s_1, 1/2)$ where the first term represents keeping their initial throw of $s$ and the second is the event they both <code class="language-plaintext highlighter-rouge">rethrow</code>.</p>
 
 <p>On the other hand, if $j_1 &gt; d$ then since $d \leq \tau$, $J$ may <code class="language-plaintext highlighter-rouge">rethrow</code> or <code class="language-plaintext highlighter-rouge">keep</code>. If $S$ <code class="language-plaintext highlighter-rouge">keeps</code> here, they win with probability</p>
 
@@ -112,7 +112,7 @@ P_{Win (d &lt; \tau)}(d) &amp; = \int_{0}^1\bigg( d \cdot P_{lo}(s_1) + (1 - d)\
 P_{hi}(s_1) = \max\bigg\{\frac{1 - d}{2}, \frac{s_1 - d}{1 - d}\bigg\}
 \end{equation}\]
 
-<p>Next, in the event $S$ observes $j_1 &lt; d$,  $J$ may <code class="language-plaintext highlighter-rouge">throw</code> or <code class="language-plaintext highlighter-rouge">keep</code>, so we need to use the same conditioning logic as in the previous case. Doing so, we arrive at</p>
+<p>Next, in the event $S$ observes $j_1 &lt; d$,  $J$ may <code class="language-plaintext highlighter-rouge">rethrow</code> or <code class="language-plaintext highlighter-rouge">keep</code>, so we need to use the same conditioning logic as in the previous case. Doing so, we arrive at</p>
 
 \[\begin{equation}
 P_{keep}(s) = \begin{cases}
@@ -205,7 +205,7 @@ f_J(j, r) = \begin{cases}
 \Pr\left[J win| j_1 \leq \tau\right](r^*)  =\frac{\frac{313}{24}-5 \sqrt{5}}{4 \left(\sqrt{5} - 1\right)}.
 \end{equation*}\]
 
-<p>In summary, there is now a window, $[7/12, \tau]$, such that when $J$’s first throw falls in this window, $J$ can take advantage of $S$’s cheating and <code class="language-plaintext highlighter-rouge">keep</code> when $S$ thinks that $J$ will <code class="language-plaintext highlighter-rouge">throw</code>.</p>
+<p>In summary, there is now a window, $[7/12, \tau]$, such that when $J$’s first throw falls in this window, $J$ can take advantage of $S$’s cheating and <code class="language-plaintext highlighter-rouge">keep</code> when $S$ thinks that $J$ will <code class="language-plaintext highlighter-rouge">rethrow</code>.</p>
 
 <p>In the event that $j_1 &gt; \tau$, we can suppose another threshold $r’$ and repeat the same steps as before. However, this time we find that $\Pr\left[J \text{ win}\mid j_1 &gt; \tau\right](r’)$ is a strictly decreasing function for $r’ \geq \tau$, implying that when $J$’s first throw exceeds $\tau$, they should always <code class="language-plaintext highlighter-rouge">keep</code>, as in the vanilla strategy. Furthermore, when plugging in $r’ = \tau$, we find that</p>
 
