@@ -92,9 +92,9 @@ which is the unique Nash-equilibrium threshold strategy in the vanilla game and 
 
 The next step is to determine what value of $d$ player $S$ should use to cheat in an optimal way. Recall that $S$ is choosing $d$ with the belief that $J$ is using the vanilla strategy with threshold $\tau$. 
 
-To choose $d$, $S$ can utilize two pieces of information: their initial throw value and a bit indicating whether or not $J$'s first throw exceeded $d$. From this information, $S$ must decide to `throw` or `keep`. Like in the previous section, we will develop an expression for the probability $S$ wins when $d \leq \tau$ and $d > \tau$ and use those to determine an optimal value for $d$.
+To choose $d$, $S$ can utilize two pieces of information: their initial throw value and a bit indicating whether or not $J$'s first throw exceeded $d$. From this information, $S$ must decide to `rethrow` or `keep`. Like in the previous section, we will develop an expression for the probability $S$ wins when $d \leq \tau$ and $d > \tau$ and use those to determine an optimal value for $d$.
 ### Case 1: $d < \tau$
-Suppose $d \leq \tau$ and $S$'s initial throw was $s_1$. We can break up the probability $S$ wins by considering the cases where $J$'s first throw, denoted $j_1$, was more or less than $d$. If $j_1 < d \leq \tau$, then $S$ knows that $J$ will `throw`. In that case, $S$ will `keep` if their initial throw was at least $1/2$ and `rethrow` otherwise. Therefore, the probability of $S$ winning if they initially throw $s$ and observe that $j_1 < d$ is $P_{lo}(s_1) = \max(s_1, 1/2)$ where the first term represents keeping their initial throw of $s$ and the second is the event they both `rethrow`. 
+Suppose $d \leq \tau$ and $S$'s initial throw was $s_1$. We can break up the probability $S$ wins by considering the cases where $J$'s first throw, denoted $j_1$, was more or less than $d$. If $j_1 < d \leq \tau$, then $S$ knows that $J$ will `rethrow`. In that case, $S$ will `keep` if their initial throw was at least $1/2$ and `rethrow` otherwise. Therefore, the probability of $S$ winning if they initially throw $s$ and observe that $j_1 < d$ is $P_{lo}(s_1) = \max(s_1, 1/2)$ where the first term represents keeping their initial throw of $s$ and the second is the event they both `rethrow`. 
 
 On the other hand, if $j_1 > d$ then since $d \leq \tau$, $J$ may `rethrow` or `keep`. If $S$ `keeps` here, they win with probability 
 
@@ -127,7 +127,7 @@ P_{hi}(s_1) = \max\bigg\{\frac{1 - d}{2}, \frac{s_1 - d}{1 - d}\bigg\}
 \end{equation}
 $$
 
-Next, in the event $S$ observes $j_1 < d$,  $J$ may `throw` or `keep`, so we need to use the same conditioning logic as in the previous case. Doing so, we arrive at 
+Next, in the event $S$ observes $j_1 < d$,  $J$ may `rethrow` or `keep`, so we need to use the same conditioning logic as in the previous case. Doing so, we arrive at 
 
 
 $$
@@ -240,7 +240,7 @@ $$
 \end{equation*}
 $$
 
-In summary, there is now a window, $[7/12, \tau]$, such that when $J$'s first throw falls in this window, $J$ can take advantage of $S$'s cheating and `keep` when $S$ thinks that $J$ will `throw`. 
+In summary, there is now a window, $[7/12, \tau]$, such that when $J$'s first throw falls in this window, $J$ can take advantage of $S$'s cheating and `keep` when $S$ thinks that $J$ will `rethrow`. 
 
 In the event that $j_1 > \tau$, we can suppose another threshold $r'$ and repeat the same steps as before. However, this time we find that $\Pr\left\[J \text{ win}\mid j_1 > \tau\right\](r')$ is a strictly decreasing function for $r' \geq \tau$, implying that when $J$'s first throw exceeds $\tau$, they should always `keep`, as in the vanilla strategy. Furthermore, when plugging in $r' = \tau$, we find that 
 
