@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-01-25T06:49:44+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-01-25T07:17:05+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
 </subtitle><entry><title type="html">Jane Street Puzzle: Robot Javelin</title><link href="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Javelin" /><published>2025-12-30T00:00:01+00:00</published><updated>2025-12-30T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
 
 <blockquote>
@@ -37,21 +37,20 @@
 
 <p>To do this, we first need an expression for the probability that $S$ wins given they use strategy $t$ and $J$ uses strategy $\tau$. Let $\tilde{s}$ and $\tilde{j}$ be random variables denoting the distance $S$ and $J$ use in their score respectively. We want to determine $\Pr[\tilde{s} &gt; \tilde{j}]$. We can write down the CDF of $\tilde{s}$ for fixed $t$ as :</p>
 
-<p>\(\begin{equation}
+<p>\(\begin{equation*}
 F_S(s, t) = \begin{cases}
  t s &amp; 0\leq s\leq t \\
  (s-t) + s t &amp; t&lt;s&lt;1.
 \end{cases}
-\end{equation}\)
+\end{equation*}\)
 This follows from the fact that the only way to throw at most $s$ for $s \leq t$ is to throw under $t$ the first throw, then under $s$ the second. And for $s &gt; t$ we can throw between it and $t$ on our first throw with probability $s - t$ or below $t$ on the first throw and then under $s$ the second. By the same logic, the CDF of $\tilde{j}$ is</p>
 
-\[\begin{equation}
-
+\[\begin{equation*}
 F_J(j) = \begin{cases}
  \tau j &amp; 0\leq j\leq \tau \\
  (j-\tau) + j \tau &amp; \tau&lt;j&lt;1.
 \end{cases}
-\end{equation}\]
+\end{equation*}\]
 
 <p>With these, we can write  $\Pr[\tilde{s} &gt; \tilde{j}]$ as a function of $t$.</p>
 
@@ -76,64 +75,67 @@ F_J(j) = \begin{cases}
 
 <p>Taking the derivative of (\ref{eq:van_nash}) in $t$, setting $t = \tau$, and then solving for the root in $\tau$ yields a value of</p>
 
-<p>\(\begin{equation}
+\[\begin{equation*}
 \boxed{\tau = \frac{\sqrt{5} - 1}{2}}
-\end{equation}\)
-which is the unique Nash-equilibrium threshold strategy in the vanilla game and aligns with the value we would expect from Figure 1.</p>
+\end{equation*}\]
+
+<p>which is the unique Nash-equilibrium threshold strategy in the vanilla game and aligns with the value we would expect from Figure 1.</p>
 
 <h2 id="part-2-optimal-cheating">Part 2: Optimal Cheating</h2>
 
 <p>The next step is to determine what value of $d$ player $S$ should use to cheat in an optimal way. Recall that $S$ is choosing $d$ with the belief that $J$ is using the vanilla strategy with threshold $\tau$.</p>
 
-<p>To choose $d$, $S$ can utilize two pieces of information: their initial throw value and a bit indicating whether or not $J$’s first throw exceeded $d$. From this information, $S$ must decide to <code class="language-plaintext highlighter-rouge">throw</code> or <code class="language-plaintext highlighter-rouge">keep</code>. Like in the previous section, we will develop an expression for the probability $S$ wins when $d \leq \tau$ and $d &gt; \tau$ and use those to determine an optimal value for $d$.</p>
+<p>To choose $d$, $S$ can utilize two pieces of information: their initial throw value and a bit indicating whether or not $J$’s first throw exceeded $d$. From this information, $S$ must decide to <code class="language-plaintext highlighter-rouge">rethrow</code> or <code class="language-plaintext highlighter-rouge">keep</code>. Like in the previous section, we will develop an expression for the probability $S$ wins when $d \leq \tau$ and $d &gt; \tau$ and use those to determine an optimal value for $d$.</p>
 <h3 id="case-1-d--tau">Case 1: $d &lt; \tau$</h3>
-<p>Suppose $d \leq \tau$ and $S$’s initial throw was $s_1$. We can break up the probability $S$ wins by considering the cases where $J$’s first throw, denoted $j_1$, was more or less than $d$. If $j_1 &lt; d \leq \tau$, then $S$ knows that $J$ will <code class="language-plaintext highlighter-rouge">throw</code>. In that case, $S$ will <code class="language-plaintext highlighter-rouge">keep</code> if their initial throw was at least $1/2$ and <code class="language-plaintext highlighter-rouge">rethrow</code> otherwise. Therefore, the probability of $S$ winning if they initially throw $s$ and observe that $j_1 &lt; d$ is $P_{lo}(s_1) = \max(s_1, 1/2)$ where the first term represents keeping their initial throw of $s$ and the second is the event they both <code class="language-plaintext highlighter-rouge">rethrow</code>.</p>
+<p>Suppose $d \leq \tau$ and $S$’s initial throw was $s_1$. We can break up the probability $S$ wins by considering the cases where $J$’s first throw, denoted $j_1$, was more or less than $d$. If $j_1 &lt; d \leq \tau$, then $S$ knows that $J$ will <code class="language-plaintext highlighter-rouge">rethrow</code>. In that case, $S$ will <code class="language-plaintext highlighter-rouge">keep</code> if their initial throw was at least $1/2$ and <code class="language-plaintext highlighter-rouge">rethrow</code> otherwise. Therefore, the probability of $S$ winning if they initially throw $s$ and observe that $j_1 &lt; d$ is $P_{lo}(s_1) = \max(s_1, 1/2)$ where the first term represents keeping their initial throw of $s$ and the second is the event they both <code class="language-plaintext highlighter-rouge">rethrow</code>.</p>
 
 <p>On the other hand, if $j_1 &gt; d$ then since $d \leq \tau$, $J$ may <code class="language-plaintext highlighter-rouge">rethrow</code> or <code class="language-plaintext highlighter-rouge">keep</code>. If $S$ <code class="language-plaintext highlighter-rouge">keeps</code> here, they win with probability</p>
 
-<p>\(\begin{equation}P_{keep}(s_1) = \underbrace{\max \left\{0,\frac{s_1 -\tau }{1-\tau }\right\}\frac{1-\tau }{1-d} }_{\text{$J$ keeps, $S$ keeps}} + \underbrace{ s_1\frac{(\tau -d)}{1-d}}_{\text{$J$ rethrows, $S$ keeps}}.
-\end{equation}\)
+<p>\(\begin{equation*}P_{keep}(s_1) = \underbrace{\max \left\{0,\frac{s_1 -\tau }{1-\tau }\right\}\frac{1-\tau }{1-d} }_{\text{$J$ keeps, $S$ keeps}} + \underbrace{ s_1\frac{(\tau -d)}{1-d}}_{\text{$J$ rethrows, $S$ keeps}}.
+\end{equation*}\)
 By the same conditioning logic, we find that if $S$ <code class="language-plaintext highlighter-rouge">rethrows</code> they win with probability
-\(\begin{equation}P_{throw} = \underbrace{\frac{1-\tau }{2}\frac{1-\tau}{1-d}}_{\text{$J$ keeps, $S$ rethrows}} + \underbrace{\frac{1}{2}\frac{\tau  - d}{1-d}}_{\text{$J$ rethrows, $S$ rethrows}}.
-\end{equation}\)
+\(\begin{equation*}P_{throw} = \underbrace{\frac{1-\tau }{2}\frac{1-\tau}{1-d}}_{\text{$J$ keeps, $S$ rethrows}} + \underbrace{\frac{1}{2}\frac{\tau  - d}{1-d}}_{\text{$J$ rethrows, $S$ rethrows}}.
+\end{equation*}\)
 $S$ will choose the larger of $P_{keep}(s_1)$ and $P_{throw}$ depending on the value of $s_1$.</p>
 
-<p>Putting it together and integrating these cases over the possible values of $s_1$, the probability of $S$ winning for a given $d \leq \tau$ is 
-\(\begin{equation}
+<p>Putting it together and integrating these cases over the possible values of $s_1$, the probability of $S$ winning for a given $d \leq \tau$ is</p>
+
+\[\begin{equation*}
 \begin{aligned}
 P_{Win (d &lt; \tau)}(d) &amp; = \int_{0}^1\bigg( d \cdot P_{lo}(s_1) + (1 - d)\cdot \max\bigg\{P_{keep}(s_1), P_{throw} \bigg\}\bigg) \; d s_1 \\
                    &amp; = \frac{\left(19-5 \sqrt{5}\right) d^2-\left(11 \sqrt{5}+1\right) d+4 \left(\sqrt{5}+3\right)}{4 \left(-2 d+\sqrt{5}+1\right)^2}
 \end{aligned}
-\end{equation}\)</p>
+\end{equation*}\]
+
 <h4 id="case-2-d--tau">Case 2: $d &gt; \tau$</h4>
 <p>Now, we must perform the same analysis for $d &gt; \tau$. If $S$ observes that $j_1 \geq d \geq \tau$, then they will know $J$ will <code class="language-plaintext highlighter-rouge">keep</code> with certainty. If $S$ <code class="language-plaintext highlighter-rouge">rethrows</code> they win with probability $(1 - d)/2$, and if they <code class="language-plaintext highlighter-rouge">keep</code>, they win with probability $\max ( 0, (s_1 - d)/(1 - d) )$. Putting these together, in the event that $S$ observes that $J$ throws more than $d$, $S$ wins with probability</p>
 
-\[\begin{equation}
+\[\begin{equation*}
 P_{hi}(s_1) = \max\bigg\{\frac{1 - d}{2}, \frac{s_1 - d}{1 - d}\bigg\}
-\end{equation}\]
+\end{equation*}\]
 
-<p>Next, in the event $S$ observes $j_1 &lt; d$,  $J$ may <code class="language-plaintext highlighter-rouge">throw</code> or <code class="language-plaintext highlighter-rouge">keep</code>, so we need to use the same conditioning logic as in the previous case. Doing so, we arrive at</p>
+<p>Next, in the event $S$ observes $j_1 &lt; d$,  $J$ may <code class="language-plaintext highlighter-rouge">rethrow</code> or <code class="language-plaintext highlighter-rouge">keep</code>, so we need to use the same conditioning logic as in the previous case. Doing so, we find that the probability of $S$ winning when they <code class="language-plaintext highlighter-rouge">keep</code> and <code class="language-plaintext highlighter-rouge">rethrow</code> are:</p>
 
-\[\begin{equation}
-P_{keep}(s) = \begin{cases}
+\[\begin{equation*}
+P_{keep}(s_1) = \begin{cases}
 \frac{\tau}{d} s_1 &amp; 0 \leq s_1 \leq \tau \\
 \frac{\tau}{d} s_1  + \frac{s_1 - \tau}{s_1} &amp; \tau &lt; s_1 \leq d \\
 \frac{\tau }{d} s_1 + 1 -\frac{\tau }{d} &amp; s_1 &gt; d \\
 \end{cases} 
-\end{equation}\]
+\end{equation*}\]
 
-\[\begin{equation}P_{throw} = \underbrace{\frac{1-\tau }{2}\frac{1-\tau}{1-d}}_{\text{$S$ keeps $| j_1 &gt; d$}} + \underbrace{\frac{1}{2}\frac{\tau  - d}{1-d}}_{\text{$S$ rethrows $| j_1 &gt; d$}}
-\end{equation}\]
+\[\begin{equation*}P_{throw} = 1 - \underbrace{\frac{(d-\tau ) (d+\tau )}{2 d}}_{\text{$J$ keeps, $S$ rethrows}}- \underbrace{\frac{\tau }{2 d}}_{\text{$J$ keeps, $S$ rethrows}}
+\end{equation*}.\]
 
-<p>As for a brief explanation of the terms in $P_{keep}(s_1)$, note since $j_1 &lt; d$, $J$ will rethrow with probability $d/\tau$ and then the second throw will be less than $s_1$ with probability $s_1$. That is why the term $\tau s_1/d $ appears in each case. The last two terms consider the additional case where $J$ does not rethrow. For the middle term, some $j_1$ can beat $s$ whereas in the last term, $s_1 &gt; d &gt; j_1$ so $S$ wins with certainty in that case.</p>
+<p>As for a brief explanation of the terms in $P_{keep}(s_1)$, note since $j_1 &lt; d$, $J$ will rethrow with probability $d/\tau$ and then the second throw will be less than $s_1$ with probability $s_1$. That is why the term $\tau s_1/d $ appears in each case. The last two terms consider the additional case where $J$ <code class="language-plaintext highlighter-rouge">keeps</code>. For the middle term, some $j_1$ can beat $s_1$ in this interval; whereas in the last term, since $s_1 &gt; d &gt; j_1$, $S$ wins.</p>
 
 <p>Similar to in the previous case, $S$ will choose the larger of the two options $P_{keep}(s_1)$ and $P_{throw}$. We can now integrate the probability of winning when $d &gt; \tau$ as a function of $s$ to get
-\(\begin{equation}
+\(\begin{equation*}
 \begin{aligned}
 P_{Win (d &gt; \tau)}(d) &amp; = \int_{0}^1\bigg( d \cdot P_{hi}(s_1) + (1 - d) \cdot \max\bigg\{P_{keep}(s_1), P_{throw} \bigg\} \bigg)\;ds_1 \\
                    &amp; = \frac{\left(\sqrt{5}+1\right) d^4-8 d^3+2 \left(\sqrt{5}+1\right) d^2-8 \left(\sqrt{5}-2\right) d+9 \sqrt{5}-15}{8 \left(\sqrt{5}-1\right)}
 \end{aligned}
-\end{equation}\)</p>
+\end{equation*}\)</p>
 
 <p>If we now plot the probability of $S$ winning as a piecewise function in $d$ consisting of $P_{Win (d &lt; \tau)}(d)$ and $P_{Win (d &gt; \tau)}(d)$, we see:</p>
 
@@ -154,11 +156,11 @@ P_{Win (d &gt; \tau)}(d) &amp; = \int_{0}^1\bigg( d \cdot P_{hi}(s_1) + (1 - d) 
 
 <h2 id="part-3-js-optimal-response-to-cheating">Part 3: $J$’s Optimal Response to Cheating</h2>
 
-<p>Lastly, $J$ knows that $S$ can tell if $J$’s first throw is below or above $\tau$. How can $J$ use this information to form an optimal response to $S$’s cheating? $S$’s behavior will vary depending on whether or not $J$’s first throw was more or less than $\tau$. We can assume $J$ uses a threshold strategy that depends on the first throw. Let $r$ be the new threshold used by $J$.</p>
+<p>Lastly, $J$ knows that $S$ can tell if $J$’s first throw is below or above $\tau$. How can $J$ use this information to devise an optimal response to $S$’s cheating? $S$’s behavior will vary depending on whether or not $J$’s first throw was more or less than $\tau$. We can assume $J$ uses a threshold strategy that depends on the first throw. Let $r$ be the new threshold used by $J$.</p>
 
 <p>First suppose that  $j_1 \leq \tau$ . When should $J$ keep the first throw?</p>
 
-<p>Since $S$ is cheating, they know $j_1 &lt; \tau$. Based on the strategy we discovered in the previous part the CDF of the final value $S$ receives is</p>
+<p>Since $S$ is cheating, they know $j_1 \leq \tau$. Based on the strategy we discovered in the previous part the CDF of the final value $S$ receives is</p>
 
 \[\begin{equation*}
 F_S(s) = \begin{cases}
@@ -188,10 +190,10 @@ f_J(j, r) = \begin{cases}
 <p>Thus, the probability of $J$ winning as a function of $r$ is</p>
 
 \[\begin{equation*}
-\Pr\left[ J win| j_1 \leq \tau\right](r) = \int_0^1 F_S(j) \cdot f_J(j) dj. 
+\Pr\left[ J \text{ win}| j_1 \leq \tau\right](r) = \int_0^1 F_S(j) \cdot f_J(j) \;dj. 
 \end{equation*}\]
 
-<p>We visualize below in Figure 3.</p>
+<p>We visualize this below in Figure 3.</p>
 <figure>
   <center>
   <img src="/assets/img/blog_images/2026-01-01-robot-javelin/rThresh.png" width="60%" style="display: block; margin: auto;" />
@@ -202,15 +204,15 @@ f_J(j, r) = \begin{cases}
 <p>From the figure, we see that the function seems to be unimodal with a maximum somewhere just before the threshold. Sure enough, if we take the derivative and solve for the root, we find that $\boxed{r^* = 7/12}$ is the optimal threshold strategy for $J$ when $j_1 \leq \tau$ which yields</p>
 
 \[\begin{equation*}
-\Pr\left[J win| j_1 \leq \tau\right](r^*)  =\frac{\frac{313}{24}-5 \sqrt{5}}{4 \left(\sqrt{5} - 1\right)}.
+\Pr\left[J \text{ win}| j_1 \leq \tau\right](r^*)  =\frac{\frac{313}{24}-5 \sqrt{5}}{4 \left(\sqrt{5} - 1\right)}.
 \end{equation*}\]
 
-<p>In summary, there is now a window, $[7/12, \tau]$, such that when $J$’s first throw falls in this window, $J$ can take advantage of $S$’s cheating and <code class="language-plaintext highlighter-rouge">keep</code> when $S$ thinks that $J$ will <code class="language-plaintext highlighter-rouge">throw</code>.</p>
+<p>In summary, there is now a window, $[7/12, \tau]$, such that when $J$’s first throw falls in this window, $J$ can take advantage of $S$’s cheating and <code class="language-plaintext highlighter-rouge">keep</code> when $S$ thinks that $J$ will <code class="language-plaintext highlighter-rouge">rethrow</code>.</p>
 
 <p>In the event that $j_1 &gt; \tau$, we can suppose another threshold $r’$ and repeat the same steps as before. However, this time we find that $\Pr\left[J \text{ win}\mid j_1 &gt; \tau\right](r’)$ is a strictly decreasing function for $r’ \geq \tau$, implying that when $J$’s first throw exceeds $\tau$, they should always <code class="language-plaintext highlighter-rouge">keep</code>, as in the vanilla strategy. Furthermore, when plugging in $r’ = \tau$, we find that</p>
 
 \[\begin{equation*}
-\Pr\left[J win| j_1 &gt; \tau\right](\tau)  =\frac{1}{8} \left(2 \sqrt{5}+1\right)
+\Pr\left[J \text{ win}| j_1 &gt; \tau\right](\tau)  =\frac{1}{8} \left(2 \sqrt{5}+1\right).
 \end{equation*}\]
 
 <p>We have now worked out everyone’s optimal strategy and now it remains to compute the probability that $J$ wins! By conditioning on the event that $J$’s first throw is below or above $\tau$, we finally find</p>
