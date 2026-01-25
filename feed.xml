@@ -1,5 +1,229 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-01-13T17:18:10+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
-</subtitle><entry><title type="html">Jane Street Puzzle: Robot Baseball</title><link href="https://ccolombe12.github.io/blog/2025/JS_baseball/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Baseball" /><published>2025-11-01T00:00:01+00:00</published><updated>2025-11-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/JS_baseball</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/JS_baseball/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-01-25T06:36:07+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+</subtitle><entry><title type="html">Jane Street Puzzle: Robot Javelin</title><link href="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Javelin" /><published>2025-12-30T00:00:01+00:00</published><updated>2025-12-30T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
+
+<blockquote>
+  <p>It’s coming to the end of the year, which can only mean one thing: time for this year’s Robot Javelin finals! Whoa wait, you’ve never heard of Robot Javelin? Well then! Allow me to explain the rules:</p>
+  <ul>
+    <li>It’s head-to-head. Each of two robots makes their first throw, whose distance is a real number drawn uniformly from $[0, 1]$.</li>
+    <li>Then, without knowledge of their competitor’s result, each robot decides whether to keep their current distance or erase it and go for a second throw, whose distance they must keep (it is also drawn uniformly from $[0, 1]$).</li>
+    <li>The robot with the larger final distance wins.</li>
+  </ul>
+</blockquote>
+
+<blockquote>
+  <p>This year’s finals pits your robot, Java-lin ($J$), against the challenger, Spears Robot ($S$). Now, robots have been competing honorably for years and have settled into the Nash equilibrium for this game. However, you have just learned that Spears Robot has found and exploited a leak in the protocol of the game. They can receive a single bit of information telling them whether their opponent’s first throw (distance) was above or below some threshold $d$ of their choosing before deciding whether to go for a second throw. Spears has presumably chosen d to maximize their chance of winning — no wonder they made it to the finals!</p>
+</blockquote>
+
+<blockquote>
+  <p>Spears Robot isn’t aware that you’ve learned this fact; they assume Java-lin is using the Nash equilibrium strategy.. <strong>If you were to adjust Java-lin’s strategy to maximize its odds of winning given this, what would be Java-lin’s updated probability of winning?</strong></p>
+</blockquote>
+
+<hr />
+<h1 id="solution">Solution</h1>
+
+<p>This problem naturally has three components:</p>
+
+<ul>
+  <li>What is the Nash equilibrium strategy in the vanilla game?</li>
+  <li>Given that $S$ can see if $J$’s throw was more or less than $d$, what is their optimal $d^*$?</li>
+  <li>Knowing that $S$ will play optimally with their new information but doesn’t know $J$ is aware of $S$’s strategy, what is the optimal strategy for $J$ now?</li>
+</ul>
+
+<h2 id="part-1-vanilla-nash-equilibrium">Part 1: Vanilla Nash Equilibrium</h2>
+
+<p>We assume both robots use a threshold strategy and by symmetry they adopt the same threshold $\tau$. That is, both robots throw their first javelin. If they throw it further than distance $\tau$ then they keep their first throw, otherwise they throw again. In this first part, we’ll find the value of $\tau$.</p>
+
+<p>Recall that in a Nash equilibrium, no player can unilaterally change their strategy and improve their position. So without loss of generality, let’s assume that $J$ uses $\tau$ and $S$ uses $t$. We would like to find the value of $\tau$ such that for all $t \in [0, 1]$, $S$’s probability of winning is maximized at $t = \tau$.</p>
+
+<p>To do this, we first need an expression for the probability that $S$ wins given they use strategy $t$ and $J$ uses strategy $\tau$. Let $\tilde{s}$ and $\tilde{j}$ be random variables denoting the distance $S$ and $J$ use in their score respectively. We want to determine $\Pr[\tilde{s} &gt; \tilde{j}]$. We can write down the CDF of $\tilde{s}$ for fixed $t$ as :</p>
+
+<p>\(\begin{equation}
+F_S(s, t) = \begin{cases}
+ t s &amp; 0\leq s\leq t \\
+ (s-t) + s t &amp; t&lt;s&lt;1.
+\end{cases}
+\end{equation}\)
+This follows from the fact that the only way to throw at most $s$ for $s \leq t$ is to throw under $t$ the first throw, then under $s$ the second. And for $s &gt; t$ we can throw between it and $t$ on our first throw with probability $s - t$ or below $t$ on the first throw and then under $s$ the second. By the same logic, the CDF of $\tilde{j}$ is</p>
+
+\[\begin{equation}
+
+F_J(j) = \begin{cases}
+ \tau j &amp; 0\leq j\leq \tau \\
+ (j-\tau) + j \tau &amp; \tau&lt;j&lt;1.
+\end{cases}
+\end{equation}\]
+
+<p>With these, we can write  $\Pr[\tilde{s} &gt; \tilde{j}]$ as a function of $t$.</p>
+
+\[\begin{equation}
+\begin{aligned}
+\Pr\left[\tilde{s} &gt; \tilde{j}\right](t, \tau) &amp; = \int_{0}^1 F_J(s) f_s(s, t) \; ds \\
+&amp; = \begin{cases}
+ \frac{1}{2} \left(\tau ^2-\tau -\tau  t^2+\left(\tau ^2-\tau +1\right) t+1\right) &amp; 0\leq t \leq \tau \\
+\frac{1}{2} \left(-\tau -\left((\tau +1) t^2\right)+\left(\tau ^2+\tau +1\right) t+1\right) &amp; \tau&lt;t&lt;1.
+\end{cases}
+\end{aligned}\label{eq:van_nash}
+\end{equation}\]
+
+<p>Now, we would like to find the value of $\tau$ such that:  $\Pr \left[\tilde{s} &gt; \tilde{j}\right](t, \tau)$ is maximized in $t$ at $t = \tau$. If we vary $\tau$ and plot the probability of winning as a function of $t$, we can see that there is some $\tau$ for which the function in $t$ is strictly <em>decreasing</em> in $t$ on either side of $t = \tau$.</p>
+
+<figure>
+  <center>
+  <img src="/assets/img/blog_images/2026-01-01-robot-javelin/P1_tau_animation.gif" width="60%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center;"> Figure 1. As we vary $\tau$, we see that the plot of Probability of winning as a function of $t$ is maximized at $t = \tau$ when $\tau \approx 0.6$.  </figcaption>
+    </center>
+</figure>
+
+<p>Taking the derivative of (\ref{eq:van_nash}) in $t$, setting $t = \tau$, and then solving for the root in $\tau$ yields a value of</p>
+
+<p>\(\begin{equation}
+\boxed{\tau = \frac{\sqrt{5} - 1}{2}}
+\end{equation}\)
+which is the unique Nash-equilibrium threshold strategy in the vanilla game and aligns with the value we would expect from Figure 1.</p>
+
+<h2 id="part-2-optimal-cheating">Part 2: Optimal Cheating</h2>
+
+<p>The next step is to determine what value of $d$ player $S$ should use to cheat in an optimal way. Recall that $S$ is choosing $d$ with the belief that $J$ is using the vanilla strategy with threshold $\tau$.</p>
+
+<p>To choose $d$, $S$ can utilize two pieces of information: their initial throw value and a bit indicating whether or not $J$’s first throw exceeded $d$. From this information, $S$ must decide to <code class="language-plaintext highlighter-rouge">throw</code> or <code class="language-plaintext highlighter-rouge">keep</code>. Like in the previous section, we will develop an expression for the probability $S$ wins when $d \leq \tau$ and $d &gt; \tau$ and use those to determine an optimal value for $d$.</p>
+<h3 id="case-1-d--tau">Case 1: $d &lt; \tau$</h3>
+<p>Suppose $d \leq \tau$ and $S$’s initial throw was $s_1$. We can break up the probability $S$ wins by considering the cases where $J$’s first throw, denoted $j_1$, was more or less than $d$. If $j_1 &lt; d \leq \tau$, then $S$ knows that $J$ will <code class="language-plaintext highlighter-rouge">throw</code>. In that case, $S$ will <code class="language-plaintext highlighter-rouge">keep</code> if their initial throw was at least $1/2$ and <code class="language-plaintext highlighter-rouge">rethrow</code> otherwise. Therefore, the probability of $S$ winning if they initially throw $s$ and observe that $j_1 &lt; d$ is $P_{lo}(s_1) = \max(s_1, 1/2)$ where the first term represents keeping their initial throw of $s$ and the second is the event they both <code class="language-plaintext highlighter-rouge">rethrow</code>.</p>
+
+<p>On the other hand, if $j_1 &gt; d$ then since $d \leq \tau$, $J$ may <code class="language-plaintext highlighter-rouge">rethrow</code> or <code class="language-plaintext highlighter-rouge">keep</code>. If $S$ <code class="language-plaintext highlighter-rouge">keeps</code> here, they win with probability</p>
+
+<p>\(\begin{equation}P_{keep}(s_1) = \underbrace{\max \left\{0,\frac{s_1 -\tau }{1-\tau }\right\}\frac{1-\tau }{1-d} }_{\text{$J$ keeps, $S$ keeps}} + \underbrace{ s_1\frac{(\tau -d)}{1-d}}_{\text{$J$ rethrows, $S$ keeps}}.
+\end{equation}\)
+By the same conditioning logic, we find that if $S$ <code class="language-plaintext highlighter-rouge">throws</code> they win with probability
+\(\begin{equation}P_{throw} = \underbrace{\frac{1-\tau }{2}\frac{1-\tau}{1-d}}_{\text{$J$ keeps, $S$ rethrows}} + \underbrace{\frac{1}{2}\frac{\tau  - d}{1-d}}_{\text{$J$ rethrows, $S$ rethrows}}.
+\end{equation}\)
+$S$ will choose the larger of $P_{keep}(s_1)$ and $P_{throw}$ depending on the value of $s_1$.</p>
+
+<p>Putting it together and integrating these cases over the possible values of $s_1$, the probability of $S$ winning for a given $d \leq \tau$ is 
+\(\begin{equation}
+\begin{aligned}
+P_{Win (d &lt; \tau)}(d) &amp; = \int_{0}^1\bigg( d \cdot P_{lo}(s_1) + (1 - d)\cdot \max\bigg\{P_{keep}(s_1), P_{throw} \bigg\}\bigg) \; d s_1 \\
+                   &amp; = \frac{\left(19-5 \sqrt{5}\right) d^2-\left(11 \sqrt{5}+1\right) d+4 \left(\sqrt{5}+3\right)}{4 \left(-2 d+\sqrt{5}+1\right)^2}
+\end{aligned}
+\end{equation}\)</p>
+<h4 id="case-2-d--tau">Case 2: $d &gt; \tau$</h4>
+<p>Now, we must perform the same analysis for $d &gt; \tau$. If $S$ observes that $j_1 \geq d \geq \tau$, then they will know $J$ will <code class="language-plaintext highlighter-rouge">keep</code> with certainty. If $S$ <code class="language-plaintext highlighter-rouge">throws</code> they win with probability $(1 - d)/2$, and if they <code class="language-plaintext highlighter-rouge">keep</code>, they win with probability $\max ( 0, (s_1 - d)/(1 - d) )$. Putting these together, in the event that $S$ observes that $J$ throws more than $d$, $S$ wins with probability</p>
+
+\[\begin{equation}
+P_{hi}(s_1) = \max\bigg\{\frac{1 - d}{2}, \frac{s_1 - d}{1 - d}\bigg\}
+\end{equation}\]
+
+<p>Next, in the event $S$ observes $j_1 &lt; d$,  $J$ may <code class="language-plaintext highlighter-rouge">throw</code> or <code class="language-plaintext highlighter-rouge">keep</code>, so we need to use the same conditioning logic as in the previous case. Doing so, we arrive at</p>
+
+\[\begin{equation}
+P_{keep}(s) = \begin{cases}
+\frac{\tau}{d} s_1 &amp; 0 \leq s_1 \leq \tau \\
+\frac{\tau}{d} s_1  + \frac{s_1 - \tau}{s_1} &amp; \tau &lt; s_1 \leq d \\
+\frac{\tau }{d} s_1 + 1 -\frac{\tau }{d} &amp; s_1 &gt; d \\
+\end{cases} 
+\end{equation}\]
+
+\[\begin{equation}P_{throw} = \underbrace{\frac{1-\tau }{2}\frac{1-\tau}{1-d}}_{\text{$S$ keeps $| j_1 &gt; d$}} + \underbrace{\frac{1}{2}\frac{\tau  - d}{1-d}}_{\text{$S$ rethrows $| j_1 &gt; d$}}
+\end{equation}\]
+
+<p>As for a brief explanation of the terms in $P_{keep}(s_1)$, note since $j_1 &lt; d$, $J$ will rethrow with probability $d/\tau$ and then the second throw will be less than $s_1$ with probability $s_1$. That is why the term $\tau s_1/d $ appears in each case. The last two terms consider the additional case where $J$ does not rethrow. For the middle term, some $j_1$ can beat $s$ whereas in the last term, $s_1 &gt; d &gt; j_1$ so $S$ wins with certainty in that case.</p>
+
+<p>Similar to in the previous case, $S$ will choose the larger of the two options $P_{keep}(s_1)$ and $P_{throw}$. We can now integrate the probability of winning when $d &gt; \tau$ as a function of $s$ to get
+\(\begin{equation}
+\begin{aligned}
+P_{Win (d &gt; \tau)}(d) &amp; = \int_{0}^1\bigg( d \cdot P_{hi}(s_1) + (1 - d) \cdot \max\bigg\{P_{keep}(s_1), P_{throw} \bigg\} \bigg)\;ds_1 \\
+                   &amp; = \frac{\left(\sqrt{5}+1\right) d^4-8 d^3+2 \left(\sqrt{5}+1\right) d^2-8 \left(\sqrt{5}-2\right) d+9 \sqrt{5}-15}{8 \left(\sqrt{5}-1\right)}
+\end{aligned}
+\end{equation}\)</p>
+
+<p>If we now plot the probability of $S$ winning as a piecewise function in $d$ consisting of $P_{Win (d &lt; \tau)}(d)$ and $P_{Win (d &gt; \tau)}(d)$, we see:</p>
+
+<figure>
+  <center>
+  <img src="/assets/img/blog_images/2026-01-01-robot-javelin/PrWin_d.png" width="60%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center;"> Figure 2. Plot of the probability of $S$ of winning under optimal play as a function of $d$, the value they can query.  </figcaption>
+    </center>
+</figure>
+
+<p>this implies that $\boxed{d^* = \tau}$. We can then further verify this by noting that the derivatives of $P_{Win (d &lt; \tau)}(d)$ and $P_{Win (d &gt; \tau)}(d)$ are strictly increasing and decreasing in $d$ for their respective regions.</p>
+
+<p>The takeaway is that the optimal query is simply whether $J$ will rethrow. When $S$ does this, they win with probability</p>
+
+\[\Pr[S \text{ win}](d^*) = \frac{1}{8} \left(13-4 \sqrt{5}\right) \approx 0.506966.\]
+
+<p>Which is a slight edge above the previous 50-50 outcome.</p>
+
+<h2 id="part-3-js-optimal-response-to-cheating">Part 3: $J$’s Optimal Response to Cheating</h2>
+
+<p>Lastly, $J$ knows that $S$ can tell if $J$’s first throw is below or above $\tau$. How can $J$ use this information to form an optimal response to $S$’s cheating? $S$’s behavior will vary depending on whether or not $J$’s first throw was more or less than $\tau$. We can assume $J$ uses a threshold strategy that depends on the first throw. Let $r$ be the new threshold used by $J$.</p>
+
+<p>First suppose that  $j_1 \leq \tau$ . When should $J$ keep the first throw?</p>
+
+<p>Since $S$ is cheating, they know $j_1 &lt; \tau$. Based on the strategy we discovered in the previous part the CDF of the final value $S$ receives is</p>
+
+\[\begin{equation*}
+F_S(s) = \begin{cases}
+ \frac{s}{2} &amp; 0\leq s \leq \frac{1}{2} \\
+ \frac{3 s}{2}-\frac{1}{2} &amp; \frac{1}{2}\leq s \leq 1 .
+\end{cases}
+\end{equation*}\]
+
+<p>For fixed threshold $r &lt; \tau$ we can develop the corresponding CDF and PDF for $J$’s final value</p>
+
+\[\begin{equation*}
+F_J(j, r) = \begin{cases}
+ \frac{r j}{\tau } &amp; 0\leq j\leq r \\
+ \frac{r j}{\tau } + \frac{j-r}{\tau } &amp; r\leq j\leq \tau  \\
+ \frac{r j}{\tau } + 1 - \frac{r}{\tau} &amp; \tau \leq j\leq 1 \\
+\end{cases}
+\end{equation*}\]
+
+\[\begin{equation*}
+f_J(j, r) = \begin{cases}
+ \frac{r}{\tau } &amp; 0\leq j\leq r \\
+ \frac{r + 1}{\tau } &amp; r\leq j\leq \tau  \\
+ \frac{r}{\tau } &amp; \tau \leq j\leq 1 \\
+\end{cases}.
+\end{equation*}\]
+
+<p>Thus, the probability of $J$ winning as a function of $r$ is</p>
+
+\[\begin{equation*}
+\Pr\left[ J win| j_1 \leq \tau\right](r) = \int_0^1 F_S(j) \cdot f_J(j) dj. 
+\end{equation*}\]
+
+<p>We visualize below in Figure 3.</p>
+<figure>
+  <center>
+  <img src="/assets/img/blog_images/2026-01-01-robot-javelin/rThresh.png" width="60%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center;"> Figure 3. The probability of $J$ winning using response threshold $r$ when $j_1 \leq \tau$.  </figcaption>
+    </center>
+</figure>
+
+<p>From the figure, we see that the function seems to be unimodal with a maximum somewhere just before the threshold. Sure enough, if we take the derivative and solve for the root, we find that $\boxed{r^* = 7/12}$ is the optimal threshold strategy for $J$ when $j_1 \leq \tau$ which yields</p>
+
+\[\begin{equation*}
+\Pr\left[J win| j_1 \leq \tau\right](r^*)  =\frac{\frac{313}{24}-5 \sqrt{5}}{4 \left(\sqrt{5} - 1\right)}.
+\end{equation*}\]
+
+<p>In summary, there is now a window, $[7/12, \tau]$, such that when $J$’s first throw falls in this window, $J$ can take advantage of $S$’s cheating and <code class="language-plaintext highlighter-rouge">keep</code> when $S$ thinks that $J$ will <code class="language-plaintext highlighter-rouge">throw</code>.</p>
+
+<p>In the event that $j_1 &gt; \tau$, we can suppose another threshold $r’$ and repeat the same steps as before. However, this time we find that $\Pr\left[J \text{ win}\mid j_1 &gt; \tau\right](r’)$ is a strictly decreasing function for $r’ \geq \tau$, implying that when $J$’s first throw exceeds $\tau$, they should always <code class="language-plaintext highlighter-rouge">keep</code>, as in the vanilla strategy. Furthermore, when plugging in $r’ = \tau$, we find that</p>
+
+\[\begin{equation*}
+\Pr\left[J win| j_1 &gt; \tau\right](\tau)  =\frac{1}{8} \left(2 \sqrt{5}+1\right)
+\end{equation*}\]
+
+<p>We have now worked out everyone’s optimal strategy and now it remains to compute the probability that $J$ wins! By conditioning on the event that $J$’s first throw is below or above $\tau$, we finally find</p>
+
+\[\begin{equation*}
+\begin{aligned}
+\Pr\left[J \text{ win}\right]  &amp; =  \Pr\left[J \text{ win}| j_1 \leq \tau\right](r^*) \cdot \Pr[j_1 \leq \tau] + \Pr\left[J  \text{ win}| j_1 &gt;  \tau\right](\tau) \cdot \Pr[j_1 &gt; \tau] \\
+                &amp; = \frac{\frac{313}{24}-5 \sqrt{5}}{4 \left(\sqrt{5} - 1\right)} \cdot \tau + \frac{1}{8} \left(2 \sqrt{5}+1\right) \cdot (1 - \tau) \\ 
+            &amp; = \boxed{\frac{1}{192} \left(229-60 \sqrt{5}\right)}\\
+\end{aligned}
+\end{equation*}\]
+
+<p>How does this fare against the previous odds when $J$ did not know $S$ was cheating? Previously, against cheating $S$, $J$ won with probability $0.493034$ whereas now they win with probability $0.493937$. A <em>very</em> minor improvement. Unfortunately for $J$, $S$’s cheating is hard to recover from. Fortunately for them, the game is still nearly 50-50!</p>]]></content><author><name></name></author><summary type="html"><![CDATA[My solution to the 2025 December Puzzle]]></summary></entry><entry><title type="html">Jane Street Puzzle: Robot Baseball</title><link href="https://ccolombe12.github.io/blog/2025/JS_baseball/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Baseball" /><published>2025-11-01T00:00:01+00:00</published><updated>2025-11-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/JS_baseball</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/JS_baseball/"><![CDATA[<h2 id="problem-statement">Problem Statement</h2>
 <blockquote>
   <p>The Artificial Automaton Athletics Association (Quad-A) is at it again, to compete with postseason baseball they are developing a Robot Baseball competition. Games are composed of a series of independent at-bats in which the Batter is trying to <em>maximize expected score</em> and the Pitcher is trying to <em>minimize expected score</em>.</p>
 </blockquote>
@@ -1092,82 +1316,4 @@ While negative rabbit counts don’t have any physical interpretation, this cond
   <img src="/assets/img/blog_images/LC_post/LC_Knight.png" width="80%" style="display: block; margin: auto;" />
   </center>
 
-</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[My journey to start competitive programming]]></summary></entry><entry><title type="html">Jane Street Puzzle August 2024</title><link href="https://ccolombe12.github.io/blog/2024/JS_tree/" rel="alternate" type="text/html" title="Jane Street Puzzle August 2024" /><published>2024-06-17T00:00:01+00:00</published><updated>2024-06-17T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/JS_tree</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/JS_tree/"><![CDATA[<h1 id="tree-edge-triage">Tree-Edge Triage</h1>
-
-<p>It has become a hobby of mine to work on the monthly <a href="https://www.janestreet.com/puzzles/current-puzzle/">Jane Street Puzzle</a>. They usually pose some interesting math or programming problem and I have learned a lot from solving them. Last month’s puzzle was a game played on an infinite binary tree with a surprising result! The problem is as follows:</p>
-
-<h1 id="problem-statement">Problem Statement</h1>
-<blockquote>
-  <p>Aaron and Beren are playing a game on an infinite complete binary tree. At the beginning of the game, every edge of the tree is independently labeled \(A\) with probability \(p\) and \(B\) otherwise. Both players are able to inspect all of these labels. Then, starting with Aaron at the root of the tree, the players alternate turns moving a shared token down the tree (each turn the active player selects from the two descendants of the current node and moves the token along the edge to that node). If the token ever traverses an edge labeled B, Beren wins the game. Otherwise, Aaron wins.</p>
-
-  <p>An example game is in the picture below: after the labeling, Aaron chooses to go left to avoid immediate defeat, but after Beren goes right Aaron is doomed to choose one of two B paths and Beren wins.</p>
-
-  <p><strong>What is the infimum of the set of all probabilities \(p\) for which Aaron has a nonzero probability of winning the game?</strong> Give your answer in exact terms.</p>
-</blockquote>
-
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/JS_Aug_24/ps.png" style="width: 40vw; min-width: 330px;" zoomable="true" />
-  </center>
-</figure></h3>
-<h1 id="solution">Solution</h1>
-
-<p>The intuition behind my approach was to use the <strong>symmetry</strong> of an infinite binary tree. Once you move along an edge to a given node, you are once again faced with an infinite binary tree and <em>it’s like you started from the beginning again</em>. By that logic, it is sufficient to analyze the optimal strategy for the first two levels and we can let recursion handle the rest.</p>
-
-<p>Suppose we are considering what Aaron should do on a given turn. On every \(A\) (odd) turn, Aaron wins if and only if the current node has at least one \(A\) edge out of it that leads to a node with two \(A\) edges and each of these edges has a winning \(A\) path out of it.</p>
-
-<p>We can write this using a recurrence relation. Let \(Q_A\) be the probability that, on an \(A\) turn, \(A\) can win from the current node from it. Similarly, let \(Q_B\) be the probability that at our current node on a \(B\) turn, it is one from which \(A\) <em>will</em> win.</p>
-
-<p>Using this notation, we can develop our recurrence relation as:</p>
-
-\[\begin{align}
-Q_A &amp; = p^2(\underbrace{Q_B^2 + 2Q_B(1-Q_B)}_{\text{Pr at least one winning path out}}) + 2p(1-p)Q_B \\
-Q_B &amp; = p^2 Q_A^2.
-\end{align}\]
-
-<p>The fist equation represents the cases where we are on Aaron’s turn and either:</p>
-
-<ul>
-  <li>both of the edges out of our current node are labeled \(A\) and Aaron can win from at least one of the children nodes</li>
-  <li>There is only one \(A\) edge out of the current node and Aaron can win from the node it leads to.</li>
-</ul>
-
-<p>The second equation represents the case where we are on Beren’s turn and:</p>
-
-<ul>
-  <li>Both of the edges out of the current node are labeled \(A\) and lead to nodes at which Aaron wins.</li>
-</ul>
-
-<p>Plugging in the latter equation into the former yields the equation for \(Q_A\) in terms of \(p\)</p>
-
-<p>\begin{equation}
-Q_A = 2p^4 Q_A^2 - p^6 Q_A^4 + 2p^3(1-p)Q_A^2 \implies   \boxed{Q_A(-p^6 Q_A^3 + 2p^3Q_A - 1) = 0} 
-\end{equation}</p>
-
-<p>Now if we want to find the values of \(p\) for which there is a non-negative value for \(Q_A\) (the probability of Aaron winning the game from the first move), then we need to find the smallest value of \(p\) for which</p>
-
-<p>\begin{equation}p^6 Q_A^3 - 2p^3Q_A + 1 = 0 \label{eq:QA_zero}\end{equation}</p>
-
-<p>has a positive solution when we solve for \(Q_A\).</p>
-
-<p>Note that (\ref{eq:QA_zero}) is a <em>cubic equation</em> in \(Q_A\) and thus will always have a real root. But, we need \(Q_A\) to be in the range \([0,1]\). The values of \(Q_A\) satisfying the above (\ref{eq:QA_zero}) for a fixed value of \(p\) are:</p>
-
-<p><small>
-\(\begin{align}
-r_1 &amp; = \frac{4 \sqrt[3]{3} p^9+\sqrt[3]{2} \left(\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}\right)^{2/3}}{6^{2/3} p^6 \sqrt[3]{\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}}}\\
-r_2 &amp; = -\frac{4 \sqrt[3]{3} p^9+\sqrt[3]{2} \left(\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}\right)^{2/3}}{2\ 6^{2/3} p^6 \sqrt[3]{\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}}} + i \left(\frac{ \left(3^{5/6} \left(2 \sqrt{81 p^{24}-96 p^{27}}-18 p^{12}\right)^{2/3}-12 \sqrt[3]{2} \sqrt[6]{3} p^9\right)}{12 p^6 \sqrt[3]{\sqrt{81 p^{24}-96 p^{27}}-9 p^{12}}}\right)\\
-r_3 &amp; = \overline{r_2}
-\end{align}\)
-</small></p>
-
-<p>The keen eye may notice that these are <em>gross</em> looking equations. As mentioned before, since our equation was cubic in \(Q_A\), one of these is guaranteed to be real. The other two are either both real or both complex. What do we see when we plot these out as a function of \(p\)?</p>
-
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/JS_Aug_24/prob_plot.png" width="80%" style="display: block; margin: auto;" />
-</center>
-</figure></h3>
-
-<p>We see that for \(p \leq\frac{3}{2^{5/3}} \approx  0.94\), there is only <em>one real root and it is negative</em>. However, for \(\boxed{p &gt; \frac{3}{2^{5/3}}}\), the <em>roots are all real with two positive and one negative</em>. This value of \(p\) comes from setting \(p\) to ensure that the term \(\sqrt{81 p^{24}-96 p^{27}}\) (which appears in each of the expressions for the roots), is real. Does this produce a valid probability value for \(Q_A\)?</p>
-
-<p>For \(p\) just above this threshold value of \(\hat{p} = \frac{3}{2^{5/3}}\), we see \(Q_A\) has near repeated roots of around \(\approx 0.88\), validating our solution. Interestingly \(Q_A\) is <strong>zero</strong> until \(p &gt; \hat{p}\) at which it instantaneously jumps up to around \(Q_A \approx 0.88\), as seen in the plot above!</p>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[My solution to last month's puzzle]]></summary></entry></feed>
+</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[My journey to start competitive programming]]></summary></entry></feed>
