@@ -102,11 +102,14 @@ $$
 \begin{equation*}P_{keep}(s_1) = \underbrace{\max \left\{0,\frac{s_1 -\tau }{1-\tau }\right\}\frac{1-\tau }{1-d} }_{\text{$J$ keeps, $S$ keeps}} + \underbrace{ s_1\frac{(\tau -d)}{1-d}}_{\text{$J$ rethrows, $S$ keeps}}.
 \end{equation*}
 $$
+
 By the same conditioning logic, we find that if $S$ `rethrows` they win with probability
+
 $$
 \begin{equation*}P_{throw} = \underbrace{\frac{1-\tau }{2}\frac{1-\tau}{1-d}}_{\text{$J$ keeps, $S$ rethrows}} + \underbrace{\frac{1}{2}\frac{\tau  - d}{1-d}}_{\text{$J$ rethrows, $S$ rethrows}}.
 \end{equation*}
 $$
+
 $S$ will choose the larger of $P_{keep}(s_1)$ and $P_{throw}$ depending on the value of $s_1$. 
 
 Putting it together and integrating these cases over the possible values of $s_1$, the probability of $S$ winning for a given $d \leq \tau$ is 
