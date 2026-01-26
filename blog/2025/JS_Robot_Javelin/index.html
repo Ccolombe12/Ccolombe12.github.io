@@ -205,12 +205,15 @@ F_J(j) = \begin{cases}
 
 <p>On the other hand, if $j_1 &gt; d$ then since $d \leq \tau$, $J$ may <code class="language-plaintext highlighter-rouge">rethrow</code> or <code class="language-plaintext highlighter-rouge">keep</code>. If $S$ <code class="language-plaintext highlighter-rouge">keeps</code> here, they win with probability</p>
 
-<p>\(\begin{equation*}P_{keep}(s_1) = \underbrace{\max \left\{0,\frac{s_1 -\tau }{1-\tau }\right\}\frac{1-\tau }{1-d} }_{\text{$J$ keeps, $S$ keeps}} + \underbrace{ s_1\frac{(\tau -d)}{1-d}}_{\text{$J$ rethrows, $S$ keeps}}.
-\end{equation*}\)
-By the same conditioning logic, we find that if $S$ <code class="language-plaintext highlighter-rouge">rethrows</code> they win with probability
-\(\begin{equation*}P_{throw} = \underbrace{\frac{1-\tau }{2}\frac{1-\tau}{1-d}}_{\text{$J$ keeps, $S$ rethrows}} + \underbrace{\frac{1}{2}\frac{\tau  - d}{1-d}}_{\text{$J$ rethrows, $S$ rethrows}}.
-\end{equation*}\)
-$S$ will choose the larger of $P_{keep}(s_1)$ and $P_{throw}$ depending on the value of $s_1$.</p>
+\[\begin{equation*}P_{keep}(s_1) = \underbrace{\max \left\{0,\frac{s_1 -\tau }{1-\tau }\right\}\frac{1-\tau }{1-d} }_{\text{$J$ keeps, $S$ keeps}} + \underbrace{ s_1\frac{(\tau -d)}{1-d}}_{\text{$J$ rethrows, $S$ keeps}}.
+\end{equation*}\]
+
+<p>By the same conditioning logic, we find that if $S$ <code class="language-plaintext highlighter-rouge">rethrows</code> they win with probability</p>
+
+\[\begin{equation*}P_{throw} = \underbrace{\frac{1-\tau }{2}\frac{1-\tau}{1-d}}_{\text{$J$ keeps, $S$ rethrows}} + \underbrace{\frac{1}{2}\frac{\tau  - d}{1-d}}_{\text{$J$ rethrows, $S$ rethrows}}.
+\end{equation*}\]
+
+<p>$S$ will choose the larger of $P_{keep}(s_1)$ and $P_{throw}$ depending on the value of $s_1$.</p>
 
 <p>Putting it together and integrating these cases over the possible values of $s_1$, the probability of $S$ winning for a given $d \leq \tau$ is</p>
 
@@ -419,7 +422,7 @@ f_J(j, r) = \begin{cases}
     <!-- Footer -->    <footer class="sticky-bottom mt-5">
       <div class="container">
         © Copyright 2026 Connor  Colombe. Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>.
-Last updated: January 25, 2026.
+Last updated: January 26, 2026.
       </div>
     </footer>
 
