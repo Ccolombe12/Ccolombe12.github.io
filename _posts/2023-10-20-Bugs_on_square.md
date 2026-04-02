@@ -5,6 +5,7 @@ description:
 giscus_comments: true
 date: 2023-12-16 00:00:01
 published: true
+thumbnail: /assets/img/blog_images/Bugs_On_A_Square/my_gif.gif
 tags: math
 authors:
   - name: Connor Colombe

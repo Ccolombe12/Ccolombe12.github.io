@@ -3,8 +3,9 @@ layout: post
 title: "Jane Street Puzzle: Robot Baseball"
 description: My solution to the 2025 October Puzzle
 giscus_comments: true
-tags: 
+tags: math, programming
 date: 2025-11-01 00:00:01
+thumbnail: /assets/img/blog_images/2025-11-01-robot-baseball/MC.png
 published: true
 math: true
 ---

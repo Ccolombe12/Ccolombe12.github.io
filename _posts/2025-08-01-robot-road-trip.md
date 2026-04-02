@@ -5,6 +5,7 @@ description: My solution to the 2025 July Puzzle
 giscus_comments: true
 tags: programming, math
 date: 2025-08-01 00:00:01
+thumbnail: /assets/img/blog_images/2025_08_01-robot-roadtrip/fig1.png
 published: true
 math: true
 ---

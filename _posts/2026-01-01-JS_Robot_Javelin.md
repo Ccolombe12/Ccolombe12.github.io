@@ -3,9 +3,10 @@ layout: post
 title: "Jane Street Puzzle: Robot Javelin"
 description: My solution to the 2025 December Puzzle
 giscus_comments: true
-tags: 
+tags: math
 date: 2025-12-30 00:00:01
 published: true
+thumbnail: /assets/img/blog_images/2026-01-01-robot-javelin/output.gif
 math: true
 ---
 

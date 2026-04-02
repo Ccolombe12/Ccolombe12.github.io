@@ -18,9 +18,9 @@ pagination:
   <div class="header-bar">
     <h1>{{ site.blog_name }}</h1>
     <h2>{{ site.blog_description }}</h2>
-    <h3><figure><center>
+    <!-- <h3><figure><center>
   <img width="80%" style="display: block; margin: auto;" src="/assets/img/blog_pic.png"/>
-</center></figure></h3>
+</center></figure></h3> -->
   </div>
 
   {% if site.display_tags %}
@@ -51,6 +51,11 @@ pagination:
     {% assign categories = post.categories | join: "" %}
 
     <li>
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    {% if post.thumbnail %}
+      <img src="{{ post.thumbnail | relative_url }}" alt="{{ post.title }}" style="width: 130px; height: 130px; object-fit: cover; flex-shrink: 0;">
+    {% endif %}
+    <div>
       <h3>
         {% if post.redirect == blank %}
           <a class="post-title" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
@@ -76,7 +81,6 @@ pagination:
       <p class="post-tags">
         <a href="{{ year | prepend: '/blog/' | prepend: site.baseurl}}">
           <i class="fas fa-calendar fa-sm"></i> {{ year }} </a>
-
           {% if tags != "" %}
           &nbsp; &middot; &nbsp;
             {% for tag in post.tags %}
@@ -84,7 +88,6 @@ pagination:
               <i class="fas fa-hashtag fa-sm"></i> {{ tag }}</a> &nbsp;
               {% endfor %}
           {% endif %}
-
           {% if categories != "" %}
           &nbsp; &middot; &nbsp;
             {% for category in post.categories %}
@@ -92,8 +95,10 @@ pagination:
               <i class="fas fa-tag fa-sm"></i> {{ category }}</a> &nbsp;
               {% endfor %}
           {% endif %}
-    </p>
-    </li>
+      </p>
+    </div>
+  </div>
+</li>
 
     {% endfor %}
   </ul>

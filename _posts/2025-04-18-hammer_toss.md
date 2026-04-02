@@ -4,6 +4,7 @@ title: "Can You Throw the Hammer?"
 description: My solution to this week's Fiddler on the Proof Puzzle
 giscus_comments: true
 date: 2025-04-21 00:00:00
+thumbnail: /assets/img/blog_images/2025-04-18-hammer/heatmap_quad_300.png
 published: true
 ---
 

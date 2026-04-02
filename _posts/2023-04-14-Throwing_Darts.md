@@ -5,6 +5,7 @@ description:
 giscus_comments: true
 date: 2023-04-14 00:00:01
 published: true
+thumbnail: /assets/img/blog_images/2023-04-14-Throwing_Darts/fig_dart_prob.png
 tags: math 
 authors:
   - name: Connor Colombe

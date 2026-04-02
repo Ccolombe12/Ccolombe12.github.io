@@ -4,6 +4,7 @@ title: "Can You Grow a Hibiscus Hedge?"
 description: My solution to this week's Fiddler on the Proof Puzzle
 giscus_comments: true
 date: 2025-04-08 00:00:00
+thumbnail: /assets/img/blog_images/2025-04-11-hibiscus/shrub2.png
 published: true
 ---
 
