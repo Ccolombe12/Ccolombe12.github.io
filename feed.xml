@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-04-02T04:21:07+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-04-02T20:13:20+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
 </subtitle><entry><title type="html">Jane Street Puzzle: Planetary Parade</title><link href="https://ccolombe12.github.io/blog/2026/Planetary-Parade/" rel="alternate" type="text/html" title="Jane Street Puzzle: Planetary Parade" /><published>2026-04-01T00:00:01+00:00</published><updated>2026-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2026/Planetary-Parade</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2026/Planetary-Parade/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
 
 <blockquote>
@@ -88,7 +88,7 @@ which is the reciprocal of the number of regions created by $n + 1$ non-degenera
     </center>
 </figure>
 
-<p>Some elementary geometry yields that $\omega = \theta / 2$. This follows from the inscribed angle theorem: the angle $\omega$ subtended at a point on the circle by the base arc is half the central angle $\theta$ subtending the same arc. Therefore, the fraction of the circle covered by the tower is $\frac{\pi + \theta}{2 \pi}$, and for a given planet, the probability that it is visible from the tower is:</p>
+<p>Some elementary geometry yields that $\omega = \theta / 2$. Therefore, the fraction of the circle covered by the tower is $\frac{\pi + \theta}{2 \pi}$, and for a given planet, the probability that it is visible from the tower is:</p>
 
 \[\begin{equation}
 \Pr\left[\text{Planet $P$ visible from tower}\right] = \frac{1 + \theta/\pi}{2}. \label{eq:eff_area_2}
