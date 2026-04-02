@@ -105,7 +105,7 @@ Note that *without* the tower, the position of $P$ must lie above the equator. W
     </center>
 </figure>
 
-Some elementary geometry yields that $\omega = \theta / 2$. This follows from the inscribed angle theorem: the angle $\omega$ subtended at a point on the circle by the base arc is half the central angle $\theta$ subtending the same arc. Therefore, the fraction of the circle covered by the tower is $\frac{\pi + \theta}{2 \pi}$, and for a given planet, the probability that it is visible from the tower is:
+Some elementary geometry yields that $\omega = \theta / 2$. Therefore, the fraction of the circle covered by the tower is $\frac{\pi + \theta}{2 \pi}$, and for a given planet, the probability that it is visible from the tower is:
 
 $$
 \begin{equation}
