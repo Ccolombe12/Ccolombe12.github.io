@@ -1,5 +1,218 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-02-16T23:32:54+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
-</subtitle><entry><title type="html">Jane Street Puzzle: Robot Javelin</title><link href="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Javelin" /><published>2025-12-30T00:00:01+00:00</published><updated>2025-12-30T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-04-02T03:28:18+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+</subtitle><entry><title type="html">Jane Street Puzzle: Planetary Parade</title><link href="https://ccolombe12.github.io/blog/2026/Planetary-Parade/" rel="alternate" type="text/html" title="Jane Street Puzzle: Planetary Parade" /><published>2026-04-01T00:00:01+00:00</published><updated>2026-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2026/Planetary-Parade</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2026/Planetary-Parade/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
+
+<blockquote>
+  <p>We are enjoying a planetary parade during the beginning of this month here on Earth, but my alien friend from the distant planet Pyrknot (well modeled as a perfect sphere) isn’t too impressed. Their single-star system has $n$ planets other than Pyrknot with such chaotic orbits that each night these planets independently appear in uniformly random locations in the Pyrknothian sky. Note that <em>the planets aren’t visible in daylight</em>. If at a given moment there exists somewhere on Pyrknot that all $n$ planets are visible, then from my friend’s position on the surface they have an $\alpha$ probability of also seeing all of the planets.</p>
+</blockquote>
+
+<blockquote>
+  <p>My friend is considering building a tower to improve their chances of seeing these planetary parades (parade). Assume the tower allows the viewing of every celestial body that could be seen from at least one location on the surface of Pyrknot less than a distance $r$ from the base of the tower. In the limit of $r$ being small compared to the radius $R$ of Pyrknot, the new probability of seeing the planetary parade from the top of the tower is linearly approximated by $\alpha + \beta\cdot(r/R)$. <strong>Find $\alpha$ and $\beta$ in exact terms</strong>.</p>
+</blockquote>
+
+<hr />
+<h1 id="solution">Solution</h1>
+
+<p>We will solve this problem in a few parts, looking at the 2D and 3D versions of the problem. First, we will solve for $\alpha$, which turns out to be dimension-agnostic. Next, we will solve the problem in 2D (that is, for a circular planet whose universe is the plane) to build some intuition. Then, we will use our findings from the 2D case to construct the answer to the 3D version.</p>
+
+<hr />
+
+<h2 id="part-1-finding-alpha--a-dimension-agnostic-result">Part 1: Finding $\alpha$ — a dimension-agnostic result</h2>
+<p>The key quantity throughout is $\alpha$, the probability of seeing the parade without a tower, given that a parade is taking place somewhere on the planet.</p>
+
+<p>To start, let’s assume that our friend’s location on the planet is at the North Pole (NP). Assume that for our modeling purposes the celestial bodies in the system (not including Pyrknot) lie on some other sphere that is very far from the planet. For our purposes, we can say that the position of a planet in the sky can be mapped to a position on the surface of Pyrknot by drawing a line between the planet and the center of Pyrknot. That way, we can model the positions of celestial bodies around Pyrknot as positions on the surface of Pyrknot.</p>
+
+<p>Now, given that a parade exists, what must be true for it to be visible from the NP? We have two conditions that must be satisfied:</p>
+
+<ul>
+  <li>It is night time at the NP (otherwise the parade is not visible)</li>
+  <li>All $n$ planets must be in the hemisphere centered at the NP.</li>
+</ul>
+
+<p>We need to find the probability that, at a given moment, we can see the parade from the NP given that one exists. Using Bayes’ theorem, we can write this as</p>
+
+\[\begin{equation}\label{eq:Bayes}
+\begin{aligned}
+\alpha &amp; := \Pr[\text{Parade visible from NP}|\text{Parade exists}]\\
+ &amp; = \frac{\Pr[\text{Parade exists}|\text{Parade visible from NP}] \cdot\Pr\left[\text{Parade visible from NP}\right]}{\Pr\left[\text{Parade exists}\right]}    \\ 
+&amp; = \frac{1 \cdot \Pr\left[\text{Parade visible from NP}\right]}{\Pr\left[\text{Parade exists}\right]}.  \\
+\end{aligned}
+\end{equation}\]
+
+<p>The middle factor simplifies to 1 because if the parade is visible from the NP, it certainly exists somewhere on the planet.</p>
+
+<p>Thus, it suffices for us to find $\Pr\left[\text{Parade visible from NP}\right]$ and $\Pr\left[\text{Parade exists}\right]$.</p>
+
+<p>To find the probability that in a given moment a parade on $n$ planets is visible from the north pole, we need all the planets to be in the northern hemisphere and the star to be in the <em>opposite hemisphere</em>. Since the positions of all $n$ planets and the star are independent and uniform, each planet lies in the northern hemisphere with probability $\frac{1}{2}$ and the star lies in the southern hemisphere (making it night at the NP) with probability $\frac{1}{2}$, giving
+\(\begin{equation}
+\Pr\left[\text{Parade visible from NP}\right] = \frac{1}{2^{n + 1}}. \label{eq:NP_visibility}
+\end{equation}\)</p>
+
+<p>It is a bit more nuanced to find the probability that a parade exists somewhere on the surface of the planet since there could be many places where the parade is visible. However, there exists a well-known result that can help us out: <a href="https://en.wikipedia.org/wiki/Wendel%27s_theorem">Wendel’s theorem</a>, which gives us the probability that $n+1$ points randomly placed on the surface of a $d$-dimensional sphere are contained within some shared hemisphere. To use it within the context of our problem, we create a pseudo-planet that is placed antipodal to the location of the star. That way, we can find the probability that the $n$ planets and the pseudo-planet all exist in some shared hemisphere, which is equivalent to all $n$ planets being visible from some point while the star is not.</p>
+
+<p>Wendel’s theorem states that in dimension $d$ with $n + 1$ points, the probability those points all lie in some shared hemisphere is: 
+\(\begin{equation}
+\label{eq:parade_exists}
+\begin{aligned}
+\Pr\left[\text{Parade exists}\right] = \frac{2 \sum_{k = 0}^{d - 1} \binom{n}{k}}{2^{n + 1}}. 
+\end{aligned}
+\end{equation}\)</p>
+
+<p>If we combine equations (\ref{eq:Bayes}), (\ref{eq:NP_visibility}), and (\ref{eq:parade_exists}), we find that</p>
+
+<p>\(\begin{equation}
+\label{eq:alpha}
+\begin{aligned} 
+\alpha &amp; = \frac{ \Pr\left[\text{Parade visible from NP}\right]}{\Pr\left[\text{Parade exists}\right]}\\ 
+&amp; = \frac{\frac{1}{2^{n + 1}}}{\frac{2 \sum_{k = 0}^{d - 1} \binom{n}{k}}{2^{n + 1}}}\\ 
+&amp; = \boxed{\frac{1}{2 \sum_{k = 0}^{d - 1} \binom{n}{k}}},
+\end{aligned}
+\end{equation}\)
+which is the reciprocal of the number of regions created by $n + 1$ non-degenerate great circles on a sphere in $d$ dimensions!</p>
+
+<p>Next, we will introduce the tower and solve for $\beta$ in the case of $d = 2$.</p>
+
+<hr />
+
+<h2 id="part-2-a-tower-on-a-planet-in-the-plane-universe">Part 2: A tower on a planet in the plane-universe</h2>
+
+<p>We now construct a tower at the north pole that allows us to see any body that would otherwise be visible from some point within distance $r$ from the base of the tower. In the limit of $r \ll R$, this is essentially a small arc on the circular planet of arclength $2r$. How does this affect our chances of seeing a parade? On one hand, it gives us a greater likelihood of seeing more planets in the sky at a given moment, but on the other hand, it also gives us a greater chance of seeing the star during that moment, which would ruin the parade.</p>
+
+<p>Suppose we are just isolating the effect for a single planet $P$. Given that we have our tower of effective radius $r$, what is the probability of seeing the planet from the tower?</p>
+
+<p>Note that <em>without</em> the tower, the position of $P$ must lie above the equator. With the tower, we can now see all planets whose position dips slightly below the equator. Let $\theta$ be the angular diameter of the area that the tower can effectively view from. If we draw the diameters of the semicircles that are centered on the two edge points of our viewing region (red and blue points in Figure 1, respectively), we can see that the effective region in which planets are visible (yellow region in Figure 1) includes the northern hemisphere and two sectors of angle $\omega$ that dip below the equator.</p>
+
+<figure>
+  <center>
+  <img src="/assets/img/blog_images/2026-04-01-planet-parade/pp-2d-case.png" width="60%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center; font-style: italic; font-size: 0.9em; color: #666;"> Figure 1. The tower's effective viewing region in the 2D (circular planet) case. Without the tower, a planet must lie in the northern hemisphere to be visible. The tower extends this to the full yellow region, adding two sectors of angle $\omega = \theta/2$ below the equator, centered on the edge points of the base arc (shown in red and blue). </figcaption>
+    </center>
+</figure>
+
+<p>Some elementary geometry yields that $\omega = \theta / 2$. This follows from the inscribed angle theorem: the angle $\omega$ subtended at a point on the circle by the base arc is half the central angle $\theta$ subtending the same arc. Therefore, the fraction of the circle covered by the tower is $\frac{\pi + \theta}{2 \pi}$, and for a given planet, the probability that it is visible from the tower is:</p>
+
+\[\begin{equation}
+\Pr\left[\text{Planet $P$ visible from tower}\right] = \frac{1 + \theta/\pi}{2}. \label{eq:eff_area_2}
+\end{equation}\]
+
+<p>Now, for a parade to be visible from the tower, we need all $n$ planets to be visible and the star not to be.</p>
+
+<p>Using the independence of the planets and the star along with (\ref{eq:eff_area_2}), we find</p>
+
+\[\begin{equation*}
+\begin{aligned}
+\Pr\left[\text{Parade visible from tower}\right] &amp; = \left(\frac{1 + \theta/\pi}{2}\right)^n \left(\frac{1 - \theta/\pi}{2}\right)\\ 
+&amp; = \frac{1}{2^{n+ 1}}(1 + \theta/\pi)^n (1 - \theta/\pi)\\
+&amp; \approx \frac{1}{2^{n+ 1}}(1 + n\theta/\pi) (1 - \theta/\pi) &amp;&amp; (\text{apply binomial approx. for small $\theta$})\\
+&amp; = \frac{1}{2^{n+ 1}}\left(1 + (n - 1)\theta/\pi - \mathcal{O}(\theta^2)\right)\\
+&amp; \approx \frac{1}{2^{n+ 1}}(1 + (n - 1)\theta/\pi). &amp;&amp; (\text{drop higher order dependence})
+\end{aligned}
+\end{equation*}\]
+
+<p>If we note that $\theta = 2r/R$ and use our previous expressions for the conditional probability (\ref{eq:Bayes}) and existence of a parade (\ref{eq:parade_exists}), we find:</p>
+
+\[\begin{equation*}
+\begin{aligned}
+\Pr[\text{Parade visible from tower}|\text{Parade exists}] &amp; = \frac{\Pr\left[\text{Parade visible from tower}\right]}{\Pr\left[\text{Parade exists}\right]}\\
+&amp; \approx \frac{\frac{1}{2^{n+ 1}}(1 + (n - 1)\theta/\pi)}{\frac{2 \sum_{k = 0}^{1} \binom{n}{k}}{2^{n + 1}}} \\
+&amp; = \frac{1 + (n - 1)\theta/\pi}{2(n + 1)} &amp;&amp; \left(\text{since } \sum_{k=0}^{1}\tbinom{n}{k} = 1 + n\right)\\
+&amp; = \frac{1}{2 (n + 1)} + \frac{n - 1}{2\pi(n + 1)} \cdot \theta\\
+&amp; = \frac{1}{2 (n + 1)} + \frac{n - 1}{2\pi(n + 1)} \cdot \left(\frac{2r}{R}\right)\\ 
+&amp; = \frac{1}{2 (n + 1)} + \frac{n - 1}{\pi(n + 1)} \cdot \left(\frac{r}{R}\right), \\ 
+\end{aligned}
+\end{equation*}\]
+
+<p>which implies for $d = 2$, we find
+\(\begin{equation*}
+\boxed{
+\begin{aligned}
+\alpha &amp; = \frac{1}{2 (n + 1)}\\
+\beta &amp; = \frac{n - 1}{\pi(n + 1)}.\\
+\end{aligned}}
+\end{equation*}\)</p>
+
+<hr />
+
+<h2 id="part-3-a-parade-on-the-sphere">Part 3: A Parade on the sphere</h2>
+
+<p>Since (\ref{eq:alpha}) was derived for arbitrary $d$, it applies directly to the 3D case — we need only find $\beta$. In 3D the effective viewing area for the tower is now a small cap of the sphere of angular diameter $\theta$, which is again given by $\theta = 2r / R$. Now, the tower, instead of extending the total observable area by two arcs of angle $\theta/2$, adds an additional ring of area below the equator, shown between the thick black equator and the green circle in Figure 2.</p>
+
+<figure>
+  <center>
+  <img src="/assets/img/blog_images/2026-04-01-planet-parade/pp-3d-case.png" width="60%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center; font-style: italic; font-size: 0.9em; color: #666;"> Figure 2. The tower's effective viewing region in the 3D (sphere) case. Rather than two sectors, the tower adds an annular band of surface area $2\pi R^2 \sin(\theta/2)$ below the equator (yellow region, bounded below by the green circle), which increases the probability that any given planet is visible from the tower. </figcaption>
+    </center>
+</figure>
+
+<p>To get the total observable area of the planet from the tower, we need to find the area $A(\theta)$ of the added ring.</p>
+
+<p>Using spherical coordinates (with $\phi$ the polar angle measured from the north pole and $\lambda$ the azimuthal angle), we can write this surface area as:</p>
+
+\[\begin{equation*}
+\begin{aligned}
+A(\theta) &amp; =\int_{0}^{2 \pi}\int^{\pi/2}_{\pi/2 - \theta/2} R^2\sin \phi \, d \phi \, d\lambda \\
+&amp; = 2 \pi R^2 \sin(\theta/2).
+\end{aligned}
+\end{equation*}\]
+
+<p>Therefore, the total area of the planet viewable from the tower is $2 \pi R^2 + 2 \pi R^2 \sin(\theta/2)$ and thus the probability of viewing any given planet is</p>
+
+\[\Pr\left[\text{Planet $P$ visible from tower}\right] = \frac{2 \pi R^2 + 2 \pi R^2 \sin(\theta/2)}{4 \pi R^2} = \frac{1 + \sin(\theta/2)}{2}.\]
+
+<p>Now all that remains is to find the probability that all planets are visible from the tower and the star is not. Using the same approach as in the 2D case, we find:</p>
+
+\[\begin{equation}
+\label{eq:tower_prob_3d}
+\begin{aligned}
+\Pr\left[\text{Parade visible from tower}\right] &amp; = \left(\frac{1 + \sin(\theta/2)}{2}\right)^n \left(\frac{1 - \sin(\theta/2)}{2}\right)\\ 
+&amp; = \frac{1}{2^{n + 1}}\bigl(1 + \sin(\theta/2)\bigr)^n \bigl(1 - \sin(\theta/2)\bigr)\\
+&amp; \approx \frac{1}{2^{n+ 1}}\bigl(1 + n\sin(\theta/2)\bigr) \bigl(1 - \sin(\theta/2)\bigr) &amp;&amp; (\text{binomial approx. for small $\theta$})\\
+&amp; \approx \frac{1}{2^{n+ 1}}\bigl(1 + n\theta/2\bigr) \bigl(1 - \theta/2\bigr) &amp;&amp; (\text{small angle approx. for $\sin$})\\
+&amp; = \frac{1}{2^{n+ 1}}\left(1 + (n - 1)\frac{\theta}{2} - \mathcal{O}(\theta ^2)\right)\\
+&amp; \approx \frac{1}{2^{n+ 1}}\left(1 + (n - 1)\frac{\theta}{2}\right). &amp;&amp; (\text{drop higher order dependence})\\
+\end{aligned}
+\end{equation}\]
+
+<p>Once again noting that $\theta = 2r/R$, and plugging (\ref{eq:parade_exists}) and (\ref{eq:tower_prob_3d}) into (\ref{eq:Bayes}), we find:</p>
+
+\[\begin{equation*}
+\begin{aligned}
+\Pr[\text{Parade visible from tower}|\text{Parade exists}] &amp; = \frac{\Pr\left[\text{Parade visible from tower}\right]}{\Pr\left[\text{Parade exists}\right]}\\
+&amp; \approx \frac{\frac{1}{2^{n+ 1}}\left(1 + (n - 1)\frac{\theta}{2}\right) }{\frac{2 \sum_{k = 0}^{2} \binom{n}{k}}{2^{n + 1}}} \\
+&amp; = \frac{1 + (n - 1)\frac{\theta}{2}}{n^2 + n + 2} &amp;&amp; \left( 2\sum_{k=0}^{2}\tbinom{n}{k} = n^2+n+2\right)\\
+&amp; =\frac{1 + (n - 1)\frac{r}{R}}{n^2 + n + 2} \\
+&amp; = \frac{1}{n^2 + n + 2} + \frac{n - 1}{n^2 + n + 2}\cdot \left(\frac{r}{R}\right),
+\end{aligned}
+\end{equation*}\]
+
+<p>which gives us our final answer:</p>
+
+\[\begin{equation*}
+\boxed{
+\begin{aligned}
+\alpha &amp; = \frac{1}{n^2 + n + 2}\\
+\beta &amp; = \frac{n - 1}{n^2 + n + 2}.\\
+\end{aligned}}
+\end{equation*}\]
+
+<hr />
+
+<h2 id="remarks">Remarks</h2>
+
+<p><strong>The tower is useless for $n = 1$.</strong> In both 2D and 3D, $\beta = 0$ when $n = 1$. The intuition is symmetric: for every configuration where the tower’s wider field of view lets you catch the single planet below the equator, there is an equally likely configuration where it causes you to see the star instead. These two effects cancel exactly at first order, so the tower provides no benefit.</p>
+
+<p><strong>The tower always helps when $n &gt; 1$.</strong> For $n &gt; 1$, $\beta &gt; 0$ in both dimensions, meaning the tower strictly improves your odds. Intuitively, the tower’s extended range creates $n$ new opportunities to gain (one per planet) but only one opportunity to lose (the star). When $n &gt; 1$, the planets win on average.</p>
+
+<p><strong>$\alpha$ decays much faster in 3D.</strong> For large $n$,</p>
+
+\[\alpha_{2D} \approx \frac{1}{2n}, \qquad \alpha_{3D} \approx \frac{1}{n^2}.\]
+
+<p>In 3D, there is so much more room in the sky that simultaneously fitting all $n$ planets into a hemisphere becomes quadratically harder. This reflects the general Wendel’s theorem result: higher-dimensional spheres make hemispheric coincidences exponentially rarer.</p>
+
+<p><strong>The tower’s marginal benefit $\beta$ has different large-$n$ behavior by dimension.</strong> As $n \to \infty$,</p>
+
+\[\beta_{2D} \to \frac{1}{\pi}, \qquad \beta_{3D} \to 0.\]
+
+<p>In 2D, the marginal gain per unit $r/R$ converges to a positive constant. Even with very many planets, the tower always helps at first order. In 3D, the parade itself becomes so rare that even the tower’s extended range can’t keep up.</p>]]></content><author><name></name></author><summary type="html"><![CDATA[My solution to the 2026 March Puzzle]]></summary></entry><entry><title type="html">Jane Street Puzzle: Robot Javelin</title><link href="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/" rel="alternate" type="text/html" title="Jane Street Puzzle: Robot Javelin" /><published>2025-12-30T00:00:01+00:00</published><updated>2025-12-30T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/JS_Robot_Javelin/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
 
 <blockquote>
   <p>It’s coming to the end of the year, which can only mean one thing: time for this year’s Robot Javelin finals! Whoa wait, you’ve never heard of Robot Javelin? Well then! Allow me to explain the rules:</p>
@@ -1310,15 +1523,4 @@ While negative rabbit counts don’t have any physical interpretation, this cond
       <p>Instead of building the DP table explicitly, we use the <code class="language-plaintext highlighter-rouge">cache</code> tool from the <code class="language-plaintext highlighter-rouge">functools</code> library. It’s one of my favorite Python tools! <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name>Connor Colombe</name></author><category term="programming," /><category term="math" /><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry><entry><title type="html">Leetcode Milestone</title><link href="https://ccolombe12.github.io/blog/2024/CP_intro/" rel="alternate" type="text/html" title="Leetcode Milestone" /><published>2024-06-17T00:00:01+00:00</published><updated>2024-06-17T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2024/CP_intro</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2024/CP_intro/"><![CDATA[<h2 id="my-journey-to-start-competitive-programming">My journey to start competitive programming</h2>
-
-<p>It’s no secret that I love to think about and work on math/programming puzzles. Over the past several months I have decided to begin a new hobby: Competitive programming! Not only will this keep me sharp for my upcoming job search post grad school, but it is a great way to continue to bolster my problem solving skills and keep fresh the algorithm design skills that I learned during my time at UTD.</p>
-
-<p>My favorite resources for finding problems to work on are: <a href="https://leetcode.com/">Leetcode</a> (a very popular site for interview style programming problems), <a href="https://open.kattis.com/">Kattis</a> (an online problem archive of problems that have been asked in programming contests around the world), and <a href="https://codeforces.com/">Codeforces</a> (another very popular website that hosts high-quality contests). I have been regularly competing in the weekly Leetcode contests and learning a lot in doing so! I plan to reach around 500 problems in Leetcode and achieve a 1900+ rating and then switch to Codeforces since I have heard the problems are more interesting and more mathematical (woo!). I recently broke into the  “knight” level in the Leetcode contests which is currently for those  the top ~ 6% in overall contest performance! You can check out my current contest rating and activity <a href="https://leetcode.com/u/ccolombe12">here</a>!</p>
-
-<h3><figure>
-  <center>
-  <img src="/assets/img/blog_images/LC_post/LC_Knight.png" width="80%" style="display: block; margin: auto;" />
-  </center>
-
-</figure></h3>]]></content><author><name>Connor Colombe</name></author><category term="programming" /><summary type="html"><![CDATA[My journey to start competitive programming]]></summary></entry></feed>
+</div>]]></content><author><name>Connor Colombe</name></author><category term="programming," /><category term="math" /><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry></feed>
