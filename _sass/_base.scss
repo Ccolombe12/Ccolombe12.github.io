@@ -3,7 +3,10 @@
  ******************************************************************************/
 
 // Typography
-
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
 p,
 h1,
 h2,
@@ -40,6 +43,7 @@ table {
 a,
 table.table a {
   color: var(--global-theme-color);
+  font-weight: 400; 
 
   &:hover {
     color: var(--global-theme-color);
@@ -50,6 +54,7 @@ table.table a {
     width: 100%;
   }
 }
+
 
 figure,
 img {
@@ -535,7 +540,21 @@ footer.sticky-bottom {
 
 
 // Publications
+.pub-awards li {
+  color: #c49a3c !important;
+  list-style: none !important;
+}
 
+.awards-list {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  
+  li::before {
+    content: "★ ";
+    color: #c49a3c;
+  }
+}
 .publications {
   margin-top: 2rem;
 
@@ -598,14 +617,19 @@ footer.sticky-bottom {
         }
 
         .award {
-          color: var(--global-theme-color) !important;
-          border: 1px solid var(--global-theme-color);
-        }
+  color: #c49a3c !important;
+  border: 1px solid #c49a3c;
+}
       }
 
-      .title {
-        font-weight: bolder;
-      }
+.title {
+  font-weight: 600 !important;
+  font-size: 1.3rem;
+  
+  a {
+    font-weight: 600 !important;
+  }
+}
 
       .author {
         a {
@@ -715,13 +739,14 @@ figure.highlight {
 }
 
 pre {
-  color: var(--global-theme-color);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
   background-color: var(--global-code-bg-color);
   border-radius: 6px;
   padding: 6px 12px;
 
   pre,
   code {
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
     background-color: transparent;
     border-radius: 0;
     margin-bottom: 0;
@@ -730,7 +755,6 @@ pre {
 }
 
 code {
-  color: var(--global-theme-color);
   background-color: var(--global-code-bg-color);
   border-radius: 3px;
   padding: 3px 3px;

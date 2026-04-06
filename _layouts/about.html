@@ -41,22 +41,33 @@ layout: default
           </div>
 
           <!-- News -->
-          {% if page.news -%}
-            <h2><a href="{{ '/news/' | relative_url }}" style="color: inherit;">news</a></h2>
-            {%- include news.html %}
-          {%- endif %}
+{% if page.news -%}
+  <div style="display: flex; justify-content: space-between; align-items: baseline;">
+    <h2>recent news</h2>
+    <a href="{{ '/news/' | relative_url }}" style="font-size: 0.85rem;">see all →</a>
+  </div>
+  {%- include news.html %}
+{%- endif %}
 
           <!-- Latest posts -->
           {% if page.latest_posts -%}
-            <h2><a href="{{ '/blog/' | relative_url }}" style="color: inherit;">latest posts</a></h2>
+           <div style="display: flex; justify-content: space-between; align-items: baseline;">
+          <h2>latest blog posts</h2>
+          <a href="{{ '/blog/' | relative_url }}" style="font-size: 0.85rem;">see all posts →</a>
+        </div>
             {%- include latest_posts.html %}
           {%- endif %}
 
-          <!-- Selected papers -->
-          {% if page.selected_papers -%}
-            <h2><a href="{{ '/publications/' | relative_url }}" style="color: inherit;">selected publications</a></h2>
-            {%- include selected_papers.html %}
-          {%- endif %}
+         <!-- Selected papers -->
+{% if page.selected_papers -%}
+  <div style="margin-top: 3rem;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+      <h2>selected publications</h2>
+      <a href="{{ '/publications/' | relative_url }}" style="font-size: 0.85rem;">see all →</a>
+    </div>
+    {%- include selected_papers.html %}
+  </div>
+{%- endif %}
 
           <!-- Social -->
           {%- if page.social %}

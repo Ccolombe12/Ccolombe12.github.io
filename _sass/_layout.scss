@@ -14,11 +14,13 @@ body {
     scroll-margin-top: 66px;
   }
   
-  font-size: 19px;
-  line-height: 1.6;
-  // font-weight: 300;
+  font-size: 20px;
+  line-height: 1.7;
+  font-weight: 300;
+  font-family: 'Jost', sans-serif;
 
 }
+
 
 body.fixed-top-nav {
   // Add some padding for the nav-bar.
@@ -28,6 +30,10 @@ body.fixed-top-nav {
 body.sticky-bottom-footer {
   // Remove padding below footer.
   padding-bottom: 0;
+}
+.navbar-nav .nav-item .nav-link {
+  font-weight: 400;
+  letter-spacing: 0.03em;
 }
 
 .container {

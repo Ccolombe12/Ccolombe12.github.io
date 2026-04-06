@@ -1,26 +1,29 @@
-
-          <div class="news">
-            {% if site.latest_posts != blank -%}
-            {%- assign latest_posts_size = site.posts | size -%}
-            <div class="table-responsive" {% if site.latest_posts.scrollable and latest_posts_size > 3 %}style="max-height: 10vw"{% endif %}>
-              <table class="table table-sm table-borderless">
-              {%- assign latest_posts = site.posts -%}
-              {% if site.latest_posts.limit %}
-              {% assign latest_posts_limit = site.latest_posts.limit %}
-              {% else %}
-              {% assign latest_posts_limit = latest_posts_size %}
-              {% endif %}
-              {% for item in latest_posts limit: latest_posts_limit %}
-                <tr>
-                  <th scope="row">{{ item.date | date: "%b %-d, %Y" }}</th>
-                  <td>
-                    <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
-                  </td>
-                </tr>
-              {%- endfor %}
-              </table>
-            </div>
-          {%- else -%}
-            <p>No posts so far...</p>
-          {%- endif %}
-          </div>
+<div class="news">
+  {% if site.latest_posts != blank -%}
+  {%- assign latest_posts_size = site.posts | size -%}
+  {%- assign latest_posts = site.posts -%}
+  {% if site.latest_posts.limit %}
+    {% assign latest_posts_limit = site.latest_posts.limit %}
+  {% else %}
+    {% assign latest_posts_limit = latest_posts_size %}
+  {% endif %}
+  {% for item in latest_posts limit: latest_posts_limit %}
+    <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--global-divider-color);">
+      {% if item.thumbnail %}
+        <img src="{{ item.thumbnail | relative_url }}" alt="{{ item.title }}"
+             style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0;">
+      {% else %}
+        <div style="width: 80px; height: 80px; border-radius: 6px; flex-shrink: 0; background: var(--global-divider-color);"></div>
+      {% endif %}
+      <div>
+        <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+        <div style="font-size: 0.8rem; color: var(--global-text-color); opacity: 0.6; margin-top: 0.25rem;">
+          {{ item.date | date: "%b %-d, %Y" }}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  {%- else -%}
+  <p>No posts so far...</p>
+  {%- endif %}
+</div>

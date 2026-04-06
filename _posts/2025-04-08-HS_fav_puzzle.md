@@ -3,6 +3,7 @@ layout: post
 title: "Can You Solve a High Schooler’s Favorite Puzzle?"
 description: My solution to this week's Fiddler on the Proof Puzzle
 giscus_comments: true
+thumbnail: assets/img/blog_images/2025-04-08-hs-fav/odd_graph.png
 date: 2025-04-08 00:00:00
 published: true
 ---

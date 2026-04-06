@@ -4,7 +4,7 @@ title: "Jane Street Puzzle: Planetary Parade"
 description: My solution to the 2026 March Puzzle
 giscus_comments: true
 tags: math
-thumbnail: assets/img/blog_images/2026-04-01-planet-parade/pp-3d-case.png
+thumbnail: /assets/img/blog_images/2026-04-01-planet-parade/pp-3d-case.png
 date: 2026-04-01 00:00:01
 published: true
 math: true

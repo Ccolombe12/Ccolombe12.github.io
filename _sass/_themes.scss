@@ -3,12 +3,23 @@
  ******************************************************************************/
  
 :root {
-  --global-bg-color: #{$grey-color-medium};
+  --global-bg-color: #{$warm-sand-color};       // was $grey-color-medium
+  --global-text-color: #{$warm-brown-color};    // was $black-color
+  --global-text-color-light: #{$warm-brown-color}; // was $black-color
+  --global-theme-color: #{$sage-green-color};   // was $red-color
+  --global-hover-color: #{$warm-gold-color};    // was $blue-color
+
+  code {
+  color: var(--global-theme-color);
+  background-color: var(--global-code-bg-color);
+}
+
+  // --global-bg-color: #{$grey-color-medium};
   --global-code-bg-color: #{$code-bg-color-light};
-  --global-text-color: #{$black-color};
-  --global-text-color-light: #{$black-color};
-  --global-theme-color: #{$red-color};
-  --global-hover-color: #{$blue-color};
+  // --global-text-color: #{$black-color};
+  // --global-text-color-light: #{$black-color};
+  //--global-theme-color: #{$new-color-green};
+  // --global-hover-color: #{$blue-color};
   --global-footer-bg-color: #{$grey-color-dark};
   --global-footer-text-color: #{$grey-color-light};
   --global-footer-link-color: #{$white-color};
