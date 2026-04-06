@@ -27,7 +27,7 @@ Below, you'll find a collection of problems from past seminars (though not every
 
 
 <details>
-  <summary><strong>Spring 2025 (Current) </strong></summary>
+  <summary><strong>Spring 2025</strong></summary>
   <ul>
     <li><a href="/assets/problem_seminar/Spring2025/ORIE_Puzzle_Seminar-1.pdf">Seminar 1: Interview Problems </a></li>
     <li><a href="/assets/problem_seminar/Spring2025/ORIE_Puzzle_Seminar-2.pdf">Seminar 2: Interview Problems 2 </a></li>
