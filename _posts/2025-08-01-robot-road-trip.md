@@ -118,11 +118,14 @@ $$d_1 = v \delta t - \frac{1}{2}(\delta t)^2 = v^2 / 2, $$
 
 and acceleration 
 
- $$d_2 =\frac{1}{2}(\delta t)^2 = v^2 / 2.$$
+$$d_2 =\frac{1}{2}(\delta t)^2 = v^2 / 2.$$
 
 Thus the "loss of distance" for each passing in the slow-lane is:
 
-$$\boxed{d_0 - d_1 - d_2 = v^2}$$.
+$$ 
+\begin{equation*}
+\boxed{d_0 - d_1 - d_2 = v^2}. 
+\end{equation*}$$
 
 By similar calculations, we find the "loss of distance" per passing in the fast-lane is:
 

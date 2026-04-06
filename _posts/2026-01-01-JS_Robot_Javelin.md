@@ -37,7 +37,7 @@ We assume both robots use a threshold strategy and by symmetry they adopt the sa
 
 Recall that in a Nash equilibrium, no player can unilaterally change their strategy and improve their position. So without loss of generality, let's assume that $J$ uses $\tau$ and $S$ uses $t$. We would like to find the value of $\tau$ such that for all $t \in [0, 1]$, $S$'s probability of winning is maximized at $t = \tau$.
 
-To do this, we first need an expression for the probability that $S$ wins given they use strategy $t$ and $J$ uses strategy $\tau$. Let $\tilde{s}$ and $\tilde{j}$ be random variables denoting the distance $S$ and $J$ use in their score respectively. We want to determine $\Pr[\tilde{s} > \tilde{j}]$. We can write down the CDF of $\tilde{s}$ for fixed $t$ as :
+To do this, we first need an expression for the probability that $S$ wins given they use strategy $t$ and $J$ uses strategy $\tau$. Let $\tilde{s}$ and $\tilde{j}$ be random variables denoting the distance $S$ and $J$ use in their score respectively. We want to determine $\Pr[\tilde{s} > \tilde{j}]$. We can write down the CDF of $\tilde{s}$ for fixed $t$ as:
 
 $$\begin{equation*}
 F_S(s, t) = \begin{cases}
@@ -46,6 +46,7 @@ F_S(s, t) = \begin{cases}
 \end{cases}
 \end{equation*}
 $$
+
 This follows from the fact that the only way to throw at most $s$ for $s \leq t$ is to throw under $t$ the first throw, then under $s$ the second. And for $s > t$ we can throw between it and $t$ on our first throw with probability $s - t$ or below $t$ on the first throw and then under $s$ the second. By the same logic, the CDF of $\tilde{j}$ is
 
 $$\begin{equation*}
