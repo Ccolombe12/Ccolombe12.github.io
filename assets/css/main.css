@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*******************************************************************************
  * Variables used throughout the theme.
  * To adjust anything, simply edit the variables below and rebuild the theme.
@@ -6,12 +7,18 @@
  * Themes
  ******************************************************************************/
 :root {
-  --global-bg-color: #e0e0e0;
-  --global-code-bg-color: rgba(181, 9, 172, 0.05);
-  --global-text-color: #000000;
-  --global-text-color-light: #000000;
-  --global-theme-color: #FF3636;
-  --global-hover-color: #0076df;
+  --global-bg-color: #F5EFE0;
+  --global-text-color: #4a3c28;
+  --global-text-color-light: #4a3c28;
+  --global-theme-color: #3b6e4a;
+  --global-hover-color: #c49a3c;
+}
+:root code {
+  color: var(--global-theme-color);
+  background-color: var(--global-code-bg-color);
+}
+:root {
+  --global-code-bg-color: #e8e0d0;
   --global-footer-bg-color: #1C1C1D;
   --global-footer-text-color: #e8e8e8;
   --global-footer-link-color: #ffffff;
@@ -39,8 +46,8 @@ html[data-theme=dark] {
   --global-code-bg-color: #2c3237;
   --global-text-color: #e8e8e8;
   --global-text-color-light: #e8e8e8;
-  --global-theme-color: #2698BA;
-  --global-hover-color: #2698BA;
+  --global-theme-color: #c49a3c;
+  --global-hover-color: #c49a3c;
   --global-footer-bg-color: #e8e8e8;
   --global-footer-text-color: #1C1C1D;
   --global-footer-link-color: #000000;
@@ -77,8 +84,10 @@ body h1, body h2, body h3, body h4, body h5, body h6 {
   scroll-margin-top: 66px;
 }
 body {
-  font-size: 19px;
+  font-size: 18px;
   line-height: 1.6;
+  font-weight: 300;
+  font-family: "Jost", sans-serif;
 }
 
 body.fixed-top-nav {
@@ -87,6 +96,11 @@ body.fixed-top-nav {
 
 body.sticky-bottom-footer {
   padding-bottom: 0;
+}
+
+.navbar-nav .nav-item .nav-link {
+  font-weight: 400;
+  letter-spacing: 0.03em;
 }
 
 .container {
@@ -106,6 +120,11 @@ body.sticky-bottom-footer {
 /*******************************************************************************
  * Styles for the base elements of the theme.
  ******************************************************************************/
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
 p,
 h1,
 h2,
@@ -137,6 +156,7 @@ table td {
 a,
 table.table a {
   color: var(--global-theme-color);
+  font-weight: 400;
 }
 a:hover,
 table.table a:hover {
@@ -517,6 +537,21 @@ footer.sticky-bottom {
   text-align: right;
 }
 
+.pub-awards li {
+  color: #c49a3c !important;
+  list-style: none !important;
+}
+
+.awards-list {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+}
+.awards-list li::before {
+  content: "★ ";
+  color: #c49a3c;
+}
+
 .publications {
   margin-top: 2rem;
 }
@@ -571,11 +606,12 @@ footer.sticky-bottom {
   text-decoration: none;
 }
 .publications ol.bibliography li .abbr .award {
-  color: var(--global-theme-color) !important;
-  border: 1px solid var(--global-theme-color);
+  color: #c49a3c !important;
+  border: 1px solid #c49a3c;
 }
 .publications ol.bibliography li .title {
-  font-weight: bolder;
+  font-weight: 600 !important;
+  font-size: 1.3rem;
 }
 .publications ol.bibliography li .author a {
   border-bottom: 1px dashed var(--global-theme-color);
@@ -663,13 +699,14 @@ figure.highlight {
 }
 
 pre {
-  color: var(--global-theme-color);
+  font-family: "JetBrains Mono", "Fira Code", monospace;
   background-color: var(--global-code-bg-color);
   border-radius: 6px;
   padding: 6px 12px;
 }
 pre pre,
 pre code {
+  font-family: "JetBrains Mono", "Fira Code", monospace;
   background-color: transparent;
   border-radius: 0;
   margin-bottom: 0;
@@ -677,7 +714,6 @@ pre code {
 }
 
 code {
-  color: var(--global-theme-color);
   background-color: var(--global-code-bg-color);
   border-radius: 3px;
   padding: 3px 3px;
