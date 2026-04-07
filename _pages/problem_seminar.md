@@ -33,7 +33,7 @@ Below, you'll find a collection of problems from past seminars (though not every
     <li><a href="/assets/problem_seminar/Spring2025/ORIE_Puzzle_Seminar-2.pdf">Seminar 2: Interview Problems 2 </a></li>
     <li><a href="/assets/problem_seminar/Spring2025/ORIE_Puzzle_Seminar-3.pdf">Seminar 3 </a></li>
     <li><a href="/assets/problem_seminar/Spring2025/ORIE_Puzzle_Seminar-4.pdf">Seminar 6 </a></li>
-    <li><a href="/assets/problem_seminar/Spring2025/ORIE_Puzzle_Seminar-5.pdf">Seminar 7: Games (Current) </a></li>
+    <li><a href="/assets/problem_seminar/Spring2025/ORIE_Puzzle_Seminar-5.pdf">Seminar 7: Games </a></li>
    
   </ul>
 </details>
