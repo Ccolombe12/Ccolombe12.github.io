@@ -219,6 +219,14 @@ blockquote {
 
   .navbar-brand {
     color: var(--global-text-color);
+
+    span {
+      color: inherit;
+    }
+
+    &:hover {
+      color: var(--global-hover-color);
+    }
   }
 
   .navbar-nav .nav-item .nav-link {
