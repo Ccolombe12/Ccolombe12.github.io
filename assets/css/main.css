@@ -296,6 +296,12 @@ blockquote {
 .navbar.navbar-light .navbar-brand {
   color: var(--global-text-color);
 }
+.navbar.navbar-light .navbar-brand span {
+  color: inherit;
+}
+.navbar.navbar-light .navbar-brand:hover {
+  color: var(--global-hover-color);
+}
 .navbar.navbar-light .navbar-nav .nav-item .nav-link {
   color: var(--global-text-color);
 }
