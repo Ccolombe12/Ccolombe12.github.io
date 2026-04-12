@@ -121,7 +121,7 @@ body.sticky-bottom-footer {
  * Styles for the base elements of the theme.
  ******************************************************************************/
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.02em;
 }
 
@@ -203,8 +203,6 @@ blockquote {
 }
 .card .card-title {
   color: var(--global-text-color);
-}
-.card {
   font-size: 19px;
 }
 .card .card-item {
@@ -319,7 +317,7 @@ blockquote {
 }
 .navbar.navbar-light .navbar-brand.social a i::before {
   color: var(--global-text-color);
-  transition-property: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .navbar.navbar-light .navbar-brand.social a:hover i::before {
   color: var(--global-theme-color);
@@ -374,7 +372,7 @@ blockquote {
 }
 .social .contact-icons a i::before {
   color: var(--global-text-color);
-  transition-property: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 .social .contact-icons a:hover i::before {
   color: var(--global-theme-color);
@@ -610,7 +608,7 @@ footer.sticky-bottom {
   border: 1px solid #c49a3c;
 }
 .publications ol.bibliography li .title {
-  font-weight: 600 !important;
+  font-weight: 600;
   font-size: 1.3rem;
 }
 .publications ol.bibliography li .author a {
@@ -664,10 +662,6 @@ footer.sticky-bottom {
   max-height: 0px;
   overflow: hidden;
   text-align: justify;
-  transition-property: 0.15s ease;
-  -moz-transition: 0.15s ease;
-  -ms-transition: 0.15s ease;
-  -o-transition: 0.15s ease;
   transition: all 0.15s ease;
 }
 .publications ol.bibliography li .hidden p {
@@ -681,10 +675,6 @@ footer.sticky-bottom {
 }
 .publications ol.bibliography li .hidden.open {
   max-height: 100em;
-  transition-property: 0.15s ease;
-  -moz-transition: 0.15s ease;
-  -ms-transition: 0.15s ease;
-  -o-transition: 0.15s ease;
   transition: all 0.15s ease;
 }
 .publications ol.bibliography li div.abstract.hidden {
@@ -702,7 +692,8 @@ pre {
   font-family: "JetBrains Mono", "Fira Code", monospace;
   background-color: var(--global-code-bg-color);
   border-radius: 6px;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  position: relative;
 }
 pre pre,
 pre code {
@@ -711,6 +702,29 @@ pre code {
   border-radius: 0;
   margin-bottom: 0;
   padding: 0;
+}
+pre {
+  /* Copy code to clipboard button */
+}
+pre .copy {
+  background: var(--global-card-bg-color);
+  border-color: var(--global-bg-color);
+  border-radius: 0.3rem;
+  border-style: solid;
+  color: var(--global-text-color);
+  font-size: medium;
+  opacity: 0;
+  position: absolute;
+  right: 0.25rem;
+  top: 0.25rem;
+}
+pre .copy:active, pre .copy:focus, pre .copy:hover {
+  color: var(--global-hover-color);
+  opacity: 1;
+}
+pre:active .copy, pre:focus .copy, pre:hover .copy {
+  color: var(--global-hover-color);
+  opacity: 1;
 }
 
 code {
@@ -798,32 +812,6 @@ progress::-moz-progress-bar {
   width: 0%;
   display: block;
   height: inherit;
-}
-
-pre {
-  padding: 8px 12px;
-  position: relative;
-  /* Copy code to clipboard button */
-}
-pre .copy {
-  background: var(--global-card-bg-color);
-  border-color: var(--global-bg-color);
-  border-radius: 0.3rem;
-  border-style: solid;
-  color: var(--global-text-color);
-  font-size: medium;
-  opacity: 0;
-  position: absolute;
-  right: 0.25rem;
-  top: 0.25rem;
-}
-pre .copy:active, pre .copy:focus, pre .copy:hover {
-  color: var(--global-hover-color);
-  opacity: 1;
-}
-pre:active .copy, pre:focus .copy, pre:hover .copy {
-  color: var(--global-hover-color);
-  opacity: 1;
 }
 
 /*******************************************************************************
