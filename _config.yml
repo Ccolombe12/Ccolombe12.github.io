@@ -203,6 +203,7 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - vendor
+  - .claude/
 keep_files:
   - CNAME
   - .nojekyll
@@ -262,8 +263,8 @@ display_tags: ['math', 'programming'] # these tags will be displayed on the fron
 
 scholar:
 
-  last_name: [Einstein]
-  first_name: [Albert, A.]
+  last_name: [Connor]
+  first_name: [Colombe]
 
   style: apa
   locale: en

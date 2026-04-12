@@ -1,8 +1,11 @@
 ---
 layout: post
+title: TRS Quantitative Research Internship
 date: 2024-06-03 00:00:01
-inline: true
+inline: false
 related_posts: false
+thumbnail: "assets/img/news_images/trs-header-logo.png"
+description: "Starting a quantitative research internship with the Multi-Asset Strategies Group at the Teachers Retirement System of Texas."
 ---
 
 I am starting a Summer internship doing Quantitative Research for the [Multi-asset Strategies Group](https://www.trs.texas.gov/Pages/investment_team_asset_allocation.aspx) at the Teachers Retirement System of Texas.

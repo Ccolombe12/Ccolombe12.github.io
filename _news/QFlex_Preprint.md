@@ -2,8 +2,10 @@
 layout: post
 title: QFlex Preprint is out!
 date: 2025-12-19 00:00:01
-inline: true
+inline: false
 related_posts: false
+thumbnail: "assets/img/news_images/quantile_plot.png"
+description: "New preprint introducing the QFlex framework for constructing quantile-parameterized distributions from sparse expert assessments."
 ---
 
 My latest paper ***The QFlex Distribution***, coauthored with Professors [J. Eric Bickel](https://www.me.utexas.edu/people/faculty-directory/bickel) and [Benjamin D. Leibowicz](https://www.me.utexas.edu/people/faculty-directory/leibowicz), is out as preprint on [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5930859)! In this paper, we introduce a new framework for constructing quantile-parameterized distributions from an arbitrary set of quantile assessments. At a high level, our approach takes a finite collection of point assessments from an unknown distribution and produces a high-fidelity estimate of the underlying distribution under very mild assumptions. This system enables decision makers to build meaningful probabilistic models from sparse expert assessments.

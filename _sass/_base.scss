@@ -2,9 +2,11 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 
+
+
 // Typography
 h1, h2, h3, h4, h5, h6 {
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: 0.02em;
 }
 p,
@@ -43,7 +45,7 @@ table {
 a,
 table.table a {
   color: var(--global-theme-color);
-  font-weight: 400; 
+  font-weight: 400;
 
   &:hover {
     color: var(--global-theme-color);
@@ -99,7 +101,8 @@ blockquote {
 
   .card-title {
     color: var(--global-text-color);
-  }font-size: 19px;
+    font-size: 19px;
+  }
 
   .card-item {
     width: auto;
@@ -244,7 +247,7 @@ blockquote {
     a {
       i::before {
         color: var(--global-text-color);
-        transition-property: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
       }
 
       &:hover {
@@ -318,7 +321,7 @@ blockquote {
     a {
       i::before {
         color: var(--global-text-color);
-        transition-property: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
       }
 
       &:hover {
@@ -541,7 +544,7 @@ footer.sticky-bottom {
 
 // Publications
 .pub-awards li {
-  color: #c49a3c !important;
+  color: $award-color !important;
   list-style: none !important;
 }
 
@@ -549,10 +552,10 @@ footer.sticky-bottom {
   list-style: none !important;
   padding-left: 0 !important;
   margin-left: 0 !important;
-  
+
   li::before {
     content: "★ ";
-    color: #c49a3c;
+    color: $award-color;
   }
 }
 .publications {
@@ -617,15 +620,15 @@ footer.sticky-bottom {
         }
 
         .award {
-  color: #c49a3c !important;
-  border: 1px solid #c49a3c;
-}
+          color: $award-color !important;
+          border: 1px solid $award-color;
+        }
       }
 
       .title {
-  font-weight: 600 !important;
-  font-size: 1.3rem;
-}
+        font-weight: 600;
+        font-size: 1.3rem;
+      }
 
       .author {
         a {
@@ -691,10 +694,6 @@ footer.sticky-bottom {
         max-height: 0px;
         overflow: hidden;
         text-align: justify;
-        transition-property: 0.15s ease;
-        -moz-transition: 0.15s ease;
-        -ms-transition: 0.15s ease;
-        -o-transition: 0.15s ease;
         transition: all 0.15s ease;
 
         p {
@@ -711,10 +710,6 @@ footer.sticky-bottom {
 
       .hidden.open {
         max-height: 100em;
-        transition-property: 0.15s ease;
-        -moz-transition: 0.15s ease;
-        -ms-transition: 0.15s ease;
-        -o-transition: 0.15s ease;
         transition: all 0.15s ease;
       }
 
@@ -738,7 +733,8 @@ pre {
   font-family: 'JetBrains Mono', 'Fira Code', monospace;
   background-color: var(--global-code-bg-color);
   border-radius: 6px;
-  padding: 6px 12px;
+  padding: 8px 12px;
+  position: relative;
 
   pre,
   code {
@@ -747,6 +743,34 @@ pre {
     border-radius: 0;
     margin-bottom: 0;
     padding: 0;
+  }
+
+  /* Copy code to clipboard button */
+  .copy {
+    background: var(--global-card-bg-color);
+    border-color: var(--global-bg-color);
+    border-radius: .3rem;
+    border-style: solid;
+    color: var(--global-text-color);
+    font-size: medium;
+    opacity: 0;
+    position: absolute;
+    right: .25rem;
+    top: .25rem;
+
+    &:active,
+    &:focus,
+    &:hover {
+      color: var(--global-hover-color);
+      opacity: 1;
+    }
+  }
+
+  &:active .copy,
+  &:focus .copy,
+  &:hover .copy {
+    color: var(--global-hover-color);
+    opacity: 1;
   }
 }
 
@@ -853,35 +877,3 @@ progress::-moz-progress-bar {
   height: inherit;
 }
 
-pre {
-  padding: 8px 12px;
-  position: relative;
-
-  /* Copy code to clipboard button */
-  .copy {
-    background: var(--global-card-bg-color);
-    border-color: var(--global-bg-color);
-    border-radius: .3rem;
-    border-style: solid;
-    color: var(--global-text-color);
-    font-size: medium;
-    opacity: 0;
-    position: absolute;
-    right: .25rem;
-    top: .25rem;
-
-    &:active,
-    &:focus,
-    &:hover {
-      color: var(--global-hover-color);
-      opacity: 1;
-    }
-  }
-
-  &:active .copy,
-  &:focus .copy,
-  &:hover .copy {
-    color: var(--global-hover-color);
-    opacity: 1;
-  }
-}

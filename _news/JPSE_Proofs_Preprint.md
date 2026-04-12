@@ -2,8 +2,10 @@
 layout: post
 title: JPSE Proofs preprint is out!
 date: 2026-02-11 00:00:01
-inline: true
+inline: false
 related_posts: false
+thumbnail: "assets/img/news_images/JPSE_conj.png"
+description: "New preprint proving two open conjectures for truncated Johnson power-series quantile functions."
 ---
 
 My latest paper ***Proofs of Monotonicity for Truncated Johnson Power-Series Quantile Functions***, coauthored with Professor [J. Eric Bickel](https://www.me.utexas.edu/people/faculty-directory/bickel), is now out as preprint on [SSRN](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6149526)! This is a short and sweet paper in which I proved two open conjectures in the original ***Truncated Johnson Power-Series Quantile Functions*** [paper](https://www.tandfonline.com/doi/full/10.1080/03610926.2025.2612230?src=). The original work presented a novel formulation of the [Johnson Quantile function family](https://en.wikipedia.org/wiki/Johnson%27s_SU-distribution)  based on truncations of their power-series. I use some results from real-analysis to show that, for odd truncation order, the truncated SB and SL Johnson power-series are indeed monotonic and are therefore valid quantile functions. This was a short and enjoyable project that allowed me to dig into some technical proofs -- Check it out!

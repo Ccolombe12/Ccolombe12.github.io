@@ -1,28 +1,40 @@
 <div class="news">
   {% if site.news != blank -%}
   {%- assign news_size = site['news'] | size -%}
-  <div class="table-responsive">
-    <table class="table table-sm table-borderless">
-    {%- assign news = site['news'] | sort: "date" | reverse -%}
-    {% if page.url contains "news" %}
-      {% assign news_limit = news_size %}
+  {%- assign news = site['news'] | sort: "date" | reverse -%}
+  {% if page.url contains "news" %}
+    {% assign news_limit = news_size %}
+  {% else %}
+    {% assign news_limit = 3 %}
+  {% endif %}
+  {% for item in news limit: news_limit %}
+    {% if item.inline %}
+      <div style="display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--global-divider-color);">
+        <div style="flex-shrink: 0; font-size: 0.85rem; color: var(--global-text-color); opacity: 0.6; min-width: 90px; padding-top: 0.1rem;">
+          {{ item.date | date: "%b %-d, %Y" }}
+        </div>
+        <div>{{ item.content | remove: '<p>' | remove: '</p>' | emojify }}</div>
+      </div>
     {% else %}
-      {% assign news_limit = 3 %}
+      <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid var(--global-divider-color);">
+        {% if item.thumbnail %}
+          <img src="/{{ item.thumbnail }}" alt="{{ item.title }}"
+               style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0;">
+        {% else %}
+          <div style="width: 80px; height: 80px; border-radius: 6px; flex-shrink: 0; background: var(--global-divider-color);"></div>
+        {% endif %}
+        <div>
+          <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+          {% if item.description %}
+            <div style="font-size: 0.85rem; color: var(--global-text-color); margin-top: 0.2rem;">{{ item.description }}</div>
+          {% endif %}
+          <div style="font-size: 0.8rem; color: var(--global-text-color); opacity: 0.6; margin-top: 0.25rem;">
+            {{ item.date | date: "%b %-d, %Y" }}
+          </div>
+        </div>
+      </div>
     {% endif %}
-    {% for item in news limit: news_limit %}
-      <tr>
-        <th scope="row">{{ item.date | date: "%b %-d, %Y" }}</th>
-        <td>
-          {% if item.inline -%}
-            {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
-          {%- else -%}
-            <a class="news-title" href="{{ item.url | relative_url }}">{{ item.title }}</a>
-          {%- endif %}
-        </td>
-      </tr>
-    {%- endfor %}
-    </table>
-  </div>
+  {% endfor %}
   {%- else -%}
   <p>No news so far...</p>
   {%- endif %}
