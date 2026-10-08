@@ -11,7 +11,7 @@ Back in Spring 2018, me and my good friend Alex Goldstein (Goldie) were recipien
 
 <center>
 	<figure>
-	<img src="/assets/img/project_images/goldie_on_couch.png" alt="goldie_on_couch" width="400" height="370">
+	<img src="/assets/img/project_images/goldie_on_couch.jpg" alt="goldie_on_couch" width="400" height="370">
 	</figure>
 	<figcaption> Goldie on the couch the night we finally attached the wheel panels.
 	</figcaption>
