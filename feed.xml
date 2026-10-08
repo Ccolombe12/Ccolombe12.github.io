@@ -1,5 +1,86 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-10-08T00:40:05+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
-</subtitle><entry><title type="html">Jane Street Puzzle: Planetary Parade</title><link href="https://ccolombe12.github.io/blog/2026/Planetary-Parade/" rel="alternate" type="text/html" title="Jane Street Puzzle: Planetary Parade" /><published>2026-04-01T00:00:01+00:00</published><updated>2026-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2026/Planetary-Parade</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2026/Planetary-Parade/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://ccolombe12.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://ccolombe12.github.io/" rel="alternate" type="text/html" hreflang="en" /><updated>2026-10-08T05:30:27+00:00</updated><id>https://ccolombe12.github.io/feed.xml</id><title type="html">blank</title><subtitle>The academic webpage of Connor Colombe
+</subtitle><entry><title type="html">Jane Street Puzzle: Andy’s Afternoon Amble</title><link href="https://ccolombe12.github.io/blog/2026/JS_Andys_Amble/" rel="alternate" type="text/html" title="Jane Street Puzzle: Andy’s Afternoon Amble" /><published>2026-09-01T12:00:00+00:00</published><updated>2026-09-01T12:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2026/JS_Andys_Amble</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2026/JS_Andys_Amble/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
+
+<figure>
+
+  <img src="/assets/img/blog_images/2026-10-07-andys-amble/andys-afternoon-amble.gif" alt="Truncated tetrahedral sphere and hexagonal floor tiling" width="80%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center; font-style: italic; font-size: 0.9em; color: #666;"> The puzzle's figure: Andy's truncated tetrahedral sphere (left) and the hexagonal kitchen floor (right). Image from Jane Street. </figcaption>
+
+</figure>
+
+<blockquote>
+  <p>Andy the ant has moved on from his classic ‘Telstar’ soccer ball homeland to live on a simpler spherical surface consisting of four white hexagons that are surrounded by alternating black triangles and white hexagons (three of each), and four black triangles surrounded by three white hexagons. To us this land is a truncated tetrahedron blown up into a sphere we see above on the left. Due to Andy’s tiny size and terrible eyesight, he doesn’t notice the curvature of the land and avoids the black triangles because he suspects they may be bottomless pits.</p>
+
+  <p>Much like his morning routine, every afternoon he wakes up from his nap on a white hexagon, leaves some pheromones to mark it as his special home space, and starts his random amble. Every step on this walk takes him to one of the three neighboring white hexagons with equal probability. He ends his amble as soon as he first returns to his home space, which he recognizes but cannot distinguish the edges of (i.e. he doesn’t know if he returned across the same edge as he left). As an example, on exactly 1/3 of afternoons Andy’s amble is 2 steps long, as he randomly visits one of the three neighbors, and then has a 1/3 probability of returning immediately to the home hexagon.</p>
+
+  <p>This afternoon his truncated tetrahedral homeland bounced through the very same kitchen with an infinite regular hexagonal floor tiling consisting of black and white hexagons, shown above on the right. In this tiling every white hexagon is surrounded by alternating black and white hexagons, and black hexagons are surrounded by six white hexagons. Andy fell off the ball and woke up on a white hexagon. He didn’t notice any change in his surroundings, and goes about his normal amble.</p>
+</blockquote>
+
+<blockquote>
+  <p>Throughout his walk, Andy remembers the turns he’s taken. Let $p$ be the probability that by the end of his afternoon amble on this new land he has discovered that he is no longer on the truncated tetrahedral sphere. <strong>Find $p$ in exact terms.</strong></p>
+</blockquote>
+
+<p><a href="https://www.janestreet.com/puzzles/andys-afternoon-amble-index/">Original puzzle on Jane Street’s site</a></p>
+
+<hr />
+<h1 id="solution">Solution</h1>
+
+<p>The first step is to figure out how to compare the walks in each space. Let the space of the truncated tetrahedron be denoted $T$ and the hexagonal tiling space be denoted $T’$. Let’s begin by analyzing the walk on $T$, which is composed of four white hexagons and four black triangles. We can unfurl $T$ to lie in the plane as shown below.</p>
+
+<figure>
+
+  <img src="/assets/img/blog_images/2026-10-07-andys-amble/andy_amble_tetra2.png" alt="Andy's moves on the truncated tetrahedron" width="60%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center; font-style: italic; font-size: 0.9em; color: #666;"> Figure 1. The truncated tetrahedron $T$ unfolded into the plane, with Andy's home hexagon in green. The other three white hexagons all border home, and the lone black triangle at the top right is the one face that doesn't touch home. After Andy's first step to $A$, forward and backward moves (dashed) carry him around the cycle $A \to B \to C \to A$ while a right turn (red) from any of $A$, $B$, or $C$ takes him home. </figcaption>
+
+</figure>
+
+<p>WLOG, assume Andy starts on the green hexagon and then always moves to hexagon $A$ and then faces towards hexagon $B$.  Since we are given that</p>
+<blockquote>
+  <p>throughout his walk, Andy remembers the turns he’s taken</p>
+</blockquote>
+
+<p>we need to find a way to model his movements throughout the rest of his walk. Given that he starts at $A$ facing $B$, we can model his path in the following way. Andy can make 3 types of “move”:</p>
+<ul>
+  <li>Forward: This takes him along one of the black arrows in the diagram (e.g. $A \to B$)</li>
+  <li>Backwards: He walks in <em>reverse</em> along the black arrow into his current hexagon (e.g. $B \to A$)</li>
+  <li>Right: He turns right along one of the red arrows and returns home.</li>
+</ul>
+
+<p>All three moves are defined from Andy’s own perspective. After his first step, Andy keeps track of which way he is facing, so at every hexagon the three exits are: the edge in front of him, the edge on his right, and the remaining edge. When he moves <em>forward</em>, he walks through the edge he is facing and then turns to face the exit on his left. A <em>backward</em> move undoes a forward move: he steps back through the remaining edge and turns to face the hexagon he just left. Turning <em>right</em> takes him through the edge on his right. Since each move depends only on Andy’s heading and the order of the edges around him, his memory of his turns tells him exactly which moves he made, and with these three moves he can always work out where he is relative to the first hexagon he entered.</p>
+
+<p>For Andy to follow a sequence of turns, $S$, in the hexagonal tiling $T’$ and <em>not</em> notice that he left $T$, it must be the case that <em>$S$ returns Andy home in $T$ exactly once, and on the last move.</em> If Andy ever takes a move that would have returned him home in $T$ (i.e., turning right) but doesn’t in $T’$, then he knows he is not on $T$.</p>
+
+<p>What do moves look like in $T’$?</p>
+
+<p>Again assume Andy steps to hexagon $A$ and faces $B$. His possible moves on $T’$ are shown in the figure below.</p>
+
+<figure>
+
+  <img src="/assets/img/blog_images/2026-10-07-andys-amble/andy_hexa_path.png" alt="Andy's moves on the hexagonal tiling" width="40%" style="display: block; margin: auto;" />
+     <figcaption style="text-align: center; font-style: italic; font-size: 0.9em; color: #666;"> Figure 2. Andy's moves on the hexagonal tiling $T'$. Forward and backward moves keep him on the ring $A, B, \ldots, F$ around a black hexagon. A right turn (red) leads home only from $A$; from anywhere else it leads off the ring to a hexagon that isn't home. </figcaption>
+
+</figure>
+
+<p>Why does $T’$ look different? Locally, the two lands are identical: every white hexagon has three white neighbors spaced 120 degrees apart, so any sequence of turns can be replayed on either one. The only difference is the black tiles. A black triangle on $T$ is ringed by 3 white hexagons, while a black hexagon on $T’$ is ringed by 6. So the ring $A, B, \ldots, F$ wraps <em>twice</em> around the cycle $A, B, C$. For example, at $D$, Andy’s memory says he’s back at $A$.</p>
+
+<p>This means that, unlike before, in $T’$, $A$ is the <em>only</em> position from which Andy can turn right and be in the home hexagon. The first time Andy turns right while not in hexagon $A$, he will notice he is not home and can tell he is in $T’$. Thus it now suffices to find the probability that the first time Andy turns right will be when he is in hexagon $A$.</p>
+
+<p>We can set this up as a recurrence relationship (this is a random walk on a Markov chain). Let $p_i$ be the probability that Andy finishes his walk without noticing he is in $T’$, given he is currently in hexagon $i$, $i = A, B, \ldots, F$. From any hexagon on the ring, he moves forward, backward, or right, each with probability $\frac{1}{3}$. Turning right from $A$ takes him home undetected, while turning right from anywhere else gives him away. Reflecting the ring across the line through $A$ and $D$ gives the symmetries $p_B = p_F$ and $p_C = p_E$. We get the following system of equations</p>
+
+\[\begin{aligned}
+p_A &amp;= \frac{1}{3} + \frac{1}{3} p_B + \frac{1}{3} p_F = \frac{1}{3} + \frac{2}{3} p_B\\ 
+p_B &amp; = \frac{1}{3} p_A + \frac{1}{3}p_C \\ 
+p_C &amp; = \frac{1}{3} p_B + \frac{1}{3}p_D \\
+p_D &amp; = \frac{1}{3} p_C + \frac{1}{3} p_E = \frac{2}{3}  p_C.
+\end{aligned}\]
+
+<p>A little algebra (or Mathematica 😅) later and we find, 
+\(p_A = \frac{9}{20}.\)</p>
+
+<p>However, note that this is the probability that Andy has a sequence of moves that <em>doesn’t</em> result in him finding out he is on $T’$. The puzzle asks for the complement, and thus our answer is 
+\(\begin{equation*}
+\boxed{p = 1- p_A = \frac{11}{20}}.
+\end{equation*}\)</p>]]></content><author><name></name></author><category term="math" /><summary type="html"><![CDATA[My solution to the 2026 August Puzzle]]></summary></entry><entry><title type="html">Jane Street Puzzle: Planetary Parade</title><link href="https://ccolombe12.github.io/blog/2026/Planetary-Parade/" rel="alternate" type="text/html" title="Jane Street Puzzle: Planetary Parade" /><published>2026-04-01T00:00:01+00:00</published><updated>2026-04-01T00:00:01+00:00</updated><id>https://ccolombe12.github.io/blog/2026/Planetary-Parade</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2026/Planetary-Parade/"><![CDATA[<h1 id="problem-statement">Problem Statement</h1>
 
 <blockquote>
   <p>We are enjoying a planetary parade during the beginning of this month here on Earth, but my alien friend from the distant planet Pyrknot (well modeled as a perfect sphere) isn’t too impressed. Their single-star system has $n$ planets other than Pyrknot with such chaotic orbits that each night these planets independently appear in uniformly random locations in the Pyrknothian sky. Note that <em>the planets aren’t visible in daylight</em>. If at a given moment there exists somewhere on Pyrknot that all $n$ planets are visible, then from my friend’s position on the surface they have an $\alpha$ probability of also seeing all of the planets.</p>
@@ -1419,111 +1500,4 @@ win for several values of \(n\), see table 1.</p>
       <p>Can you prove this? <em>Hint: Use the triangle inequality.</em> <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
-</div>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry><entry><title type="html">How Many Rabbits Can You Pull out of a Hat?</title><link href="https://ccolombe12.github.io/blog/2025/fiddler/" rel="alternate" type="text/html" title="How Many Rabbits Can You Pull out of a Hat?" /><published>2025-03-01T00:00:00+00:00</published><updated>2025-03-01T00:00:00+00:00</updated><id>https://ccolombe12.github.io/blog/2025/fiddler</id><content type="html" xml:base="https://ccolombe12.github.io/blog/2025/fiddler/"><![CDATA[<p>I found a new source of puzzles: the excellent Substack page <a href="https://thefiddler.substack.com">The Fiddler on the Proof</a> run by Zach Wissner-Gross. This week’s puzzle is paraphrased as follows:</p>
-
-<blockquote>
-  <p>Suppose I have a hat with \(3n\) small toy rabbits: \(n\) are red, \(n\) are green, and \(n\) are blue. I shuffle the rabbits around and randomly draw them out one at a time without replacement (i.e., once I draw a rabbit out, I never put it back in again).</p>
-
-  <p>Your job is to guess the color of each rabbit I draw. For each guess, you know the history of the rabbits already drawn. So if we’re down to the final rabbit in the hat, you should be able to predict its color with certainty.</p>
-
-  <p>Every time you correctly predict the color of the rabbit I draw, you earn a point. If you play optimally (i.e., to maximize your expected points), <strong>how many points can you expect to earn on average?</strong></p>
-</blockquote>
-
-<h2 id="solution">Solution</h2>
-
-<p>We can solve this using <a href="https://en.wikipedia.org/wiki/Dynamic_programming">Dynamic Programming</a>! We represent the current state as a tuple \((r, g, b)\), where \(r, g,\) and \(b\) denote the number of rabbits of each color remaining in the hat. Let \(J(r, g, b)\) be the maximum expected score starting from state \((r, g, b)\). Our goal is to determine \(J(n, n, n)\). We can solve for \(J(n, n, n)\) by developing a <strong>recurrence relation</strong> on the current state. We begin with the base cases.</p>
-
-<h3 id="base-cases">Base Cases</h3>
-
-<ul>
-  <li>If there are no rabbits left, i.e., we are at state \((0, 0, 0)\), then there are zero points left to obtain, implying
-\(J(0, 0, 0) = 0.\)</li>
-  <li>If any of \(r, g,\) or \(b\) are negative, we define:
-\(J\left(r, g, b \right) = 0, \; \text{if any } r &lt; 0, g &lt; 0, \text{or } b &lt; 0.\)
-While negative rabbit counts don’t have any physical interpretation, this condition will allow us to greatly simplify our recurrence relation.</li>
-</ul>
-
-<h3 id="recurrence-relation">Recurrence Relation</h3>
-
-<p>For a general state where \(r, g, b \geq 0\) and at <em>least one of them is positive</em>, we can determine the expected points-maximizing guess for the next rabbit’s color by considering each option and selecting the best one. The probabilities for the next color of rabbit drawn are:</p>
-
-<ul>
-  <li>The probability of drawing a red rabbit \(P_r = \frac{r}{r + g + b}\).</li>
-  <li>The probability of drawing a green rabbit \(P_g = \frac{g}{r + g + b}\).</li>
-  <li>The probability of drawing a blue rabbit \(P_b = \frac{b}{r + g + b}\).</li>
-</ul>
-
-<p>Given these, the expected scores from guessing each color are:</p>
-
-<p>\(J\left(r, g, b \mid \text{guess red}\right) = P_r \cdot (1 + J(r - 1, g, b)) + P_g\cdot J(r, g - 1, b) + P_b\cdot J(r, g, b - 1),\)
-\(J\left(r, g, b \mid \text{guess green}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot (1 + J(r, g - 1, b)) + P_b\cdot J(r, g, b - 1),\)
-\(J \left(r, g, b \mid \text{guess blue}\right) = P_r\cdot J(r - 1, g, b) + P_g\cdot J(r, g - 1, b) + P_b\cdot (1 + J(r, g, b - 1)).\)</p>
-
-<p>To find the optimal expected score at state \((r, g, b)\), we take the maximum over these three choices.</p>
-
-\[\boxed{J\left(r, g, b\right) = \max \left\{ J\left(r, g, b \mid \text{guess red}\right), J\left(r, g, b \mid \text{guess green}\right), J\left(r, g, b \mid \text{guess blue}\right) \right\}}.\]
-
-<p>The optimal guess is the color that achieves this maximum.</p>
-
-<h3 id="implementation">Implementation</h3>
-
-<p>Now that we have a recursive formulation, we can efficiently compute \(J(r, g, b)\) using dynamic programming. Let’s code this up in Python<sup id="fnref:1"><a href="#fn:1" class="footnote" rel="footnote" role="doc-noteref">1</a></sup>!</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">cache</span>
-
-<span class="nd">@cache</span>
-<span class="k">def</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="sh">"""</span><span class="s"> Returns the maximum expected score under optimal play from the state
-(r, g, b) </span><span class="sh">"""</span>
-    <span class="c1"># Base Cases
-</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">0</span>
-    <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">g</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">0</span>
-    <span class="c1"># Main recurrence Case 
-</span>    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">g</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">total_rabbits</span> <span class="o">=</span> <span class="n">r</span> <span class="o">+</span> <span class="n">g</span> <span class="o">+</span> <span class="n">b</span>
-        <span class="n">Pr</span><span class="p">,</span> <span class="n">Pb</span><span class="p">,</span> <span class="n">Pg</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">b</span> <span class="o">/</span> <span class="n">total_rabbits</span><span class="p">,</span> <span class="n">g</span> <span class="o">/</span> <span class="n">total_rabbits</span>
-        
-        <span class="n">guess_red</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pr</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>  
-            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-        
-        <span class="n">guess_green</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pg</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span> <span class="o">+</span>
-            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">Pb</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
-                       
-        <span class="n">guess_blue</span> <span class="o">=</span> <span class="p">(</span><span class="n">Pb</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">+</span>
-            <span class="n">Pr</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="o">+</span>
-            <span class="n">Pg</span> <span class="o">*</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
-        
-        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">guess_green</span><span class="p">,</span> <span class="n">guess_red</span><span class="p">,</span> <span class="n">guess_blue</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">optimal_score</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-  <span class="sh">"""</span><span class="s"> The value of J(n, n n) and the answer to our puzzle. </span><span class="sh">"""</span>
-    <span class="k">return</span> <span class="nf">max_points</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p>Now, if we plot the value of \(J(n, n, n)\) as a function of \(n\), we obtain Figure 1. Here we see that under the optimal guessing strategy, the expected score seems to grow roughly like \(\sim \frac{n}{3}\). In fact, we can actually note that \(\frac{n}{3}\) is a lower bound on the optimal expected score because it can be <em>obtained with certainty</em> by choosing one color of rabbit and guessing that color each turn until the game ends. We call this naive strategy the “stubborn guessing” strategy (since you refuse to change your guess each turn).</p>
-
-<figure>
-    <img src="/assets/img/blog_images/2025-02-28-rabbits/optimal_rabbits.png" alt="Max Rabbits Optimal Score" width="80%" style="display: block; margin: auto;" />
-    <figcaption style="text-align: center;">Figure 1: Maximum number of points possible with optimal rabbit selection.</figcaption>
-</figure>
-
-<p>We can see that our optimal strategy does outperform the stubborn guessing strategy, but not by too much!</p>
-
-<p>Okay, we have found a way to compute the expected number of points we can score under the optimal guessing strategy, but <strong>what actually is the optimal guessing strategy?</strong>. By recording the optimal guess at each step in our recursion, we can observe the optimal strategy has a simple form:</p>
-
-<blockquote>
-  <p><em>At any given state, guess a color that has the most rabbits remaining in the hat</em>.</p>
-</blockquote>
-
-<p>This makes sense intuitively, and this simple rule provides us with the best heuristic for maximizing our expected score.</p>
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:1">
-      <p>Instead of building the DP table explicitly, we use the <code class="language-plaintext highlighter-rouge">cache</code> tool from the <code class="language-plaintext highlighter-rouge">functools</code> library. It’s one of my favorite Python tools! <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-  </ol>
-</div>]]></content><author><name>Connor Colombe</name></author><category term="programming," /><category term="math" /><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry></feed>
+</div>]]></content><author><name>Connor Colombe</name></author><category term="math" /><summary type="html"><![CDATA[My solution to this week's Fiddler on the Proof Puzzle]]></summary></entry></feed>
