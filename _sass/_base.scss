@@ -24,6 +24,12 @@ strong {
   color: var(--global-text-color);
 }
 
+// Let emphasis inside links keep the link color
+a em,
+a strong {
+  color: inherit;
+}
+
 hr {
   border-top: 1px solid var(--global-divider-color);
 }
